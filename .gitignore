@@ -1,0 +1,9 @@
+# Custom
+.DS_Store
+_site
+mail
+
+# Original
+_site
+node_modules
+Gemfile.lock
