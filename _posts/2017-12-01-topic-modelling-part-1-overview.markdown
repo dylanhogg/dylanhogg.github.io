@@ -1,10 +1,11 @@
 ---
 layout:     post
-title:      "Topic Modelling Part 1:<br />An Overview"
+title:      "Topic Modelling Part 1: An Overview"
 subtitle:   "How do I automatically organise thousands of documents?"
 date:       2017-11-30 09:00:00
 author:     "Dylan Hogg"
 header-img: "img/post-bg-02.jpg"
+published:  true
 ---
 
 <p style="color:red">BLOGPOST IN PROGRESS</p>
