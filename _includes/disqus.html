@@ -2,11 +2,12 @@
 <script>
 
 var disqus_config = function () {
-    this.page.url = '{{ site.url }}{{ page.url }}';
+    // Ref: https://help.disqus.com/customer/portal/articles/472098-javascript-configuration-variables
+    this.page.url = '{{ site.url }}{{ page.url }}'; // Please note that an absolute URL is required for the this.page.url variable. Using a relative URL for this variable may prevent Disqus from loading successfully on the page.
     this.page.identifier = '{{ page.id }}';
 };
 
-var disqus_identifier = '{{ site.disqus_shortname }}'; 
+var disqus_identifier = '{{ site.disqus_shortname }}';
 
 (function() {
 var d = document, s = d.createElement('script');

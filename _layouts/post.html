@@ -42,8 +42,7 @@ layout: default
                     {% endif %}
                 </ul>
 
-                {% if page.comments %}
-                    <hr>
+                {% if page.comments and jekyll.environment == "production" %}
                     {% include disqus.html %}
                 {% endif %}
 
