@@ -3,9 +3,11 @@ layout:     post
 title:      "Topic Modelling Part 1: An Overview"
 subtitle:   "How do I automatically organise thousands of documents?"
 date:       2017-11-30 09:00:00
+tags:       [Machine Learning, Topic Modelling]
 author:     "Dylan Hogg"
 header-img: "img/post-bg-02.jpg"
 published:  true
+comments:   true
 ---
 
 <p style="color:red">BLOGPOST IN PROGRESS</p>

@@ -42,6 +42,11 @@ layout: default
                     {% endif %}
                 </ul>
 
+                {% if page.comments %}
+                    <hr>
+                    {% include disqus.html %}
+                {% endif %}
+
             </div>
         </div>
     </div>
