@@ -14,7 +14,9 @@ comments:   true
 
 <h2 class="section-heading">What is Topic Modelling?</h2>
 
-<p>Topic modelling is useful for automatically organising a large collection of documents. Automatic is the key here - we don’t require predefined document labels nor even predefined topics to perform the organisation.</p>
+<p>Topic modelling is a useful approach for automatically organising a large collection of documents into topics. Automatic is the key here - we don’t require predefined document labels nor even predefined topics to perform the organisation. Topic modelling falls under a broader collection of methods within Natural Language Processing and Machine Learning.</p>
+
+<p>TODO: get a image for topic modelling -> NLP -> ML</p>
 
 <p>For example, thousands of New York Times articles (our collection of documents, also known as a corpus) can be organised into a number of topics. This could enable readers to visually explore stories within a particular topic or enable the publisher to recommend articles based on reader preferences.</p>
 
@@ -26,23 +28,25 @@ comments:   true
 
 <p>The following sections will describe (in roughly chronological order of discovery) the intuitions behind a few different methods of applying topic modelling.</p>
 
-<h2 class="section-heading">Latent Semantic Analysis (LSA)</h2>
+<h2 class="section-heading">Topic Modelling Methods</h2>
+
+<h3 class="section-subheading">Latent Semantic Analysis (LSA)</h3>
+
+<p>Latent Semantic Analysis (also known as Latent Semantic Indexing) is a method that boils </p>
+
+<h3 class="section-subheading">Probabilistic Latent Semantic Analysis (PLSA)</h3>
 
 <p>TODO</p>
 
-<h2 class="section-heading">Probabilistic Latent Semantic Analysis (PLSA)</h2>
+<h3 class="section-subheading">Latent Dirichlet Allocation (LDA)</h3>
 
 <p>TODO</p>
 
-<h2 class="section-heading">Latent Dirichlet Allocation (LDA)</h2>
+<h3 class="section-subheading">Non-negative Matrix Factorization (NMF)</h3>
 
 <p>TODO</p>
 
-<h2 class="section-heading">Non-negative Matrix Factorization (NMF)</h2>
-
-<p>TODO</p>
-
-<h2 class="section-heading">Other Topic Modelling Methods</h2>
+<h3 class="section-subheading">Other Topic Modelling Methods</h3>
 
 <p>TODO</p>
 

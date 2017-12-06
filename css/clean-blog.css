@@ -1,6 +1,6 @@
 /*!
  * Clean Blog v1.0.0 (http://startbootstrap.com)
- * Copyright 2015 Start Bootstrap
+ * Copyright 2017 Start Bootstrap
  * Licensed under MIT (https://spdx.org/licenses/MIT)
  */
 
@@ -252,6 +252,11 @@ hr.small {
 .section-heading {
   font-size: 36px;
   margin-top: 60px;
+  font-weight: 700;
+}
+.section-subheading {
+  font-size: 24px;
+  margin-top: 40px;
   font-weight: 700;
 }
 .caption {

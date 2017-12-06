@@ -3,9 +3,11 @@ layout:     post
 title:      "Topic Modelling Part 3: Applied to Cryptocurrencies"
 subtitle:   "What insights can be found modelling cryptocurrency topics?"
 date:       2020-12-14 09:00:00
+tags:       [Machine Learning, Topic Modelling]
 author:     "Dylan Hogg"
 header-img: "img/post-bg-04.jpg"
 published:  false
+comments:   true
 ---
 
 <p style="color:red">BLOGPOST IN PROGRESS</p>
