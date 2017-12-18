@@ -21,11 +21,11 @@ comments:   true
 
 <p>For example, thousands of New York Times articles (our collection of documents, also known as a corpus) can be organised into a number of topics. This could enable readers to visually explore stories within a particular topic or enable the publisher to recommend articles based on reader preferences.</p>
 
-<p>TODO: get a image for topic modelling</p>
+<p>TODO: get an image for topic modelling e.g. stack of docs -> docs containe in topic boundaries.</p>
 
 <p>Many methods have been developed for topic modelling over the past few decades. Most methods rely on the fact that a document is typically about a particular subject and has words that frequently occur together. For example, an email planning your next holiday will likely contain the words ‘flight’ and ‘hotel’ more often than emails about other subjects. It is this statistical regularity that allows latent topics to be discovered, sometimes as if by magic.</p>
 
-<p>The only data required for topic modelling is the text within each document. In machine learning terminology, this is an unsupervised learning method - meaning that we don’t require labelled data as is the case with supervised learning methods. The number of topics to automatically discover typically needs to be specified which can be tricky and may depend on how the results will be used. Interpretation of the discovered topics can also be tricky; while they can often be summarised by their most important words, they do not necessarily correspond to topics we expected to find. Todo: add example</p>
+<p>The only data required for topic modelling is the text within each document. In machine learning terminology, this is an unsupervised learning method - meaning that we don’t require labelled data as is the case with supervised learning methods. The number of topics to automatically discover typically needs to be specified which can be tricky and may depend on how the results will be used. Interpretation of the discovered topics can also be tricky; while they can often be summarised by their most important words, they do not necessarily correspond to topics we expected to find.</p>
 
 <p>The following sections will describe (in roughly chronological order of discovery) the intuitions behind a few different methods of applying topic modelling.</p>
 
@@ -39,6 +39,8 @@ comments:   true
 
 <p>One numerical format, that we will use below, is called a term-document matrix (where a term is simply a word from the vocabulary over all documents.) This format happens to discards word order and simply counts the number of occurrences of each term within a document. This simplification of ignoring word order (also known as a bag-of-words model) greatly reduces the complexity of representing the original  documents and can still produce good results.</p>
 
+<p>TODO: get an image of a TD matrix</p>
+
 <p>The term-document matrix is a sparse matrix containing mainly zeros (since documents typically don't use all words) and represents each document as a column. Each entry is a count of the number of word occurrences in the document. While term-document matrices are common in information retrieval literature, for large datasets a document-term matrix having documents as rows can be easier to work with and is more common in software libraries.</p>
 
 <p>The steps described here are very simple. There are many extensions that can be applied, for example, an entry in the term-document matrix can be extended to include the notion of term frequency–inverse document frequency (TF-IDF) which is a term weighting scheme. Regarding the vocabulary, in order to reduce the size of the term-document matrix, and also remove information that is often not useful, we can exclude common stop words (e.g. the, and, on) and likewise rare words that may only appear in a few documents. Additionally, word stemming can be applied such that only root words are included for analysis (e.g fished and fishes become fish.)</p>
@@ -47,24 +49,60 @@ comments:   true
 <!-- ---------------------------------------------------------------------- -->
 <h3 class="section-subheading">Latent Semantic Analysis (LSA)</h3>
 
-<p>Latent Semantic Analysis is a method developed in the late 1980’s that takes as input a term-document matrix and factorises this into 3 new matrices which are able to jointly reconstruct the original matrix. This is achieved by applying a linear algebra method called Singular Value Decomposition (SVD) where the factorisation can be represented as M = UΣV'.</p>
+<p>Latent Semantic Analysis is a method that was developed in the late 1980’s by Deerwester, Dumais and others. It takes as input a term-document matrix and factorises this into 3 new matrices which are able to jointly reconstruct the original matrix. This is achieved by applying a linear algebra method called Singular Value Decomposition (SVD) where the factorisation can be represented as M = UΣV'.</p>
  
 <p>Each factored matrix gives us an insight in potential topics latent in the original term-document matrix. Specifically, matrix U maps words to a topic space, matrix V maps documents to the same topic space and matrix Σ is a diagonal matrix that tells us the ‘strength’ of each topic - whereby strong topics capture more variance in the underlying data.</p>
 
 <p>TODO: get a image for M = UΣV'</p>
 
-<p>Knowing the strength (or variance) of the different topics is key. Strong topics allow us to model much of the original data while weak topics can be likened to modelling noise. Given this, we can choose to keep the top K topics and discard the rest. Specifically, a variant of SVD called truncated (also known as low-rank) SVD does precisely this and is an instance of dimensionality reduction such that we find the most important aspects of the data to enable the best approximate reconstruction of the original corpus. These important aspects are the topics we are seeking to model.</p>
+<p>Knowing the strength (or variance) of the different topics is key. Strong topics allow us to model much of the original data while weak topics can be likened to modelling noise. Given this, we can choose to keep the top K topics and discard the rest. Specifically, a variant of SVD known as Truncated SVD does precisely this and is an instance of dimensionality reduction such that we find the most important aspects of the data to enable the best approximate reconstruction of the original term-document matrix. These important aspects are the topics we are seeking to model.</p>
 
 <p>TODO: get a image for plotting values of Σ</p>
 
 <p>Choosing an appropriate number of topics to keep can be difficult and may be dependent on the problem domain you are modelling. There are several approaches, one of the simplest being to choose a cut-off value within the strength matrix Σ, either automatically or after plotting the values to identify where the values plateau.</p>
 
-<p>Given we have our truncated matrix factorisation with K topics, we also have a vector representation of each document over the topics, namely the columns of ΣV'. The final step to topic modelling with LSA is to apply a clustering method (for example K-means or a hierarchical clustering algorithm) over these resulting vectors.</p>
+<p>Given we have our truncated matrix factorisation with K topics, we also have a vector representation of each document over the topics, namely the columns of ΣV'. Documents with similar topics tend to be close within this reduced latent space. The final step to topic modelling with LSA is to apply a clustering method (for example K-means or a hierarchical clustering algorithm) over these resulting vectors.</p>
+
+<p>TODO: maybe address polysemy and SVD's orthogonallity assumption for topics?</p>
+
+<p>While LSA is simple to construct, a common criticism is that the model doesn’t explain why the matrix factorisation should generate good topics. The next method, PLSA, takes a different approach and attempts to solve this issue.
+</p>
 
 <!-- ---------------------------------------------------------------------- -->
 <h3 class="section-subheading">Probabilistic Latent Semantic Analysis (PLSA)</h3>
 
-<p>TODO</p>
+<p>Probabilistic Latent Semantic Analysis a probabilistic version of LSA and was developed in 1999 by Hoffman. While PLSA and LSA attempt to solve a similar problem regarding topic modelling of a corpus, their approaches are very different. PLSA is a probabilistic generative model compared to LSA which is a deterministic model that uses linear algebra.</p>
+
+<p>A probabilistic generative model describes a process of how data came to be via a sequence of probabilistic steps - in our case this is the story of how our documents may have been written or generated. Then, given this model or story, statistical inference is used to infer hidden/unobserved variables - which in this case happen to represent different topics.</p>
+
+<p>The PLSA model assumes the following generative story, in which the actual parameter values will be inferred from the observed documents later:</p>
+* Randomly choose a document d with some probability: p(d)
+* For each word in the chosen document d:
+  * Choose a topic t with some probability given the document d: p(t\|d)
+  * Then choose a word w with some probability given the topic t: p(w\|t)
+
+<p>The steps in this model and it’s variable dependencies can be shown using ‘plate’ notation in the following form:</p>
+<p>TODO: insert plate graphic for d->t->w</p>
+
+<p>In the PLSA model, we can see that choosing a word w is conditionally independent to documents given a topic (i.e. p(w|t) = p(w|d,t) which says that the probability of choosing a word given a topic is equal to the probability of choosing a word given a topic and a document.) The model also allows multiple topics within each document.</p>
+
+<p>The next step is to determine the topic distribution over the documents by solving the model. Statistical inference is used to estimate the parameters of the PLSA model and give us a probability regarding all topics over each document (i.e. the probability of a topic given a document, p(t|d)). This essentially finds parameters that maximise the probability of generating the original observed term-document matrix. In practice, the Expectation Maximization algorithm can be used to estimate the parameters in an iterative manner.</p>
+
+<p>There is a correspondence between the estimated probabilities of PLSA and the factored matrices of LSA, namely:</p>
+- Matrix M corresponds to the joint probability of a document and a word: p(d,w)
+- Matrix U corresponds to the probability of a document given a topic: p(d\|t)
+- Matrix Σ corresponds to the probability of a topic: p(t)
+- Matrix V corresponds to the probability of a word given a topic: p(w\|t)
+
+
+<p>PLSA learns the probabilities of a topic, p(t), directly from the original data which can be a limitation if extending the model to new documents. In essence, PLSA is only a generative model for the corpus it is estimated on and not new documents. 
+
+<p>Another potential issue is that the number of parameters grows linearly with the number of documents which can make solving the model computationally difficult for large corpuses and also lead to overfitting (however other estimation algorithms, for example Tempered EM, can help with this and improve generalisation as can extensions to the PLSA model itself.)
+
+<p>Even though PLSA can exhibit limitations regarding new documents and overfitting, in many experiments it outperforms LSA. The next method, LDA, extends the PLSA generative model to address these issues.
+
+
+
 
 <!-- ---------------------------------------------------------------------- -->
 <h3 class="section-subheading">Latent Dirichlet Allocation (LDA)</h3>
