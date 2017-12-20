@@ -23,6 +23,8 @@ comments:   true
 
 <p>TODO: get an image for topic modelling e.g. stack of docs -> docs containe in topic boundaries.</p>
 
+<img src="/img/topic-modelling-part-1-overview/blog-1.1.png" />
+
 <p>Many methods have been developed for topic modelling over the past few decades. Most methods rely on the fact that a document is typically about a particular subject and has words that frequently occur together. For example, an email planning your next holiday will likely contain the words ‘flight’ and ‘hotel’ more often than emails about other subjects. It is this statistical regularity that allows latent topics to be discovered, sometimes as if by magic.</p>
 
 <p>The only data required for topic modelling is the text within each document. In machine learning terminology, this is an unsupervised learning method - meaning that we don’t require labelled data as is the case with supervised learning methods. The number of topics to automatically discover typically needs to be specified which can be tricky and may depend on how the results will be used. Interpretation of the discovered topics can also be tricky; while they can often be summarised by their most important words, they do not necessarily correspond to topics we expected to find.</p>
@@ -47,7 +49,7 @@ comments:   true
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h3 class="section-subheading">Latent Semantic Analysis (LSA)</h3>
+<h3 class="section-subheading">Method 1: Latent Semantic Analysis (LSA)</h3>
 
 <p>Latent Semantic Analysis is a method that was developed in the late 1980’s by Deerwester, Dumais and others. It takes as input a term-document matrix and factorises this into 3 new matrices which are able to jointly reconstruct the original matrix. This is achieved by applying a linear algebra method called Singular Value Decomposition (SVD) where the factorisation can be represented as M = UΣV'.</p>
  
@@ -69,9 +71,9 @@ comments:   true
 </p>
 
 <!-- ---------------------------------------------------------------------- -->
-<h3 class="section-subheading">Probabilistic Latent Semantic Analysis (PLSA)</h3>
+<h3 class="section-subheading">Method 2: Probabilistic Latent Semantic Analysis (PLSA)</h3>
 
-<p>Probabilistic Latent Semantic Analysis a probabilistic version of LSA and was developed in 1999 by Hoffman. While PLSA and LSA attempt to solve a similar problem regarding topic modelling of a corpus, their approaches are very different. PLSA is a probabilistic generative model compared to LSA which is a deterministic model that uses linear algebra.</p>
+<p>Probabilistic Latent Semantic Analysis is a probabilistic version of LSA and was developed in 1999 by Hoffman. While PLSA and LSA attempt to solve a similar problem regarding topic modelling of a corpus, their approaches are very different. PLSA is a probabilistic generative model compared to LSA which is a deterministic model that uses linear algebra. Like LSA, PLSA works with a term-document matrix constructed from the collection of documents.</p>
 
 <p>A probabilistic generative model describes a process of how data came to be via a sequence of probabilistic steps - in our case this is the story of how our documents may have been written or generated. Then, given this model or story, statistical inference is used to infer hidden/unobserved variables - which in this case happen to represent different topics.</p>
 
@@ -94,7 +96,6 @@ comments:   true
 - Matrix Σ corresponds to the probability of a topic: p(t)
 - Matrix V corresponds to the probability of a word given a topic: p(w\|t)
 
-
 <p>PLSA learns the probabilities of a topic, p(t), directly from the original data which can be a limitation if extending the model to new documents. In essence, PLSA is only a generative model for the corpus it is estimated on and not new documents. 
 
 <p>Another potential issue is that the number of parameters grows linearly with the number of documents which can make solving the model computationally difficult for large corpuses and also lead to overfitting (however other estimation algorithms, for example Tempered EM, can help with this and improve generalisation as can extensions to the PLSA model itself.)
@@ -105,12 +106,12 @@ comments:   true
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h3 class="section-subheading">Latent Dirichlet Allocation (LDA)</h3>
+<h3 class="section-subheading">Method 3: Latent Dirichlet Allocation (LDA)</h3>
 
 <p>TODO</p>
 
 <!-- ---------------------------------------------------------------------- -->
-<h3 class="section-subheading">Non-negative Matrix Factorization (NMF)</h3>
+<h3 class="section-subheading">Method 4: Non-negative Matrix Factorization (NMF)</h3>
 
 <p>TODO</p>
 
