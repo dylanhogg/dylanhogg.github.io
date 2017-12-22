@@ -18,11 +18,12 @@ comments:   true
 Topic modelling is a useful approach for automatically organising a large collection of documents into topics. Automatic is the key here - we don’t require predefined document labels nor even predefined topics to perform the organisation. Topic modelling falls under a broader collection of methods within Natural Language Processing and Machine Learning.
 
 ![](/img/topic-modelling-part-1-overview/blog-3.png "Topic modelling relation to NLP and ML")
-<!--span class="caption text-muted">TODO: Caption here...</span-->
+<span class="caption text-muted">Topic modelling relation to NLP and ML</span>
 
 For example, thousands of New York Times articles (our collection of documents, also known as a corpus) can be organised into a number of topics. This could enable readers to visually explore stories within a particular topic or enable the publisher to recommend articles based on reader preferences.
 
 ![](/img/topic-modelling-part-1-overview/blog-1.png "Topic modelling over a collection of documents")
+<span class="caption text-muted">Topic modelling over a collection of documents</span>
 
 Many methods have been developed for topic modelling over the past few decades. Most methods rely on the fact that a document is typically about a particular subject and has words that frequently occur together. For example, an email planning your next holiday will likely contain the words ‘flight’ and ‘hotel’ more often than emails about other subjects. It is this statistical regularity that allows latent topics to be discovered, sometimes as if by magic.
 
@@ -41,6 +42,9 @@ In order to discover topics within a corpus, the contents of all documents must 
 One numerical format, that we will use below, is called a term-document matrix (where a term is simply a word from the vocabulary over all documents.) This format happens to discards word order and simply counts the number of occurrences of each term within a document. This simplification of ignoring word order (also known as a bag-of-words model) greatly reduces the complexity of representing the original  documents and can still produce good results.
 
 ![](/img/topic-modelling-part-1-overview/blog-4.png "Simple term-document matrix example")
+<span class="caption text-muted">Simple term-document matrix example for 2 documents:
+<br />doc1: the dog sat on the grass
+<br />doc2: the cat sat on the mat</span>
 
 The term-document matrix is a sparse matrix containing mainly zeros (since documents typically don't use all words) and represents each document as a column. Each entry is a count of the number of word occurrences in the document. While term-document matrices are common in information retrieval literature, for large datasets a document-term matrix having documents as rows can be easier to work with and is more common in software libraries.
 
@@ -54,11 +58,13 @@ Latent Semantic Analysis is a method that was developed in the late 1980’s by 
  
 Each factored matrix gives us an insight in potential topics latent in the original term-document matrix. Specifically, matrix U maps words to a topic space, matrix V maps documents to the same topic space and matrix Σ is a diagonal matrix that tells us the ‘strength’ of each topic - whereby strong topics capture more variance in the underlying data.
 
-![](/img/topic-modelling-part-1-overview/blog-5.png "Singular Value Decomposition of term-document matrix")
+![](/img/topic-modelling-part-1-overview/blog-5.png "Singular Value Decomposition of a term-document matrix M")
+<span class="caption text-muted">Singular Value Decomposition of a term-document matrix M</span>
 
 Knowing the strength (or variance) of the different topics is key. Strong topics allow us to model much of the original data while weak topics can be likened to modelling noise. Given this, we can choose to keep the top K topics and discard the rest. Specifically, a variant of SVD known as Truncated SVD does precisely this and is an instance of dimensionality reduction such that we find the most important aspects of the data to enable the best approximate reconstruction of the original term-document matrix. These important aspects are the topics we are seeking to model.
 
 ![](/img/topic-modelling-part-1-overview/blog-6.png "Plot of ordered topic sigma values")
+<span class="caption text-muted">Plot of Topics (X axis) vs Topic Strength (Y axis) with topics ordered by strength</span>
 
 Choosing an appropriate number of topics to keep can be difficult and may be dependent on the problem domain you are modelling. There are several approaches, one of the simplest being to choose a cut-off value within the strength matrix Σ, either automatically or after plotting the values to identify where the values plateau.
 
@@ -82,7 +88,8 @@ The PLSA model assumes the following generative story, in which the actual param
 
 The steps in this model and it’s variable dependencies can be shown using ‘plate’ notation in the following form:
 
-![](/img/topic-modelling-part-1-overview/blog-7.png "Plate graphic for PLSA")
+![](/img/topic-modelling-part-1-overview/blog-7.png "Plate graphic for the Probabilistic Latent Semantic Analysis model")
+<span class="caption text-muted">Plate graphic for the Probabilistic Latent Semantic Analysis model</span>
 
 In the PLSA model, we can see that choosing a word w is conditionally independent to documents given a topic (i.e. p(w\|t) = p(w\|d,t) which says that the probability of choosing a word given a topic is equal to the probability of choosing a word given a topic and a document.) The model also allows multiple topics within each document.
 
@@ -120,7 +127,8 @@ The LDA model assumes the following generative story:
 
 The steps in this model and it’s variable dependencies can be shown using ‘plate’ notation in the following form:
 
-![](/img/topic-modelling-part-1-overview/blog-8.png "Plate graphic for LDA")
+![](/img/topic-modelling-part-1-overview/blog-8.png "Plate graphic for the Latent Dirichlet Allocation model")
+<span class="caption text-muted">Plate graphic for the Latent Dirichlet Allocation model</span>
 
 Given that LDA allows for uncertainty through the use of prior distributions, it can be considered a Bayesian version of PLSA. Unfortunately this extra complexity comes at a cost. Estimation of LDA parameters is intractable and require computationally intensive algorithms to find approximate solutions, for example MCMC methods (such as Gibbs sampling, Metropolis-Hastings) and Variational Bayesian methods (an extension to the EM algorithm used to solve PLSA.)
 
