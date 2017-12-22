@@ -10,8 +10,6 @@ published:  true
 comments:   true
 ---
 
-<p style="color:red">BLOGPOST IN PROGRESS</p>
-
 <!-- ---------------------------------------------------------------------- -->
 <h2 class="section-heading">What is Topic Modelling?</h2>
 
@@ -137,9 +135,9 @@ Not all variables need to be inferred from the data. Some parameters can be set 
 While LDA will often produce better topic models than either LSA or PLSA, it still has shortcomings. The number of discovered topics is still fixed and the term-document matrix still does not capture sentence structure. Inference with LDA is also computationally expensive and tends not to scale well with an increasing number of documents. There are many ongoing areas of research regarding LDA including optimising inference algorithms, extending LDA to new domains, embedding LDA within other graphical models and integration with other NLP approaches like word2vec.
 
 <!-- ---------------------------------------------------------------------- -->
-<h2 class="section-heading">Conclusion</h2>
+<h2 class="section-heading">Wrap up</h2>
 
-TODO
+There are several other methods of topic modelling (e.g. Non-negative Matrix Factorization) and many extensions exist to the models detailed in this post. In a future post I plan to cover the empirical side of topic modelling including interpretation and evaluation of models, implementation via various code libraries (e.g. Scikit Learn and Gensim) and visualisation of resulting topics for a corpus (e.g using pyLDAvis). Additionally, I plan to produce a series of posts applying topic modelling to specific datasets and analysis of the results. Thanks for reading and I hope the information presented here is helpful for someone new to topic modelling.
 
 <!-- ---------------------------------------------------------------------- -->
 <h2 class="section-heading">References</h2>
