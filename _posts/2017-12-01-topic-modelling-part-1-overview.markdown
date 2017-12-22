@@ -18,6 +18,7 @@ comments:   true
 Topic modelling is a useful approach for automatically organising a large collection of documents into topics. Automatic is the key here - we don’t require predefined document labels nor even predefined topics to perform the organisation. Topic modelling falls under a broader collection of methods within Natural Language Processing and Machine Learning.
 
 ![](/img/topic-modelling-part-1-overview/blog-3.png "Topic modelling relation to NLP and ML")
+<!--span class="caption text-muted">TODO: Caption here...</span-->
 
 For example, thousands of New York Times articles (our collection of documents, also known as a corpus) can be organised into a number of topics. This could enable readers to visually explore stories within a particular topic or enable the publisher to recommend articles based on reader preferences.
 
@@ -49,7 +50,7 @@ The steps described here are very simple. There are many extensions that can be 
 <!-- ---------------------------------------------------------------------- -->
 <h3 class="section-subheading">Method 1: Latent Semantic Analysis (LSA)</h3>
 
-Latent Semantic Analysis is a method that was developed in the late 1980’s by Deerwester, Dumais and others. It takes as input a term-document matrix and factorises this into 3 new matrices which are able to jointly reconstruct the original matrix. This is achieved by applying a linear algebra method called Singular Value Decomposition (SVD) where the factorisation can be represented as M = UΣV'.
+Latent Semantic Analysis is a method that was developed in the late 1980’s by Deerwester, Dumais and others [^lsa_note1]. It takes as input a term-document matrix and factorises this into 3 new matrices which are able to jointly reconstruct the original matrix. This is achieved by applying a linear algebra method called Singular Value Decomposition (SVD) where the factorisation can be represented as M = UΣV'.
  
 Each factored matrix gives us an insight in potential topics latent in the original term-document matrix. Specifically, matrix U maps words to a topic space, matrix V maps documents to the same topic space and matrix Σ is a diagonal matrix that tells us the ‘strength’ of each topic - whereby strong topics capture more variance in the underlying data.
 
@@ -69,7 +70,7 @@ While LSA is simple to construct, a common criticism is that the model doesn’t
 <!-- ---------------------------------------------------------------------- -->
 <h3 class="section-subheading">Method 2: Probabilistic Latent Semantic Analysis (PLSA)</h3>
 
-Probabilistic Latent Semantic Analysis is a probabilistic version of LSA and was developed in 1999 by Hoffman. While PLSA and LSA attempt to solve a similar problem regarding topic modelling of a corpus, their approaches are very different. PLSA is a probabilistic generative model compared to LSA which is a deterministic model that uses linear algebra. Like LSA, PLSA works with a term-document matrix constructed from the collection of documents.
+Probabilistic Latent Semantic Analysis is a probabilistic version of LSA and was developed in 1999 by Hoffman [^plsa_note1]. While PLSA and LSA attempt to solve a similar problem regarding topic modelling of a corpus, their approaches are very different. PLSA is a probabilistic generative model compared to LSA which is a deterministic model that uses linear algebra. Like LSA, PLSA works with a term-document matrix constructed from the collection of documents.
 
 A probabilistic generative model describes a process of how data came to be via a sequence of probabilistic steps - in our case this is the story of how our documents may have been written or generated. Then, given this model or story, statistical inference is used to infer hidden/unobserved variables - which in this case happen to represent different topics.
 
@@ -100,12 +101,10 @@ Another potential issue is that the number of parameters grows linearly with the
 Even though PLSA can exhibit limitations regarding new documents and overfitting, in many experiments it outperforms LSA. The next method, LDA, extends the PLSA generative model to address these issues.
 
 
-
-
 <!-- ---------------------------------------------------------------------- -->
 <h3 class="section-subheading">Method 3: Latent Dirichlet Allocation (LDA)</h3>
 
-Latent Dirichlet Allocation was developed in 2003 by Blei, Ng, and Jordan. It is a generalisation of PLSA and overcomes some of its shortcomings. LDA is a probabilistic generative model similar to PLSA. However, unlike PLSA, LDA allows for additional information to be encoded with the use of probabilistic distributions over topics and words. Like the other methods presented, LDA operates with a term-document matrix.
+Latent Dirichlet Allocation was developed in 2003 by Blei, Ng, and Jordan [^lda_note1]. It is a generalisation of PLSA and overcomes some of its shortcomings. LDA is a probabilistic generative model similar to PLSA. However, unlike PLSA, LDA allows for additional information to be encoded with the use of probabilistic distributions over topics and words. Like the other methods presented, LDA operates with a term-document matrix.
 
 The distribution that LDA uses to model topics and words is the Dirichlet distribution. This is able to model uncertainty when sampling from a fixed number of distinct categories and is a common prior in Bayesian statistics. LDA when applied to topic modelling typically uses a prior Dirichlet distribution for topics-per-document and another for words-per-topic.
 
@@ -129,31 +128,19 @@ Not all variables need to be inferred from the data. Some parameters can be set 
 
 While LDA will often produce better topic models than either LSA or PLSA, it still has shortcomings. The number of discovered topics is still fixed and the term-document matrix still does not capture sentence structure. Inference with LDA is also computationally expensive and tends not to scale well with an increasing number of documents. There are many ongoing areas of research regarding LDA including optimising inference algorithms, extending LDA to new domains, embedding LDA within other graphical models and integration with other NLP approaches like word2vec.
 
-
 <!-- ---------------------------------------------------------------------- -->
-<h3 class="section-subheading">Method 4: Non-negative Matrix Factorization (NMF)</h3>
-
-TODO
-
-<!-- ---------------------------------------------------------------------- -->
-<h3 class="section-subheading">Other Topic Modelling Methods</h3>
-
-TODO
-
-<!-- ---------------------------------------------------------------------- -->
-<h2 class="section-heading">Interpreting and Evaluating Topic Models</h2>
-
-TODO
-
-<!-- ---------------------------------------------------------------------- -->
-<h2 class="section-heading">Which Method or Algorithm to Choose?</h2>
+<h2 class="section-heading">Conclusion</h2>
 
 TODO
 
 <!-- ---------------------------------------------------------------------- -->
 <h2 class="section-heading">References</h2>
 
-TODO
+[^lsa_note1]: [Information retrieval using a singular value decomposition model of latent semantic structure (Deerwester, Dumais, Furnas et al, 1988)](/resources/topic-modelling-part-1-overview/Information retrieval using a singular value decomposition model of latent semantic structure (Deerwester, Dumais, Furnas et al, 1988).pdf){:target="_blank"}
+
+[^plsa_note1]: [Probabilistic Latent Semantic Analysis (Hofmann, 1999)](/resources/topic-modelling-part-1-overview/Probabilistic Latent Semantic Analysis (Hofmann, 1999).pdf){:target="_blank"}
+
+[^lda_note1]: [Latent Dirichlet Allocation (Blei, Ng, Jordan, 2003)](/resources/topic-modelling-part-1-overview/Latent Dirichlet Allocation (Blei, Ng, Jordan, 2003).pdf){:target="_blank"}
 
 <!-- 
 <blockquote>Etiam pellentesque laoreet nulla, vel congue quam lobortis id. Etiam sagittis faucibus molestie. Proin sollicitudin dolor diam, non laoreet tortor porta non. Curabitur vitae lacinia enim.</blockquote>
