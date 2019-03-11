@@ -8,14 +8,15 @@ copyright_name: Dylan Hogg
 description: "Dylan's Blog: Explorations in AI, Machine Learning and the Future."
 baseurl: ""
 #url: "http://dylanhogg.github.io"
-url: http://public-infocruncher.s3-website-us-east-1.amazonaws.com/
+#url: "http://blog.infocruncher.com.s3-website-us-east-1.amazonaws.com/"
+url: "http://blog.infocruncher.com"
 twitter_username: dylanhogg
 github_username: dylanhogg
 linkedin_username: dylanhogg
 stackoverflow_username: 249597/dylan-hogg
 facebook_username:
 email_username:
-disqus_shortname: dylanhogg-github-io
+disqus_shortname: dylanhogg-github-io # TODO: review for 
 
 # Google Analytics
 # To enable google analytics, uncomment below line with a valid Google Tracking ID
