@@ -7,8 +7,9 @@ email: dylanhogg at gmail.com
 copyright_name: Dylan Hogg
 description: "Dylan's Blog: Explorations in AI, Machine Learning and the Future."
 baseurl: ""
-url: "http://dylanhogg.github.io"
-twitter_username: dylanhogg 
+#url: "http://dylanhogg.github.io"
+url: http://public-infocruncher.s3-website-us-east-1.amazonaws.com/
+twitter_username: dylanhogg
 github_username: dylanhogg
 linkedin_username: dylanhogg
 stackoverflow_username: 249597/dylan-hogg
