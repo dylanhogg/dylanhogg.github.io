@@ -7,18 +7,20 @@ email: dylanhogg at gmail.com
 copyright_name: Dylan Hogg
 description: "Dylan's Blog: Explorations in AI, Machine Learning and the Future."
 baseurl: ""
-url: "http://dylanhogg.github.io"
-twitter_username: dylanhogg 
+#url: "http://dylanhogg.github.io"
+#url: "http://blog.infocruncher.com.s3-website-us-east-1.amazonaws.com/"
+url: "http://blog.infocruncher.com"
+twitter_username: dylanhogg
 github_username: dylanhogg
 linkedin_username: dylanhogg
 stackoverflow_username: 249597/dylan-hogg
 facebook_username:
 email_username:
-disqus_shortname: dylanhogg-github-io
+disqus_shortname: infocruncher  # https://infocruncher.disqus.com/admin/
 
 # Google Analytics
 # To enable google analytics, uncomment below line with a valid Google Tracking ID
-google_tracking_id: UA-5303260-13
+google_tracking_id: UA-5303260-14
 
 # Extra options
 timezone: Australia/Sydney
