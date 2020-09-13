@@ -4,6 +4,10 @@
 
 Explorations in AI, Machine Learning and the Future.
 
+![Website Up](https://img.shields.io/website?url=http%3A%2F%2Fblog.infocruncher.com%2F)
+
+![Gitpages Up](https://img.shields.io/website?url=http%3A%2F%2Fdylanhogg.github.io%2F)
+
 ## Blog theme
 
 Blog theme based on the official Jekyll version of the [Clean Blog](https://startbootstrap.com/template-overviews/clean-blog/) theme by [Start Bootstrap](http://startbootstrap.com/).
