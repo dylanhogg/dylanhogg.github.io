@@ -37,6 +37,13 @@ s3-remove-files:
 s3-browse:
 	open http://${BUCKET}.s3-website-${AWS_REGION}.amazonaws.com/
 
+## Terraform plan infrastructure (S3, R53 etc)
+tf-apply:
+	cd infra; terraform plan -var-file=variables.tfvars -auto-approve; cd -
+
+## Terraform apply infrastructure (S3, R53 etc)
+tf-apply:
+	cd infra; terraform apply -var-file=variables.tfvars -auto-approve; cd -
 
 #################################################################################
 # Self Documenting Commands                                                     #
