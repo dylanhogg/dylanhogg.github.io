@@ -9,7 +9,7 @@ description: "Dylan's Blog: Explorations in AI, Machine Learning and the Future.
 baseurl: ""
 #url: "http://dylanhogg.github.io"
 #url: "http://blog.infocruncher.com.s3-website-us-east-1.amazonaws.com/"
-url: "http://blog.infocruncher.com"
+url: "https://blog.infocruncher.com"
 twitter_username: dylanhogg
 github_username: dylanhogg
 linkedin_username: dylanhogg

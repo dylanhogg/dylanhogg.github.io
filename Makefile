@@ -28,6 +28,7 @@ jekyll-bundle-prod:
 ## AWS deploy _site to production bucket
 s3-deploy-files: jekyll-bundle-prod
 	aws s3 cp _site s3://${BUCKET} --recursive --profile ${AWS_PROFILE}
+	# NOTE: Remember to invalidate Cloudfront cache to materialise changes
 
 ## AWS remove production bucket
 s3-remove-files:
