@@ -38,7 +38,7 @@ s3-browse:
 	open http://${BUCKET}.s3-website-${AWS_REGION}.amazonaws.com/
 
 ## Terraform plan infrastructure (S3, R53 etc)
-tf-apply:
+tf-plan:
 	cd infra; terraform plan -var-file=variables.tfvars -auto-approve; cd -
 
 ## Terraform apply infrastructure (S3, R53 etc)
