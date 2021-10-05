@@ -30,6 +30,10 @@ s3-deploy-files: jekyll-bundle-prod
 	aws s3 cp _site s3://${BUCKET} --recursive --profile ${AWS_PROFILE}
 	# NOTE: Remember to invalidate Cloudfront cache to materialise changes
 
+## AWS Cloudfront invalidation (limit 1000 free calls per month)
+cf-invalidation:
+	aws cloudfront create-invalidation --distribution-id E139HGPJPEHK3F --paths "/*"
+
 ## AWS remove production bucket
 s3-remove-files:
 	aws s3 rm s3://${BUCKET} --recursive
