@@ -408,3 +408,18 @@ img::-moz-selection {
 body {
   webkit-tap-highlight-color: #0085a1;
 }
+
+/* DH Custom */
+.hl{
+  background: rgba(255, 230, 0, 0.4);
+}
+
+.anno, .anno a {
+  /* font-family:'Courier New', Courier, monospace */
+  color: #aaaaaa
+}
+
+code {
+  display: block;
+  white-space: pre-wrap
+}
