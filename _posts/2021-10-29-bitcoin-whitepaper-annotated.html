@@ -56,7 +56,7 @@ https://github.com/karpathy/cryptos
         <p>
             <b>Annotations</b>
             <br />
-            S. Nakamoto, "<a href="/resources/bitcoin-annotated/Bitcoin (2008).pdf">Bitcoin: A Peer-to-Peer Electronic Cash System</a>", 2008
+            S. Nakamoto, "<a href="/resources/bitcoin-whitepaper-annotated/Bitcoin (2008).pdf">Bitcoin: A Peer-to-Peer Electronic Cash System</a>", 2008
         </p>
     </div>
 </div>
@@ -114,7 +114,7 @@ https://github.com/karpathy/cryptos
             We define an electronic coin as a <span class="hl">chain of digital signatures</span>. Each owner transfers the coin to the next by digitally signing a <span class="hl">hash</span> of the previous transaction and the <span class="hl">public key</span> of the next owner and adding these to the end of the coin. A payee can verify the signatures to verify the chain of ownership.
             <br />
             <br />
-            <img src="/img/bitcoin-annotated/transactions1.png" />
+            <img src="/img/bitcoin-whitepaper-annotated/transactions1.png" />
             <br />
             <br />
             The problem of course is the payee can't verify that one of the owners did not double-spend the coin. A common solution is to introduce a trusted central authority, or <span class="hl">mint</span>, that checks every transaction for double spending. After each transaction, the coin must be returned to the mint to issue a new coin, and only coins issued directly from the mint are trusted not to be double-spent. The problem with this solution is that the fate of the entire money system depends on the company running the mint, with every transaction having to go through them, just like a bank.
@@ -138,7 +138,7 @@ https://github.com/karpathy/cryptos
             A <a href="https://en.wikipedia.org/wiki/Mint_(facility)">mint</a> is an industrial facility which manufactures coins that can be used as currency.
             <br />
             <br />
-            [1] W. Dai, "<a href="/resources/bitcoin-annotated/bmoney (1998).txt">b-money</a>,", 1998
+            [1] W. Dai, "<a href="/resources/bitcoin-whitepaper-annotated/bmoney (1998).txt">b-money</a>,", 1998
             <br />
             <br />
             <a href="https://en.wikipedia.org/wiki/Wei_Dai">Wei Dai</a> is a computer engineer known for contributions to cryptography and cryptocurrencies.
@@ -153,7 +153,7 @@ https://github.com/karpathy/cryptos
             The solution we propose begins with a <span class="hl">timestamp server</span>. A timestamp server works by taking a hash of a block of items to be timestamped and widely publishing the hash, such as in a <span class="hl">newspaper or Usenet post [2-5]</span>. The timestamp proves that the data must have existed at the time, obviously, in order to get into the hash. Each timestamp includes the previous timestamp in its hash, forming a chain, with each additional timestamp reinforcing the ones before it.
             <br />
             <br />
-            <img src="/img/bitcoin-annotated/timestamp2.png" />
+            <img src="/img/bitcoin-whitepaper-annotated/timestamp2.png" />
         </p>
     </div>
     <div class="col-lg-5 anno">
@@ -162,16 +162,16 @@ https://github.com/karpathy/cryptos
             To form a distributed timestamp server as a peer-to-peer network, bitcoin uses a proof-of-work system. This work is often called <a href="https://en.wikipedia.org/wiki/Bitcoin_network#Mining">bitcoin mining</a>.
             <br />
             <br />
-            [2] H. Massias, X.S. Avila, and J.-J. Quisquater, "<a href="/resources/bitcoin-annotated/Design of a secure timestamping service with minimal trust requirements (1999).pdf">Design of a secure timestamping service with minimal trust requirements</a>," In 20th Symposium on Information Theory in the Benelux, May 1999.
+            [2] H. Massias, X.S. Avila, and J.-J. Quisquater, "<a href="/resources/bitcoin-whitepaper-annotated/Design of a secure timestamping service with minimal trust requirements (1999).pdf">Design of a secure timestamping service with minimal trust requirements</a>," In 20th Symposium on Information Theory in the Benelux, May 1999.
             <br />
             <br />
-            [3] S. Haber, W.S. Stornetta, "<a href="/resources/bitcoin-annotated/How to time-stamp a digital document (1991).pdf">How to time-stamp a digital document</a>," In Journal of Cryptology, vol 3, no 2, pages 99-111, 1991.
+            [3] S. Haber, W.S. Stornetta, "<a href="/resources/bitcoin-whitepaper-annotated/How to time-stamp a digital document (1991).pdf">How to time-stamp a digital document</a>," In Journal of Cryptology, vol 3, no 2, pages 99-111, 1991.
             <br />
             <br />
-            [4] D. Bayer, S. Haber, W.S. Stornetta, "<a href="/resources/bitcoin-annotated/Improving the efficiency and reliability of digital time-stamping (1993).pdf">Improving the efficiency and reliability of digital time-stamping</a>," In Sequences II: Methods in Communication, Security and Computer Science, pages 329-334, 1993.
+            [4] D. Bayer, S. Haber, W.S. Stornetta, "<a href="/resources/bitcoin-whitepaper-annotated/Improving the efficiency and reliability of digital time-stamping (1993).pdf">Improving the efficiency and reliability of digital time-stamping</a>," In Sequences II: Methods in Communication, Security and Computer Science, pages 329-334, 1993.
             <br />
             <br />
-            [5] S. Haber, W.S. Stornetta, "<a href="/resources/bitcoin-annotated/Secure names for bit-strings (1997).pdf">Secure names for bit-strings</a>," In Proceedings of the 4th ACM Conference on Computer and Communications Security, pages 28-35, April 1997.
+            [5] S. Haber, W.S. Stornetta, "<a href="/resources/bitcoin-whitepaper-annotated/Secure names for bit-strings (1997).pdf">Secure names for bit-strings</a>," In Proceedings of the 4th ACM Conference on Computer and Communications Security, pages 28-35, April 1997.
         </p>
     </div>
 </div>
@@ -186,7 +186,7 @@ https://github.com/karpathy/cryptos
             For our timestamp network, we implement the proof-of-work by incrementing a <span class="hl">nonce</span> in the block until a value is found that gives the block's hash the required zero bits. Once the CPU effort has been expended to make it satisfy the proof-of-work, the block cannot be changed without redoing the work. As later blocks are chained after it, the work to change the block would include redoing all the blocks after it.
             <br />
             <br />
-            <img src="/img/bitcoin-annotated/pow3.png" />
+            <img src="/img/bitcoin-whitepaper-annotated/pow3.png" />
             <br />
             <br />
             The proof-of-work also solves the problem of determining representation in majority decision making. If the majority were based on one-IP-address-one-vote, it could be subverted by anyone able to allocate many IPs. Proof-of-work is essentially one-CPU-one-vote. The majority decision is represented by the longest chain, which has the greatest proof-of-work effort invested in it. If a majority of CPU power is controlled by honest nodes, the honest chain will grow the fastest and outpace any competing chains. To modify a past block, an attacker would have to redo the proof-of-work of the block and all blocks after it and then catch up with and surpass the work of the honest nodes. We will show later that the probability of a slower attacker catching up diminishes exponentially as subsequent blocks are added.
@@ -201,7 +201,7 @@ https://github.com/karpathy/cryptos
             <a href="https://en.wikipedia.org/wiki/Proof_of_work">Proof of work (PoW)</a> is a form of cryptographic zero-knowledge proof in which one party (the prover) proves to others (the verifiers) that a certain amount of a specific computational effort has been expended
             <br />
             <br />
-            [6] A. Back, "<a href="/resources/bitcoin-annotated/Hashcash (2002).pdf">Hashcash - a denial of service counter-measure</a>,", 2002.
+            [6] A. Back, "<a href="/resources/bitcoin-whitepaper-annotated/Hashcash (2002).pdf">Hashcash - a denial of service counter-measure</a>,", 2002.
             <br />
             <br />
             A <a href="https://en.wikipedia.org/wiki/Cryptographic_nonce">nonce (number once)</a> is an arbitrary number that can be used just once in a cryptographic communication.
@@ -291,7 +291,7 @@ https://github.com/karpathy/cryptos
             Once the latest transaction in a coin is buried under enough blocks, the spent transactions before it can be discarded to save disk space. To facilitate this without breaking the block's hash, transactions are hashed in a Merkle Tree [7][2][5], with only the root included in the block's hash. Old blocks can then be compacted by stubbing off branches of the tree. The interior hashes do not need to be stored.
             <br />
             <br />
-            <img src="/img/bitcoin-annotated/disk4.png" />
+            <img src="/img/bitcoin-whitepaper-annotated/disk4.png" />
             <br />
             <br />
             A block header with no transactions would be about 80 bytes. If we suppose blocks are generated every 10 minutes, 80 bytes * 6 * 24 * 365 = 4.2MB per year. With computer systems typically selling with 2GB of RAM as of 2008, and Moore's Law predicting current growth of 1.2GB per year, storage should not be a problem even if the block headers must be kept in memory.
@@ -321,7 +321,7 @@ https://github.com/karpathy/cryptos
             It is possible to verify payments without running a full network node. A user only needs to keep a copy of the block headers of the longest proof-of-work chain, which he can get by querying network nodes until he's convinced he has the longest chain, and obtain the Merkle branch linking the transaction to the block it's timestamped in. He can't check the transaction for himself, but by linking it to a place in the chain, he can see that a network node has accepted it, and blocks added after it further confirm the network has accepted it.
             <br />
             <br />
-            <img src="/img/bitcoin-annotated/chain5.png" />
+            <img src="/img/bitcoin-whitepaper-annotated/chain5.png" />
             <br />
             <br />
             As such, the verification is reliable as long as honest nodes control the network, but is more vulnerable if the network is overpowered by an attacker. While network nodes can verify transactions for themselves, the simplified method can be fooled by an attacker's fabricated transactions for as long as the attacker can continue to overpower the network. One strategy to protect against this would be to accept alerts from network nodes when they detect an invalid block, prompting the user's software to download the full block and alerted transactions to confirm the inconsistency. Businesses that receive frequent payments will probably still want to run their own nodes for more independent security and quicker verification.
@@ -351,7 +351,7 @@ https://github.com/karpathy/cryptos
             Although it would be possible to handle coins individually, it would be unwieldy to make a separate transaction for every cent in a transfer. To allow value to be split and combined, transactions contain multiple inputs and outputs. Normally there will be either a single input from a larger previous transaction or multiple inputs combining smaller amounts, and at most two outputs: one for the payment, and one returning the change, if any, back to the sender.
             <br />
             <br />
-            <img src="/img/bitcoin-annotated/combining6.png" />
+            <img src="/img/bitcoin-whitepaper-annotated/combining6.png" />
             <br />
             <br />
             It should be noted that fan-out, where a transaction depends on several transactions, and those transactions depend on many more, is not a problem here. There is never the need to extract a complete standalone copy of a transaction's history.
@@ -384,7 +384,7 @@ https://github.com/karpathy/cryptos
             The traditional banking model achieves a level of privacy by limiting access to information to the parties involved and the trusted third party. The necessity to announce all transactions publicly precludes this method, but privacy can still be maintained by breaking the flow of information in another place: by keeping public keys anonymous. The public can see that someone is sending an amount to someone else, but without information linking the transaction to anyone. This is similar to the level of information released by stock exchanges, where the time and size of individual trades, the "tape", is made public, but without telling who the parties were.
             <br />
             <br />
-            <img src="/img/bitcoin-annotated/privacy7.png" />
+            <img src="/img/bitcoin-whitepaper-annotated/privacy7.png" />
             <br />
             <br />
             As an additional firewall, a new key pair should be used for each transaction to keep them from being linked to a common owner. Some linking is still unavoidable with multi-input transactions, which necessarily reveal that their inputs were owned by the same owner. The risk is that if the owner of a key is revealed, linking could reveal other transactions that belonged to the same owner.
