@@ -2,8 +2,8 @@
 layout:     widepost
 title:      "Bitcoin Whitepaper - Annotated"
 subtitle:   ""
-date:       2022-11-01 09:00:00
-tags:       [Bitcoin, Blockchain]
+date:       2021-10-29 09:00:00
+tags:       [Bitcoin, Whitepaper, Blockchain]
 author:     "Dylan Hogg"
 header-img: "img/apps-bg.jpg"
 published:  false
@@ -12,11 +12,14 @@ comments:   true
 
 <!--
 General refs:
+https://developer.bitcoin.org/index.html
 https://en.wikipedia.org/wiki/Bitcoin_network
 https://en.wikipedia.org/wiki/Bitcoin
 https://en.wikipedia.org/wiki/Satoshi_Nakamoto
 https://merrynakamoto.com/glossary.html
 https://bisontrails.co/terminology/
+https://bitcoin.stackexchange.com/
+https://github.com/karpathy/cryptos
 
 -->
 
@@ -32,30 +35,47 @@ https://bisontrails.co/terminology/
 </style>
 
 
-
 <div class="row">
     <div class="col-lg-7">
         <h1>Bitcoin: A Peer-to-Peer Electronic Cash System</h1>
+    </div>
+    <div class="col-lg-5 anno">
+        <h1></h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-7">
         <p>
             <a href="https://en.wikipedia.org/wiki/Satoshi_Nakamoto">Satoshi Nakamoto</a><br />
             satoshin@gmx.com<br />
-            <a href="https://www.bitcoin.org">www.bitcoin.org</a><br />
+            <a href="https://www.bitcoin.org">www.bitcoin.org</a>
         </p>
     </div>
     <div class="col-lg-5 anno">
-        <h2>Annotations</h2>
         <p>
+            <b>Annotations</b>
+            <br />
             S. Nakamoto, "<a href="/resources/bitcoin-annotated/Bitcoin (2008).pdf">Bitcoin: A Peer-to-Peer Electronic Cash System</a>", 2008
-            <br />
-            <br />
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-7">
+        <p>
+            <b>Abstract.</b> A purely peer-to-peer version of electronic cash would allow online payments to be sent directly from one party to another without going through a financial institution. Digital signatures provide part of the solution, but the main benefits are lost if a trusted third party is still required to prevent double-spending. We propose a solution to the double-spending problem using a peer-to-peer network. The network timestamps transactions by hashing them into an ongoing chain of hash-based proof-of-work, forming a record that cannot be changed without redoing the proof-of-work. The longest chain not only serves as proof of the sequence of events witnessed, but proof that it came from the largest pool of CPU power. As long as a majority of CPU power is controlled by nodes that are not cooperating to attack the network, they'll generate the longest chain and outpace attackers. The network itself requires minimal structure. Messages are broadcast on a best effort basis, and nodes can leave and rejoin the network at will, accepting the longest proof-of-work chain as proof of what happened while they were gone.
+        </p>
+    </div>
+    <div class="col-lg-5 anno">
+        <p>
             <a href="https://en.wikipedia.org/wiki/Bitcoin">Bitcoin</a> (₿) is a decentralized digital currency, without a central bank or single administrator, that can be sent from user to user on the peer-to-peer bitcoin network without the need for intermediaries.
             <br />
             <br />
             <a href="https://en.wikipedia.org/wiki/Satoshi_Nakamoto">Satoshi Nakamoto</a> is the name used by the presumed pseudonymous person or persons who developed bitcoin.
-            S. Nakamoto, "<a href="https://bitcoin.org/bitcoin.pdf">Bitcoin: A Peer-to-Peer Electronic Cash System</a>", 2008
             <br />
             <br />
-            <a href="https://github.com/bitcoin/bitcoin">Bitcoin source code</a>
+            <a href="https://whois.domaintools.com/bitcoin.org">bitcoin.org</a> was registered on 18 Aug 2008
         </p>
     </div>
 </div>
@@ -67,9 +87,9 @@ https://bisontrails.co/terminology/
             Commerce on the Internet has come to rely almost exclusively on financial institutions serving as trusted third parties to process electronic payments. While the system works well enough for most transactions, it still suffers from the inherent <span class="hl">weaknesses of the trust based model</span>. Completely non-reversible transactions are not really possible, since financial institutions cannot avoid mediating disputes. The cost of mediation increases transaction costs, limiting the minimum practical transaction size and cutting off the possibility for small casual transactions, and there is a broader cost in the loss of ability to make non-reversible payments for non- reversible services. With the possibility of reversal, the need for trust spreads. Merchants must be wary of their customers, hassling them for more information than they would otherwise need. A certain percentage of fraud is accepted as unavoidable. These costs and payment uncertainties can be avoided in person by using physical currency, but no mechanism exists to make payments over a communications channel without a trusted party.
             <br />
             <br />
-            What is needed is an electronic payment system based on <span class="hl">cryptographic proof</span> instead of trust, allowing any two willing parties to transact directly with each other without the need for a trusted third party. Transactions that are computationally impractical to reverse would protect sellers from fraud, and routine escrow mechanisms could easily be implemented to protect buyers. In this paper, we propose a solution to the <span class="hl">double-spending problem</span> using a peer-to-peer distributed <span class="hl">timestamp server</span> to generate computational proof of the chronological order of transactions. The system is secure as long as honest nodes collectively control more CPU power than any cooperating group of attacker nodes.
+            What is needed is an electronic payment system based on <span class="hl">cryptographic proof</span> instead of trust, allowing any two willing parties to transact directly with each other without the need for a trusted third party. Transactions that are computationally impractical to reverse would protect sellers from fraud, and routine escrow mechanisms could easily be implemented to protect buyers. In this paper, we propose a solution to the <span class="hl">double-spending problem</span> using a <span class="hl">peer-to-peer</span> distributed <span class="hl">timestamp server</span> to generate computational proof of the chronological order of transactions. The system is secure as long as honest nodes collectively control more CPU power than any cooperating group of attacker nodes.
         </p>
-        </div>
+    </div>
     <div class="col-lg-5 anno">
         <h2>&nbsp;</h2>
         <p>
@@ -77,6 +97,9 @@ https://bisontrails.co/terminology/
             <br />
             <br />
             <a href="https://en.wikipedia.org/wiki/Double-spending">Double-spending</a> is a potential flaw in a digital cash scheme in which the same single digital token can be spent more than once.
+            <br />
+            <br />
+            <a href="https://en.wikipedia.org/wiki/Peer-to-peer">Peer-to-peer</a> computing or networking is a distributed application architecture that partitions tasks or workloads between peers.
             <br />
             <br />
             <a href="https://en.wikipedia.org/wiki/Trusted_timestamping#Decentralized_timestamping_on_the_blockchain">Trusted timestamping</a> is the process of securely keeping track of the creation and modification time of a document. Security here means that no one—not even the owner of the document—should be able to change it once it has been recorded.
@@ -184,7 +207,7 @@ https://bisontrails.co/terminology/
             A <a href="https://en.wikipedia.org/wiki/Cryptographic_nonce">nonce (number once)</a> is an arbitrary number that can be used just once in a cryptographic communication.
             <br />
             <br />
-            ANNO4
+            <a href="https://en.bitcoin.it/wiki/Difficulty">Difficulty</a> is a measure of how difficult it is to find a hash below a given target and mine a block of transactions.
         </p>
     </div>
 </div>
@@ -400,11 +423,11 @@ https://bisontrails.co/terminology/
             p = probability an honest node finds the next block
             q = probability the attacker finds the next block
             qz = probability the attacker will ever catch up from z blocks behind
-            
+
             Trusted Third Party
             Counterparty
             Public
-            
+
             q ={ 1 if p≤q} z q/pz if pq
             <br />
             <br />
@@ -437,66 +460,66 @@ https://bisontrails.co/terminology/
             <br />
             Converting to C code...
             <code>
-    #include &lt;math.h&gt;
-    double AttackerSuccessProbability(double q, int z)
-    {
-        double p = 1.0 - q;
-        double lambda = z * (q / p);
-        double sum = 1.0;
-        int i, k;
-        for (k = 0; k <= z; k++)
-        {
-            double poisson = exp(-lambda);
-            for (i = 1; i <= k; i++)
+                #include &lt;math.h&gt;
+                double AttackerSuccessProbability(double q, int z)
+                {
+                double p = 1.0 - q;
+                double lambda = z * (q / p);
+                double sum = 1.0;
+                int i, k;
+                for (k = 0; k <= z; k++)
+                {
+                double poisson = exp(-lambda);
+                for (i = 1; i <= k; i++)
                 poisson *= lambda / i;
-            sum -= poisson * (1 - pow(q / p, z - k));
-        }
-        return sum; 
-    }
+                sum -= poisson * (1 - pow(q / p, z - k));
+                }
+                return sum;
+                }
             </code>
             <br />
             <br />
             Running some results, we can see the probability drop off exponentially with z.
             <code>
-    q=0.1
-    z=0    P=1.0000000
-    z=1    P=0.2045873
-    z=2    P=0.0509779
-    z=3    P=0.0131722
-    z=4    P=0.0034552
-    z=5    P=0.0009137
-    z=6    P=0.0002428
-    z=7    P=0.0000647
-    z=8    P=0.0000173
-    z=9    P=0.0000046
-    z=10   P=0.0000012
+                q=0.1
+                z=0    P=1.0000000
+                z=1    P=0.2045873
+                z=2    P=0.0509779
+                z=3    P=0.0131722
+                z=4    P=0.0034552
+                z=5    P=0.0009137
+                z=6    P=0.0002428
+                z=7    P=0.0000647
+                z=8    P=0.0000173
+                z=9    P=0.0000046
+                z=10   P=0.0000012
 
-    q=0.3
-    z=0    P=1.0000000
-    z=5    P=0.1773523
-    z=10   P=0.0416605
-    z=15   P=0.0101008
-    z=20   P=0.0024804
-    z=25   P=0.0006132
-    z=30   P=0.0001522
-    z=35   P=0.0000379
-    z=40   P=0.0000095
-    z=45   P=0.0000024
-    z=50   P=0.0000006
+                q=0.3
+                z=0    P=1.0000000
+                z=5    P=0.1773523
+                z=10   P=0.0416605
+                z=15   P=0.0101008
+                z=20   P=0.0024804
+                z=25   P=0.0006132
+                z=30   P=0.0001522
+                z=35   P=0.0000379
+                z=40   P=0.0000095
+                z=45   P=0.0000024
+                z=50   P=0.0000006
             </code>
             <br />
             <br />
             Solving for P less than 0.1%...
             <code>
-    P < 0.001
-    q=0.10   z=5
-    q=0.15   z=8
-    q=0.20   z=11
-    q=0.25   z=15
-    q=0.30   z=24
-    q=0.35   z=41
-    q=0.40   z=89
-    q=0.45   z=340
+                P < 0.001
+                q=0.10   z=5
+                q=0.15   z=8
+                q=0.20   z=11
+                q=0.25   z=15
+                q=0.30   z=24
+                q=0.35   z=41
+                q=0.40   z=89
+                q=0.45   z=340
             </code>
         </p>
     </div>
