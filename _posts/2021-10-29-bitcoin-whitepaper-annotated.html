@@ -21,6 +21,23 @@ https://bisontrails.co/terminology/
 https://bitcoin.stackexchange.com/
 https://github.com/karpathy/cryptos
 
+Genesis:
+https://bweaumont.medium.com/the-times-03-jan-2009-chancellor-on-brink-of-second-bailout-for-banks-e9fbc20b854
+https://mempool.space/block/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f
+https://en.bitcoin.it/wiki/Genesis_block
+
+Forks:
+https://en.wikipedia.org/wiki/Fork_(blockchain)
+https://ethereum.stackexchange.com/questions/52405/why-does-a-permanent-chain-split-occur-only-in-a-hard-fork/52410#52410
+https://learnmeabitcoin.com/technical/longest-chain
+https://www.investopedia.com/terms/h/hard-fork.asp
+https://www.investopedia.com/terms/s/soft-fork.asp
+https://twitter.com/vitalikbuterin/status/687050458301657088?lang=en
+
+Mining, block rewards and transaciton fees:
+https://en.wikipedia.org/wiki/Cryptocurrency#Block_rewards
+https://www.cs.princeton.edu/~arvindn/publications/mining_CCS.pdf
+https://econinfosec.org/archive/weis2013/papers/KrollDaveyFeltenWEIS2013.pdf
 -->
 
 <style>
@@ -31,6 +48,11 @@ https://github.com/karpathy/cryptos
     .center {
       width: 50%;
       margin: 0 auto;
+    }
+
+    .anno img {
+        width: 60%;
+        margin: 0 auto;
     }
 </style>
 
@@ -54,7 +76,10 @@ https://github.com/karpathy/cryptos
     </div>
     <div class="col-lg-5 anno">
         <p>
-            The <a href="/resources/bitcoin-whitepaper-annotated/Bitcoin Whitepaper (2008).pdf">original whitepaper</a> is displayed in dark text with annotations below in grey.
+            The <a href="/resources/bitcoin-whitepaper-annotated/Bitcoin Whitepaper (2008).pdf">original whitepaper</a> is displayed in dark text with annotations below in lighter text.
+            <br />
+            <br />
+            NOTE: this post is a work-in-progress Nov 2021.
         </p>
     </div>
 </div>
@@ -193,7 +218,7 @@ https://github.com/karpathy/cryptos
             <img src="/img/bitcoin-whitepaper-annotated/pow3.png" />
             <br />
             <br />
-            The proof-of-work also solves the problem of determining representation in majority decision making. If the majority were based on one-IP-address-one-vote, it could be subverted by anyone able to allocate many IPs. Proof-of-work is essentially one-CPU-one-vote. The majority decision is represented by the longest chain, which has the greatest proof-of-work effort invested in it. If a majority of CPU power is controlled by honest nodes, the honest chain will grow the fastest and outpace any competing chains. To modify a past block, an attacker would have to redo the proof-of-work of the block and all blocks after it and then catch up with and surpass the work of the honest nodes. We will show later that the probability of a slower attacker catching up diminishes exponentially as subsequent blocks are added.
+            The proof-of-work also solves the problem of determining representation in majority decision making. If the majority were based on one-IP-address-one-vote, it could be subverted by anyone able to allocate many IPs. <span class="hl">Proof-of-work is essentially one-CPU-one-vote</span>. The majority decision is represented by the longest chain, which has the greatest proof-of-work effort invested in it. If a majority of CPU power is controlled by honest nodes, the honest chain will grow the fastest and outpace any competing chains. To modify a past block, an attacker would have to redo the proof-of-work of the block and all blocks after it and then catch up with and surpass the work of the honest nodes. We will show later that the probability of a slower attacker catching up diminishes exponentially as subsequent blocks are added.
             <br />
             <br />
             To compensate for increasing hardware speed and varying interest in running nodes over time, the <span class="hl">proof-of-work difficulty</span> is determined by a moving average targeting an average number of blocks per hour. If they're generated too fast, the difficulty increases.
@@ -202,13 +227,19 @@ https://github.com/karpathy/cryptos
     <div class="col-lg-5 anno">
         <h2>&nbsp;</h2>
         <p>
-            <a href="https://en.wikipedia.org/wiki/Proof_of_work">Proof-of-work</a> is a form of cryptographic zero-knowledge proof in which one party (the prover) proves to others (the verifiers) that a certain amount of a specific computational effort has been expended
+            <a href="https://en.wikipedia.org/wiki/Proof_of_work">Proof-of-work</a> is a form of cryptographic zero-knowledge proof in which one party (the prover) proves to others (the verifiers) that a certain amount of a specific computational effort has been expended.
             <br />
             <br />
             [6] A. Back, "<a href="/resources/bitcoin-whitepaper-annotated/Hashcash (2002).pdf">Hashcash - a denial of service counter-measure</a>,", 2002.
             <br />
             <br />
             A <a href="https://en.wikipedia.org/wiki/Cryptographic_nonce">nonce (number once)</a> is an arbitrary number that can be used just once in a cryptographic communication.
+            <br />
+            <br />
+            PoW (one-CPU-one-vote) is a type of <a href="https://en.wikipedia.org/wiki/Sybil_attack">Sybil attack</a> defence.
+            <br />
+            <br />
+            A Sybil attack is when an attacker creates a large number of pseudonymous identities and uses them to gain a large influence. Imposing economic costs may be used to make Sybil attacks more expensive.
             <br />
             <br />
             <a href="https://en.bitcoin.it/wiki/Difficulty">Difficulty</a> is a measure of how difficult it is to find a hash below a given target and mine a block of transactions.
@@ -239,16 +270,22 @@ https://github.com/karpathy/cryptos
     <div class="col-lg-5 anno">
         <h2>&nbsp;</h2>
         <p>
-            Bitcoin <a href="https://en.wikipedia.org/wiki/Fork_(blockchain)">forks</a> can be defined as changes in the protocol of the bitcoin network or in situations when two or more blocks have the same block height. The fork is resolved when subsequent blocks are added and one of the chains becomes longer than the alternative.
+            Bitcoin <a href="https://en.wikipedia.org/wiki/Fork_(blockchain)">forks</a> can be defined as changes in the protocol of the bitcoin network or in situations when two or more blocks have the same block height.
+            <br />
+            <br />
+            The fork is resolved when subsequent blocks are added and one of the chains becomes longer than the alternative.
             <br />
             <br />
             Forks require consensus to be resolved or else a <a href="https://en.wikipedia.org/wiki/List_of_bitcoin_forks">permanent split</a> emerges.
             <br />
             <br />
-            A <a href="https://en.wikipedia.org/wiki/Fork_(blockchain)#Hard_fork">hard fork</a> is a rule change such that the software validating according to the old rules will see the blocks produced according to the new rules as invalid.
+            A <a href="https://en.wikipedia.org/wiki/Fork_(blockchain)#Soft_fork">soft fork</a> is a change that makes some block, that was previously legal, illegal.
             <br />
             <br />
-            A <a href="https://en.wikipedia.org/wiki/Fork_(blockchain)#Soft_fork">soft fork</a> is described as a fork in the blockchain which can occur when old network nodes do not follow a rule followed by the newly upgraded nodes.
+            A <a href="https://en.wikipedia.org/wiki/Fork_(blockchain)#Hard_fork">hard fork</a> is a change that makes some block, that was previously illegal, legal.
+            <br />
+            <br />
+            With a soft fork the network will occasionally split but quickly converge, whereas with a hard fork the network will split into <a href="https://ethereum.stackexchange.com/questions/52405/why-does-a-permanent-chain-split-occur-only-in-a-hard-fork/52410#52410">two separate chains</a>, which will continue growing in parallel indefinitely.
         </p>
     </div>
 </div>
@@ -257,31 +294,31 @@ https://github.com/karpathy/cryptos
     <div class="col-lg-7">
         <h2>6. Incentive</h2>
         <p>
-            By convention, the first transaction in a block is a special transaction that starts a new coin owned by the creator of the block. This adds an incentive for nodes to support the network, and provides a way to <span class="hl">initially distribute coins into circulation</span>, since there is no central authority to issue them. The steady addition of a constant of amount of new coins is analogous to gold miners expending resources to add gold to circulation. In our case, it is CPU time and electricity that is expended.
+            By convention, the <span class="hl">first transaction in a block</span> is a special transaction that starts a new coin owned by the creator of the block. This adds an incentive for nodes to support the network, and provides a way to <span class="hl">initially distribute coins into circulation</span>, since there is no central authority to issue them. The steady addition of a constant of amount of new coins is analogous to gold miners expending resources to add gold to circulation. In our case, it is CPU time and electricity that is expended.
             <br />
             <br />
-            The incentive can also be funded with <span class="hl">transaction fees</span>. If the output value of a transaction is less than its input value, the difference is a transaction fee that is added to the incentive value of the block containing the transaction. Once a predetermined number of coins have entered circulation, the incentive can transition entirely to transaction fees and be completely inflation free.
+            The incentive can also be funded with <span class="hl">transaction fees</span>. If the output value of a transaction is less than its input value, the difference is a transaction fee that is added to the incentive value of the block containing the transaction. Once a predetermined number of coins have entered circulation, the incentive can transition entirely to transaction fees and be completely <span class="hl">inflation free</span>.
             <br />
             <br />
             The incentive may help encourage nodes to stay honest. If a greedy attacker is able to assemble more CPU power than all the honest nodes, he would have to choose between using it to defraud people by stealing back his payments, or using it to generate new coins. He ought to find it more profitable to play by the rules, such rules that favour him with more new coins than everyone else combined, than to undermine the system and the validity of his own wealth.
-            <br />
-            <br />
-            PARA4
         </p>
     </div>
     <div class="col-lg-5 anno">
         <h2>&nbsp;</h2>
         <p>
-            ANNO1
+            Satoshi Nakamoto mined the Bitcoin <a href="https://en.wikipedia.org/wiki/History_of_bitcoin#Creation">genesis block</a> on 3 Jan 2009.
             <br />
             <br />
-            ANNO2
+            The genesis block reward was <a href="https://www.blockchain.com/btc/block/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f">50 bitcoin</a> and embedded in the transaction was the text: "<a href="/resources/bitcoin-whitepaper-annotated/The Times (3 Jan 2009).jpeg">The Times Jan/03/2009 Chancellor on brink of second bailout for banks"</a>.
+            <br />
+            <a href="/resources/bitcoin-whitepaper-annotated/The Times (3 Jan 2009).jpeg" title="5468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73"><img src="/resources/bitcoin-whitepaper-annotated/The Times (3 Jan 2009).jpeg" /></a>
             <br />
             <br />
-            ANNO3
+            A miner finding a new block collects all <a href="https://en.wikipedia.org/wiki/Bitcoin#Supply">transaction fees</a> in the block and a pre-determined block reward of newly created bitcoins.
+            Transaction fees are optional and miners can choose which transactions to process and prioritize those paying higher fees.
             <br />
             <br />
-            ANNO4
+            Bitcoin supply is limited and will approach a maximum of <a href="https://github.com/bitcoin/bitcoin/blob/08a7316c144f9f2516db8fa62400893f4358c5ae/src/amount.h#L26">21 million</a> with issuance <a href="https://en.wikipedia.org/wiki/Bitcoin#cite_ref-13">permanently halting</a> c. 2140.
         </p>
     </div>
 </div>
