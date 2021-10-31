@@ -54,9 +54,7 @@ https://github.com/karpathy/cryptos
     </div>
     <div class="col-lg-5 anno">
         <p>
-            <b>Annotations</b>
-            <br />
-            S. Nakamoto, "<a href="/resources/bitcoin-whitepaper-annotated/Bitcoin Whitepaper (2008).pdf">Bitcoin: A Peer-to-Peer Electronic Cash System</a>", 2008
+            The <a href="/resources/bitcoin-whitepaper-annotated/Bitcoin Whitepaper (2008).pdf">original whitepaper</a> is displayed in dark text with annotations below in grey.
         </p>
     </div>
 </div>
@@ -87,7 +85,7 @@ https://github.com/karpathy/cryptos
             Commerce on the Internet has come to rely almost exclusively on financial institutions serving as trusted third parties to process electronic payments. While the system works well enough for most transactions, it still suffers from the inherent <span class="hl">weaknesses of the trust based model</span>. Completely non-reversible transactions are not really possible, since financial institutions cannot avoid mediating disputes. The cost of mediation increases transaction costs, limiting the minimum practical transaction size and cutting off the possibility for small casual transactions, and there is a broader cost in the loss of ability to make non-reversible payments for non- reversible services. With the possibility of reversal, the need for trust spreads. Merchants must be wary of their customers, hassling them for more information than they would otherwise need. A certain percentage of fraud is accepted as unavoidable. These costs and payment uncertainties can be avoided in person by using physical currency, but no mechanism exists to make payments over a communications channel without a trusted party.
             <br />
             <br />
-            What is needed is an electronic payment system based on <span class="hl">cryptographic proof</span> instead of trust, allowing any two willing parties to transact directly with each other without the need for a trusted third party. Transactions that are computationally impractical to reverse would protect sellers from fraud, and routine escrow mechanisms could easily be implemented to protect buyers. In this paper, we propose a solution to the <span class="hl">double-spending problem</span> using a <span class="hl">peer-to-peer</span> distributed <span class="hl">timestamp server</span> to generate computational proof of the chronological order of transactions. The system is secure as long as honest nodes collectively control more CPU power than any cooperating group of attacker nodes.
+            What is needed is an electronic payment system based on <span class="hl">cryptographic proof</span> instead of trust, allowing any two willing parties to transact directly with each other without the need for a trusted third party. Transactions that are computationally impractical to reverse would protect sellers from fraud, and routine escrow mechanisms could easily be implemented to protect buyers. In this paper, we propose a solution to the <span class="hl">double-spending problem</span> using a <span class="hl">peer-to-peer</span> distributed <span class="hl">timestamp server</span> to generate computational proof of the chronological order of transactions. The system is secure as long as honest <span class="hl">nodes</span> collectively control more CPU power than any cooperating group of attacker nodes.
         </p>
     </div>
     <div class="col-lg-5 anno">
@@ -103,6 +101,9 @@ https://github.com/karpathy/cryptos
             <br />
             <br />
             <a href="https://en.wikipedia.org/wiki/Trusted_timestamping#Decentralized_timestamping_on_the_blockchain">Trusted timestamping</a> is the process of securely keeping track of the creation and modification time of a document. Security here means that no one—not even the owner of the document—should be able to change it once it has been recorded.
+            <br />
+            <br />
+            In a distributed system, the <a href="https://en.wikipedia.org/wiki/Node_(networking)#Distributed_systems">nodes</a> are clients, servers or peers. A peer may sometimes serve as client, sometimes server.
         </p>
     </div>
 </div>
@@ -150,7 +151,7 @@ https://github.com/karpathy/cryptos
     <div class="col-lg-7">
         <h2>3. Timestamp Server</h2>
         <p>
-            The solution we propose begins with a <span class="hl">timestamp server</span>. A timestamp server works by taking a hash of a block of items to be timestamped and widely publishing the hash, such as in a <span class="hl">newspaper or Usenet post [2-5]</span>. The timestamp proves that the data must have existed at the time, obviously, in order to get into the hash. Each timestamp includes the previous timestamp in its hash, forming a chain, with each additional timestamp reinforcing the ones before it.
+            The solution we propose begins with a <span class="hl">timestamp server</span>. A timestamp server works by taking a hash of a <span class="hl">block</span> of items to be timestamped and widely publishing the hash, such as in a <span class="hl">newspaper or Usenet post [2-5]</span>. The timestamp proves that the data must have existed at the time, obviously, in order to get into the hash. Each timestamp includes the previous timestamp in its hash, forming a chain, with each additional timestamp reinforcing the ones before it.
             <br />
             <br />
             <img src="/img/bitcoin-whitepaper-annotated/timestamp2.png" />
@@ -160,6 +161,9 @@ https://github.com/karpathy/cryptos
         <h2>&nbsp;</h2>
         <p>
             To form a distributed timestamp server as a peer-to-peer network, bitcoin uses a proof-of-work system. This work is often called <a href="https://en.wikipedia.org/wiki/Bitcoin_network#Mining">bitcoin mining</a>.
+            <br />
+            <br />
+            <a href="https://en.wikipedia.org/wiki/Bitcoin_scalability_problem">Blocks</a> contain the transactions on the bitcoin network. The on-chain transaction processing capacity of the network is limited by the average block creation time and the block size limit. These jointly constrain the network's throughput.
             <br />
             <br />
             [2] H. Massias, X.S. Avila, and J.-J. Quisquater, "<a href="/resources/bitcoin-whitepaper-annotated/Design of a secure timestamping service with minimal trust requirements (1999).pdf">Design of a secure timestamping service with minimal trust requirements</a>," In 20th Symposium on Information Theory in the Benelux, May 1999.
@@ -198,7 +202,7 @@ https://github.com/karpathy/cryptos
     <div class="col-lg-5 anno">
         <h2>&nbsp;</h2>
         <p>
-            <a href="https://en.wikipedia.org/wiki/Proof_of_work">Proof of work (PoW)</a> is a form of cryptographic zero-knowledge proof in which one party (the prover) proves to others (the verifiers) that a certain amount of a specific computational effort has been expended
+            <a href="https://en.wikipedia.org/wiki/Proof_of_work">Proof-of-work</a> is a form of cryptographic zero-knowledge proof in which one party (the prover) proves to others (the verifiers) that a certain amount of a specific computational effort has been expended
             <br />
             <br />
             [6] A. Back, "<a href="/resources/bitcoin-whitepaper-annotated/Hashcash (2002).pdf">Hashcash - a denial of service counter-measure</a>,", 2002.
@@ -217,18 +221,16 @@ https://github.com/karpathy/cryptos
         <h2>5. Network</h2>
         <p>
             The steps to run the network are as follows:
+            <ol>
+                <li>New transactions are broadcast to all nodes.</li>
+                <li>Each node collects new transactions into a block.</li>
+                <li>Each node works on finding a difficult proof-of-work for its block.</li>
+                <li>When a node finds a proof-of-work, it broadcasts the block to all nodes.</li>
+                <li>Nodes accept the block only if all transactions in it are valid and not already spent.</li>
+                <li>Nodes express their acceptance of the block by working on creating the next block in the chain, using the hash of the accepted block as the previous hash.</li>
+            </ol>
             <br />
-            <br />
-            1) New transactions are broadcast to all nodes.
-            2) Each node collects new transactions into a block.
-            3) Each node works on finding a difficult proof-of-work for its block.
-            4) When a node finds a proof-of-work, it broadcasts the block to all nodes.
-            5) Nodes accept the block only if all transactions in it are valid and not already spent.
-            6) Nodes express their acceptance of the block by working on creating the next block in the
-            chain, using the hash of the accepted block as the previous hash.
-            <br />
-            <br />
-            Nodes always consider the longest chain to be the correct one and will keep working on extending it. If two nodes broadcast different versions of the next block simultaneously, some nodes may receive one or the other first. In that case, they work on the first one they received, but save the other branch in case it becomes longer. The tie will be broken when the next proof-of-work is found and one branch becomes longer; the nodes that were working on the other branch will then switch to the longer one.
+        <span class="hl">Nodes always consider the longest chain to be the correct one</span> and will keep working on extending it. If two nodes broadcast different versions of the next block simultaneously, some nodes may receive one or the other first. In that case, they work on the first one they received, but save the other branch in case it becomes longer. The tie will be broken when the next proof-of-work is found and one branch becomes longer; the nodes that were working on the other branch will then switch to the longer one.
             <br />
             <br />
             New transaction broadcasts do not necessarily need to reach all nodes. As long as they reach many nodes, they will get into a block before long. Block broadcasts are also tolerant of dropped messages. If a node does not receive a block, it will request it when it receives the next block and realizes it missed one.
@@ -237,16 +239,16 @@ https://github.com/karpathy/cryptos
     <div class="col-lg-5 anno">
         <h2>&nbsp;</h2>
         <p>
-            ANNO1
+            Bitcoin <a href="https://en.wikipedia.org/wiki/Fork_(blockchain)">forks</a> can be defined as changes in the protocol of the bitcoin network or in situations when two or more blocks have the same block height. The fork is resolved when subsequent blocks are added and one of the chains becomes longer than the alternative.
             <br />
             <br />
-            ANNO2
+            Forks require consensus to be resolved or else a <a href="https://en.wikipedia.org/wiki/List_of_bitcoin_forks">permanent split</a> emerges.
             <br />
             <br />
-            ANNO3
+            A <a href="https://en.wikipedia.org/wiki/Fork_(blockchain)#Hard_fork">hard fork</a> is a rule change such that the software validating according to the old rules will see the blocks produced according to the new rules as invalid.
             <br />
             <br />
-            ANNO4
+            A <a href="https://en.wikipedia.org/wiki/Fork_(blockchain)#Soft_fork">soft fork</a> is described as a fork in the blockchain which can occur when old network nodes do not follow a rule followed by the newly upgraded nodes.
         </p>
     </div>
 </div>
@@ -255,10 +257,10 @@ https://github.com/karpathy/cryptos
     <div class="col-lg-7">
         <h2>6. Incentive</h2>
         <p>
-            By convention, the first transaction in a block is a special transaction that starts a new coin owned by the creator of the block. This adds an incentive for nodes to support the network, and provides a way to initially distribute coins into circulation, since there is no central authority to issue them. The steady addition of a constant of amount of new coins is analogous to gold miners expending resources to add gold to circulation. In our case, it is CPU time and electricity that is expended.
+            By convention, the first transaction in a block is a special transaction that starts a new coin owned by the creator of the block. This adds an incentive for nodes to support the network, and provides a way to <span class="hl">initially distribute coins into circulation</span>, since there is no central authority to issue them. The steady addition of a constant of amount of new coins is analogous to gold miners expending resources to add gold to circulation. In our case, it is CPU time and electricity that is expended.
             <br />
             <br />
-            The incentive can also be funded with transaction fees. If the output value of a transaction is less than its input value, the difference is a transaction fee that is added to the incentive value of the block containing the transaction. Once a predetermined number of coins have entered circulation, the incentive can transition entirely to transaction fees and be completely inflation free.
+            The incentive can also be funded with <span class="hl">transaction fees</span>. If the output value of a transaction is less than its input value, the difference is a transaction fee that is added to the incentive value of the block containing the transaction. Once a predetermined number of coins have entered circulation, the incentive can transition entirely to transaction fees and be completely inflation free.
             <br />
             <br />
             The incentive may help encourage nodes to stay honest. If a greedy attacker is able to assemble more CPU power than all the honest nodes, he would have to choose between using it to defraud people by stealing back his payments, or using it to generate new coins. He ought to find it more profitable to play by the rules, such rules that favour him with more new coins than everyone else combined, than to undermine the system and the validity of his own wealth.
@@ -288,7 +290,7 @@ https://github.com/karpathy/cryptos
     <div class="col-lg-7">
         <h2>7. Reclaiming Disk Space</h2>
         <p>
-            Once the latest transaction in a coin is buried under enough blocks, the spent transactions before it can be discarded to save disk space. To facilitate this without breaking the block's hash, transactions are hashed in a Merkle Tree [7][2][5], with only the root included in the block's hash. Old blocks can then be compacted by stubbing off branches of the tree. The interior hashes do not need to be stored.
+            Once the latest transaction in a coin is buried under enough blocks, the spent transactions before it can be discarded to save disk space. To facilitate this without breaking the block's hash, transactions are hashed in a <span class="hl">Merkle Tree [7][2][5]</span>, with only the root included in the block's hash. Old blocks can then be compacted by stubbing off branches of the tree. The interior hashes do not need to be stored.
             <br />
             <br />
             <img src="/img/bitcoin-whitepaper-annotated/disk4.png" />
@@ -300,16 +302,22 @@ https://github.com/karpathy/cryptos
     <div class="col-lg-5 anno">
         <h2>&nbsp;</h2>
         <p>
-            ANNO1
+            A <a href="https://en.wikipedia.org/wiki/Merkle_tree">Merkle tree</a> is a tree in which every leaf node is labelled with the cryptographic hash of a data block, and every non-leaf node is labelled with the cryptographic hash of the labels of its child nodes.
             <br />
             <br />
-            ANNO2
+            Merkle tree allows efficient and secure verification of the contents of large data structures.
             <br />
             <br />
-            ANNO3
+            <a href="https://en.wikipedia.org/wiki/Ralph_Merkle">Ralph</a> <a href="http://www.merkle.com/">Merkle</a> is one of the inventors of public-key cryptography and the inventor of cryptographic hashing.
             <br />
             <br />
-            ANNO4
+            [7] R.C. Merkle, "<a href="Protocols for public key cryptosystems (1980).pdf">Protocols for public key cryptosystems</a>," In Proc. 1980 Symposium on Security and Privacy, IEEE Computer Society, pages 122-133, April 1980.
+            <br />
+            <br />
+            [2] H. Massias, X.S. Avila, and J.-J. Quisquater, "<a href="/resources/bitcoin-whitepaper-annotated/Design of a secure timestamping service with minimal trust requirements (1999).pdf">Design of a secure timestamping service with minimal trust requirements</a>," In 20th Symposium on Information Theory in the Benelux, May 1999.
+            <br />
+            <br />
+            [5] S. Haber, W.S. Stornetta, "<a href="/resources/bitcoin-whitepaper-annotated/Secure names for bit-strings (1997).pdf">Secure names for bit-strings</a>," In Proceedings of the 4th ACM Conference on Computer and Communications Security, pages 28-35, April 1997.
         </p>
     </div>
 </div>
@@ -318,13 +326,13 @@ https://github.com/karpathy/cryptos
     <div class="col-lg-7">
         <h2>8. Simplified Payment Verification</h2>
         <p>
-            It is possible to verify payments without running a full network node. A user only needs to keep a copy of the block headers of the longest proof-of-work chain, which he can get by querying network nodes until he's convinced he has the longest chain, and obtain the Merkle branch linking the transaction to the block it's timestamped in. He can't check the transaction for himself, but by linking it to a place in the chain, he can see that a network node has accepted it, and blocks added after it further confirm the network has accepted it.
+            It is possible to verify payments without running a <span class="hl">full network node</span>. A user only needs to keep a copy of the block headers of the longest proof-of-work chain, which he can get by querying network nodes until he's convinced he has the longest chain, and obtain the Merkle branch linking the transaction to the block it's timestamped in. He can't check the transaction for himself, but by linking it to a place in the chain, he can see that a network node has accepted it, and blocks added after it further confirm the network has accepted it.
             <br />
             <br />
             <img src="/img/bitcoin-whitepaper-annotated/chain5.png" />
             <br />
             <br />
-            As such, the verification is reliable as long as honest nodes control the network, but is more vulnerable if the network is overpowered by an attacker. While network nodes can verify transactions for themselves, the simplified method can be fooled by an attacker's fabricated transactions for as long as the attacker can continue to overpower the network. One strategy to protect against this would be to accept alerts from network nodes when they detect an invalid block, prompting the user's software to download the full block and alerted transactions to confirm the inconsistency. Businesses that receive frequent payments will probably still want to run their own nodes for more independent security and quicker verification.
+            As such, the verification is reliable as long as honest nodes control the network, but is more vulnerable if the network is overpowered by an attacker. While network nodes can verify transactions for themselves, the <span class="hl">simplified method can be fooled by an attacker's fabricated transactions</span> for as long as the attacker can continue to overpower the network. One strategy to protect against this would be to accept alerts from network nodes when they detect an invalid block, prompting the user's software to download the full block and alerted transactions to confirm the inconsistency. Businesses that receive frequent payments will probably still want to run their own nodes for more independent security and quicker verification.
         </p>
     </div>
     <div class="col-lg-5 anno">
@@ -348,16 +356,13 @@ https://github.com/karpathy/cryptos
     <div class="col-lg-7">
         <h2>9. Combining and Splitting Value</h2>
         <p>
-            Although it would be possible to handle coins individually, it would be unwieldy to make a separate transaction for every cent in a transfer. To allow value to be split and combined, transactions contain multiple inputs and outputs. Normally there will be either a single input from a larger previous transaction or multiple inputs combining smaller amounts, and at most two outputs: one for the payment, and one returning the change, if any, back to the sender.
+            Although it would be possible to handle coins individually, it would be unwieldy to make a separate transaction for every cent in a transfer. To <span class="hl">allow value to be split and combined</span>, transactions contain multiple inputs and outputs. Normally there will be either a single input from a larger previous transaction or multiple inputs combining smaller amounts, and at most two outputs: one for the payment, and one returning the change, if any, back to the sender.
             <br />
             <br />
             <img src="/img/bitcoin-whitepaper-annotated/combining6.png" />
             <br />
             <br />
             It should be noted that fan-out, where a transaction depends on several transactions, and those transactions depend on many more, is not a problem here. There is never the need to extract a complete standalone copy of a transaction's history.
-            <br />
-            <br />
-            PARA4
         </p>
     </div>
     <div class="col-lg-5 anno">
@@ -381,7 +386,7 @@ https://github.com/karpathy/cryptos
     <div class="col-lg-7">
         <h2>10. Privacy</h2>
         <p>
-            The traditional banking model achieves a level of privacy by limiting access to information to the parties involved and the trusted third party. The necessity to announce all transactions publicly precludes this method, but privacy can still be maintained by breaking the flow of information in another place: by keeping public keys anonymous. The public can see that someone is sending an amount to someone else, but without information linking the transaction to anyone. This is similar to the level of information released by stock exchanges, where the time and size of individual trades, the "tape", is made public, but without telling who the parties were.
+            The traditional banking model achieves a level of privacy by limiting access to information to the parties involved and the trusted third party. The necessity to announce all transactions publicly precludes this method, but privacy can still be maintained by breaking the flow of information in another place: by <span class="hl">keeping public keys anonymous</span>. The public can see that someone is sending an amount to someone else, but without information linking the transaction to anyone. This is similar to the level of information released by stock exchanges, where the time and size of individual trades, the "tape", is made public, but without telling who the parties were.
             <br />
             <br />
             <img src="/img/bitcoin-whitepaper-annotated/privacy7.png" />
@@ -414,10 +419,10 @@ https://github.com/karpathy/cryptos
             We consider the scenario of an attacker trying to generate an alternate chain faster than the honest chain. Even if this is accomplished, it does not throw the system open to arbitrary changes, such as creating value out of thin air or taking money that never belonged to the attacker. Nodes are not going to accept an invalid transaction as payment, and honest nodes will never accept a block containing them. An attacker can only try to change one of his own transactions to take back money he recently spent.
             <br />
             <br />
-            The race between the honest chain and an attacker chain can be characterized as a Binomial Random Walk. The success event is the honest chain being extended by one block, increasing its lead by +1, and the failure event is the attacker's chain being extended by one block, reducing the gap by -1.
+            <span class="hl">The race between the honest chain and an attacker chain can be characterized as a Binomial Random Walk</span>. The success event is the honest chain being extended by one block, increasing its lead by +1, and the failure event is the attacker's chain being extended by one block, reducing the gap by -1.
             <br />
             <br />
-            The probability of an attacker catching up from a given deficit is analogous to a Gambler's Ruin problem. Suppose a gambler with unlimited credit starts at a deficit and plays potentially an infinite number of trials to try to reach breakeven. We can calculate the probability he ever reaches breakeven, or that an attacker ever catches up with the honest chain, as follows [8]:
+            <span class="hl">The probability of an attacker catching up from a given deficit is analogous to a Gambler's Ruin problem</span>. Suppose a gambler with unlimited credit starts at a deficit and plays potentially an infinite number of trials to try to reach breakeven. We can calculate the probability he ever reaches breakeven, or that an attacker ever catches up with the honest chain, as follows [8]:
             <br />
             <br />
             p = probability an honest node finds the next block
@@ -434,13 +439,13 @@ https://github.com/karpathy/cryptos
             Given our assumption that p > q, the probability drops exponentially as the number of blocks the attacker has to catch up with increases. With the odds against him, if he doesn't make a lucky lunge forward early on, his chances become vanishingly small as he falls further behind.
             <br />
             <br />
-            We now consider how long the recipient of a new transaction needs to wait before being sufficiently certain the sender can't change the transaction. We assume the sender is an attacker who wants to make the recipient believe he paid him for a while, then switch it to pay back to himself after some time has passed. The receiver will be alerted when that happens, but the sender hopes it will be too late.
+            We now consider <span class="hl">how long the recipient of a new transaction needs to wait before being sufficiently certain the sender can't change the transaction</span>. We assume the sender is an attacker who wants to make the recipient believe he paid him for a while, then switch it to pay back to himself after some time has passed. The receiver will be alerted when that happens, but the sender hopes it will be too late.
             <br />
             <br />
             The receiver generates a new key pair and gives the public key to the sender shortly before signing. This prevents the sender from preparing a chain of blocks ahead of time by working on it continuously until he is lucky enough to get far enough ahead, then executing the transaction at that moment. Once the transaction is sent, the dishonest sender starts working in secret on a parallel chain containing an alternate version of his transaction.
             <br />
             <br />
-            The recipient waits until the transaction has been added to a block and z blocks have been linked after it. He doesn't know the exact amount of progress the attacker has made, but assuming the honest blocks took the average expected time per block, the attacker's potential progress will be a Poisson distribution with expected value:
+            The recipient waits until the transaction has been added to a block and z blocks have been linked after it. He doesn't know the exact amount of progress the attacker has made, but assuming the honest blocks took the average expected time per block, the attacker's potential progress will be a <span class="hl">Poisson distribution</span> with expected value:
             <br />
             <br />
              = z qp
@@ -544,13 +549,13 @@ https://github.com/karpathy/cryptos
     <div class="col-lg-7">
         <h2>12. Conclusion</h2>
         <p>
-            We have proposed a system for electronic transactions without relying on trust. We started with the usual framework of coins made from digital signatures, which provides strong control of ownership, but is incomplete without a way to prevent double-spending. To solve this, we proposed a peer-to-peer network using proof-of-work to record a public history of transactions that quickly becomes computationally impractical for an attacker to change if honest nodes control a majority of CPU power. The network is robust in its unstructured simplicity. Nodes work all at once with little coordination. They do not need to be identified, since messages are not routed to any particular place and only need to be delivered on a best effort basis. Nodes can leave and rejoin the network at will, accepting the proof-of-work chain as proof of what happened while they were gone. They vote with their CPU power, expressing their acceptance of valid blocks by working on extending them and rejecting invalid blocks by refusing to work on them. Any needed rules and incentives can be enforced with this consensus mechanism.
+            We have proposed a system for electronic transactions without relying on trust. We started with the usual framework of coins made from digital signatures, which provides strong control of ownership, but is incomplete without a way to prevent double-spending. To solve this, we proposed a peer-to-peer network using proof-of-work to record a public history of transactions that quickly becomes computationally impractical for an attacker to change if honest nodes control a majority of CPU power. The network is robust in its unstructured simplicity. Nodes work all at once with little coordination. They do not need to be identified, since messages are not routed to any particular place and only need to be delivered on a best effort basis. Nodes can leave and rejoin the network at will, accepting the proof-of-work chain as proof of what happened while they were gone. They vote with their CPU power, expressing their acceptance of valid blocks by working on extending them and rejecting invalid blocks by refusing to work on them. Any needed rules and incentives can be enforced with this <span class="hl">consensus mechanism</span>.
         </p>
     </div>
     <div class="col-lg-5 anno">
         <h2>&nbsp;</h2>
         <p>
-            ANNO1
+            The word <a href="https://en.wikipedia.org/wiki/Consensus_decision-making">consensus</a> comes from Latin meaning "agreement, accord", which in turn comes from consentire, meaning "feel together". Its meaning and usage relate to both a generally accepted opinion, and the conclusion of a decision based on collective agreement.
             <br />
             <br />
             ANNO2
