@@ -2,12 +2,12 @@
 layout:     widepost
 title:      "Bitcoin Whitepaper - Annotated"
 subtitle:   ""
-date:       2021-10-29 09:00:00
+date:       2021-10-31 09:00:00
 tags:       [Bitcoin, Whitepaper, Blockchain]
 author:     "Dylan Hogg"
 header-img: "img/apps-bg.jpg"
 published:  true
-comments:   true
+comments:   false
 ---
 
 <!--
@@ -30,9 +30,13 @@ Forks:
 https://en.wikipedia.org/wiki/Fork_(blockchain)
 https://ethereum.stackexchange.com/questions/52405/why-does-a-permanent-chain-split-occur-only-in-a-hard-fork/52410#52410
 https://learnmeabitcoin.com/technical/longest-chain
-https://www.investopedia.com/terms/h/hard-fork.asp
+https://www.investopedia.com/terms/h/hard-fork.aspSimplified Payment Verification
 https://www.investopedia.com/terms/s/soft-fork.asp
 https://twitter.com/vitalikbuterin/status/687050458301657088?lang=en
+
+PoW:
+https://en.bitcoin.it/wiki/Proof_of_work
+https://www.kaggle.com/residentmario/proof-of-work-systems-and-in-bitcoin
 
 Mining, block rewards and transaciton fees:
 https://en.wikipedia.org/wiki/Cryptocurrency#Block_rewards
@@ -158,7 +162,7 @@ https://econinfosec.org/archive/weis2013/papers/KrollDaveyFeltenWEIS2013.pdf
     <div class="col-lg-7">
         <h2 id="transactions">2. Transactions</h2>
         <p>
-            We define an electronic coin as a <span class="hl">chain of digital signatures</span>. Each owner transfers the coin to the next by digitally signing a <span class="hl">hash</span> of the previous transaction and the <span class="hl">public key</span> of the next owner and adding these to the end of the coin. A payee can verify the signatures to verify the chain of ownership.
+            We define an electronic coin as a <span class="hl">chain of digital signatures</span>. Each owner transfers the coin to the next by digitally signing a <span class="hl">hash</span> of the previous <span class="hl">transaction</span> and the <span class="hl">public key</span> of the next owner and adding these to the end of the coin. A payee can verify the signatures to verify the chain of ownership.
             <br />
             <br />
             <img src="/img/bitcoin-whitepaper-annotated/transactions1.png" />
@@ -176,7 +180,10 @@ https://econinfosec.org/archive/weis2013/papers/KrollDaveyFeltenWEIS2013.pdf
             A <a href="https://en.wikipedia.org/wiki/Digital_signature">digital signature</a> <a href="https://bisontrails.co/digital-signatures/">(2)</a> is a mathematical scheme for verifying the authenticity of digital messages or documents.
             <br />
             <br />
-            A cryptographic <a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">hash function</a> is a mathematical algorithm that maps data of an arbitrary size (often called the "message") to a bit array of a fixed size (the "hash value", "hash", or "message digest"). It is a one-way function, that is, a function for which it is practically infeasible to invert or reverse the computation.
+            A cryptographic <a href="https://en.wikipedia.org/wiki/Cryptographic_hash_function">hash function</a> is a mathematical algorithm that maps data of an arbitrary size to a bit array of a fixed size (the hash value). It is a one-way function, in that it is practically infeasible to reverse the computation.
+            <br />
+            <br />
+            A <a href="https://en.bitcoin.it/wiki/Transaction">transaction</a> is a transfer of Bitcoin value that is broadcast to the network and collected into blocks.
             <br />
             <br />
             <a href="https://en.wikipedia.org/wiki/Public-key_cryptography">Public-key</a> cryptography, or asymmetric cryptography, is a cryptographic system that uses pairs of keys. Each pair consists of a public key (which may be known to others) and a private key (which may not be known by anyone except the owner).
@@ -251,6 +258,9 @@ https://econinfosec.org/archive/weis2013/papers/KrollDaveyFeltenWEIS2013.pdf
             <a href="https://en.wikipedia.org/wiki/Proof_of_work">Proof-of-work</a> is a form of cryptographic zero-knowledge proof in which one party (the prover) proves to others (the verifiers) that a certain amount of a specific computational effort has been expended.
             <br />
             <br />
+            Bitcoin uses the <a href="https://en.bitcoin.it/wiki/Hashcash#Hashcash">hashcash double SHA-256 function</a> for mining.
+            <br />
+            <br />
             [6] A. Back, "<a href="/resources/bitcoin-whitepaper-annotated/Hashcash (2002).pdf">Hashcash - a denial of service counter-measure</a>,", 2002.
             <br />
             <br />
@@ -263,7 +273,7 @@ https://econinfosec.org/archive/weis2013/papers/KrollDaveyFeltenWEIS2013.pdf
             A Sybil attack is when an attacker creates a large number of pseudonymous identities and uses them to gain a large influence. Imposing economic costs may be used to make Sybil attacks more expensive.
             <br />
             <br />
-            <a href="https://en.bitcoin.it/wiki/Difficulty">Difficulty</a> is a measure of how difficult it is to find a hash below a given target and mine a block of transactions.
+            <a href="https://en.bitcoin.it/wiki/Difficulty">Difficulty</a> is a measure of how difficult it is to find a hash below a given target. A block is only accepted by the network if its hash meets the <a href="https://en.wikipedia.org/wiki/Hashcash#Bitcoin_mining">network's difficulty target</a>.
         </p>
     </div>
 </div>
@@ -384,28 +394,31 @@ https://econinfosec.org/archive/weis2013/papers/KrollDaveyFeltenWEIS2013.pdf
     <div class="col-lg-7">
         <h2 id="simplifiedpaymentverification">8. Simplified Payment Verification</h2>
         <p>
-            It is possible to verify payments without running a <span class="hl">full network node</span>. A user only needs to keep a copy of the block headers of the longest proof-of-work chain, which he can get by querying network nodes until he's convinced he has the longest chain, and obtain the Merkle branch linking the transaction to the block it's timestamped in. He can't check the transaction for himself, but by linking it to a place in the chain, he can see that a network node has accepted it, and blocks added after it further confirm the network has accepted it.
+            It is possible to verify payments without running a <span class="hl">full network node</span>. A user only needs to keep a copy of the block headers of the longest proof-of-work chain, which he can get by querying network nodes until he's convinced he has the longest chain, and obtain the Merkle branch linking the transaction to the block it's timestamped in. He can't check the transaction for himself, but <span class="hl">by linking it to a place in the chain, he can see that a network node has accepted it</span>, and blocks added after it further confirm the network has accepted it.
             <br />
             <br />
             <img src="/img/bitcoin-whitepaper-annotated/chain5.png" />
             <br />
             <br />
-            As such, the verification is reliable as long as honest nodes control the network, but is more vulnerable if the network is overpowered by an attacker. While network nodes can verify transactions for themselves, the <span class="hl">simplified method can be fooled by an attacker's fabricated transactions</span> for as long as the attacker can continue to overpower the network. One strategy to protect against this would be to accept alerts from network nodes when they detect an invalid block, prompting the user's software to download the full block and alerted transactions to confirm the inconsistency. Businesses that receive frequent payments will probably still want to run their own nodes for more independent security and quicker verification.
+            As such, the verification is reliable as long as honest nodes control the network, but is more vulnerable if the network is overpowered by an attacker. While network nodes can verify transactions for themselves, <span class="hl">the simplified method can be fooled by an attacker's fabricated transactions</span> for as long as the attacker can continue to overpower the network. One strategy to protect against this would be to accept alerts from network nodes when they detect an invalid block, prompting the user's software to download the full block and alerted transactions to confirm the inconsistency. Businesses that receive frequent payments will probably still want to run their own nodes for more independent security and quicker verification.
         </p>
     </div>
     <div class="col-lg-5 anno">
         <h2>&nbsp;</h2>
         <p>
-            ANNO1
+            <a href="https://en.bitcoin.it/wiki/Full_node#What_makes_a_full_node.3F">Full nodes</a> download every block and transaction and check them against Bitcoin's consensus rules
             <br />
             <br />
-            ANNO2
+            In <a href="https://en.bitcoin.it/wiki/Scalability#Simplified_payment_verification">Simplified Payment Verification</a> mode, clients connect to an arbitrary full node and download only the block headers.
+            They verify the chain headers connect together correctly and that the difficulty is high enough.
             <br />
             <br />
-            ANNO3
+            The level of <a href="https://en.bitcoin.it/wiki/Difficulty">difficulty</a> required to obtain confidence the remote node is not feeding you fictional transactions depends on your threat model.
+            By changing how deeply buried the block must be, you can trade off confirmation time vs cost of an attack.
             <br />
             <br />
-            ANNO4
+            Running a full node is the only way you can use Bitcoin in a <a href="https://en.bitcoin.it/wiki/Full_node#Why_should_you_use_a_full_node_wallet">trustless way</a>.
+            A full node verifies all rules of the network: no bitcoins are spent unless owned, no coins are spent twice, inflation happens according to the schedule, blocks meet the network difficulty, etc.
         </p>
     </div>
 </div>
@@ -414,7 +427,7 @@ https://econinfosec.org/archive/weis2013/papers/KrollDaveyFeltenWEIS2013.pdf
     <div class="col-lg-7">
         <h2 id="combiningandsplittingvalue">9. Combining and Splitting Value</h2>
         <p>
-            Although it would be possible to handle coins individually, it would be unwieldy to make a separate transaction for every cent in a transfer. To <span class="hl">allow value to be split and combined</span>, transactions contain multiple inputs and outputs. Normally there will be either a single input from a larger previous transaction or multiple inputs combining smaller amounts, and at most two outputs: one for the payment, and one returning the change, if any, back to the sender.
+            Although it would be possible to handle coins individually, it would be unwieldy to make a separate transaction for every cent in a transfer. <span class="hl">To allow value to be split and combined, transactions contain multiple inputs and outputs</span>. Normally there will be either a single input from a larger previous transaction or multiple inputs combining smaller amounts, and at most two outputs: one for the payment, and one returning the change, if any, back to the sender.
             <br />
             <br />
             <img src="/img/bitcoin-whitepaper-annotated/combining6.png" />
@@ -426,16 +439,13 @@ https://econinfosec.org/archive/weis2013/papers/KrollDaveyFeltenWEIS2013.pdf
     <div class="col-lg-5 anno">
         <h2>&nbsp;</h2>
         <p>
-            ANNO1
+            A <a href="https://en.bitcoin.it/wiki/Transaction">transaction</a> typically references previous transaction outputs as new transaction inputs and dedicates all input Bitcoin values to new outputs.
             <br />
             <br />
-            ANNO2
+            An <a href="https://en.wikipedia.org/wiki/Unspent_transaction_output">Unspent Transaction Output (UTXO)</a> defines an output of a blockchain transaction that has not been spent, i.e. can be used as an input in a new transaction.
             <br />
             <br />
-            ANNO3
-            <br />
-            <br />
-            ANNO4
+            A <a href="https://en.bitcoin.it/wiki/UTXO">bitcoin wallet balance</a> is actually the sum of the UTXOs controlled by the wallet's private keys.
         </p>
     </div>
 </div>
@@ -576,6 +586,9 @@ q=0.45   z=340
             <br />
             <br />
             A model of the attack can be simulated via <a href="https://arxiv.org/abs/1701.03977" title="An Explanation of Nakamoto's Analysis of Double-spend Attacks">Monte Carlo methods</a>.
+            <br />
+            <br />
+            Only 6 blocks or 1 hour is enough to make <a href="https://bitcoin.stackexchange.com/questions/1170/why-is-6-the-number-of-confirms-that-is-considered-secure">reversal computationally impractical</a>.
         </p>
     </div>
 </div>
