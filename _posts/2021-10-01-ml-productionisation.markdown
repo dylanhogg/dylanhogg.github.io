@@ -213,6 +213,7 @@ https://github.com/eugeneyan/applied-ml
 https://applyingml.com/
 
 https://www.youtube.com/watch?v=t9cwk3zB7N0
+
 https://stanford-cs329s.github.io/syllabus.html ?
 
 https://fullstackdeeplearning.com/ ? (2019 version more engineering focussed)
