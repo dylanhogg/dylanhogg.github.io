@@ -123,13 +123,36 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
 <!-- Rewritten preamble from https://ethereum.org/en/whitepaper: -->
 <div class="row">
     <div class="col-lg-7">
-        <p><span class="hl">Satoshi Nakamoto</span>'s development of <span class="hl">Bitcoin</span> in 2009 has often been hailed as a radical development in money and currency, being the first example of a digital asset which simultaneously has no backing or "intrinsic value" and no centralized issuer or controller. However, another, arguably more important, part of the Bitcoin experiment is the underlying <span class="hl">blockchain technology</span> as a tool of <span class="hl">distributed consensus</span>, and attention is rapidly starting to shift to this other aspect of Bitcoin.
+        <p><span class="hl">Satoshi Nakamoto's</span> development of <span class="hl">Bitcoin</span> in 2009 has often been hailed as a radical development in money and currency, being the first example of a digital asset which simultaneously has no backing or "intrinsic value" and no centralized issuer or controller. However, another, arguably more important, part of the Bitcoin experiment is the underlying <span class="hl">blockchain technology</span> as a tool of <span class="hl">distributed consensus</span>, and attention is rapidly starting to shift to this other aspect of Bitcoin.
         </p>
+    </div>
+    <div class="col-lg-5 anno">
+        <p><a href="https://en.wikipedia.org/wiki/Satoshi_Nakamoto">Satoshi Nakamoto</a> is the name used by the presumed pseudonymous person or persons who developed bitcoin.
+        </p>
+        <p><a href="https://en.wikipedia.org/wiki/Bitcoin">Bitcoin</a> (₿) is a decentralized digital currency, without a central bank or single administrator, that can be sent from user to user on the peer-to-peer bitcoin network without the need for intermediaries.
+        </p>
+        <p>A <a href="https://en.wikipedia.org/wiki/Blockchain">blockchain</a> is a list of cryptographically linked blocks typically managed by a peer-to-peer network for use as a publicly distributed ledger.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-7">
         <p>Commonly cited alternative applications of blockchain technology include using on-blockchain digital assets to represent custom currencies and financial instruments ("<span class="hl">colored coins</span>"), the ownership of an underlying physical device ("<span class="hl">smart property</span>"), non-fungible assets such as domain names ("<span class="hl">Namecoin</span>"), as well as more complex applications involving having digital assets being directly controlled by a piece of code implementing arbitrary rules ("<span class="hl">smart contracts</span>") or even blockchain-based "<span class="hl">decentralized autonomous organizations</span>" (DAOs). What Ethereum intends to provide is a blockchain with a built-in fully fledged <span class="hl">Turing-complete programming language</span> that can be used to create "contracts" that can be used to encode arbitrary state transition functions, allowing users to create any of the systems described above, as well as many others that we have not yet imagined, simply by writing up the logic in a few lines of code.
         </p>
     </div>
     <div class="col-lg-5 anno">
-        <p>
+        <p>In 2013, Buterin briefly worked with <a href="https://en.wikipedia.org/wiki/EToro#History">eToro CEO Yoni Assia</a> on the <a href="https://docs.google.com/a/buterin.com/document/d/1AnkP_cVZTCMLIzw4DvsW6M8Q2JC0lIzrTLuoWu2z1BE/edit">Colored Coins project</a>.
+        </p>
+        <p><a href="https://en.bitcoin.it/wiki/Smart_Property">Smart property</a> is property whose ownership is controlled via a blockchain.
+        </p>
+        <p><a href="https://www.namecoin.org/">Namecoin</a> is a key/value pair registration and transfer system based on the Bitcoin technology
+        </p>
+        <p>A <a href="https://en.wikipedia.org/wiki/Smart_contract">smart contract</a> is a program that runs on a blockchain with the objectives of reduction in trusted intermediators, arbitrations, enforcement costs and fraud losses.
+        </p>
+        <p>A <a href="https://en.wikipedia.org/wiki/Decentralized_autonomous_organization">decentralized autonomous organization (DAO)</a> is an organization represented by rules encoded as a computer program that is transparent, controlled by the organization members and not influenced by a central government.
+        </p>
+        <p>A programming language that is <a href="https://en.wikipedia.org/wiki/Turing_completeness">Turing complete</a> is theoretically capable of expressing all tasks accomplishable by computers
         </p>
     </div>
 </div>
@@ -151,10 +174,6 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
         <h3>1.1 History</h3>
         <p>The concept of decentralized <span class="hl">digital currency</span>, as well as alternative applications like property registries, has been around for decades. The anonymous <span class="hl">e-cash protocols</span> of the 1980s and the 1990s, mostly reliant on a cryptographic primitive known as <span class="hl">Chaumian blinding</span>, provided a currency with a high degree of privacy, but the protocols largely failed to gain traction because of their reliance on a centralized intermediary. In 1998, <span class="hl">Wei Dai's</span> <span class="hl">b-money</span> became the first proposal to introduce the idea of creating money through solving computational puzzles as well as decentralized consensus, but the proposal was scant on details as to how decentralized consensus could actually be implemented. In 2005, <span class="hl">Hal Finney</span> introduced a concept of "reusable <span class="hl">proofs of work</span>", a system which uses ideas from b-money together with Adam Back's computationally difficult <span class="hl">Hashcash</span> puzzles to create a concept for a <span class="hl">cryptocurrency</span>, but once again fell short of the ideal by relying on trusted computing as a backend.
         </p>
-        <p>Because currency is a first-to-file application, where the order of transactions is often of critical importance, decentralized currencies require a solution to decentralized consensus. The main roadblock that all pre-Bitcoin currency protocols faced is the fact that, while there had been plenty of research on creating secure Byzantine-fault-tolerant multiparty consensus systems for many years, all of the protocols described were solving only half of the problem. The protocols assumed that all participants in the system were known, and produced security margins of the form "if N parties participate, then the system can tolerate up to N/4 malicious actors". The problem is, however, that in an anonymous setting such security margins are vulnerable to sybil attacks, where a single attacker creates thousands of simulated nodes on a server or botnet and uses these nodes to unilaterally secure a majority share.
-        </p>
-        <p>The innovation provided by Satoshi is the idea of combining a very simple decentralized consensus protocol, based on nodes combining transactions into a "block" every ten minutes creating an ever-growing blockchain, with proof of work as a mechanism through which nodes gain the right to participate in the system. While nodes with a large amount of computational power do have proportionately greater influence, coming up with more computational power than the entire network combined is much harder than simulating a million nodes. Despite the Bitcoin blockchain model's crudeness and simplicity, it has proven to be good enough, and would over the next five years become the bedrock of over two hundred currencies and protocols around the world.
-        </p>
     </div>
     <div class="col-lg-5 anno">
         <h3>&nbsp;</h3>
@@ -166,21 +185,41 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
         </p>
         <p><a href="https://en.wikipedia.org/wiki/Wei_Dai">Wei Dai</a> <a href="/resources/ethereum-whitepaper-annotated/bmoney (1998).txt">proposed</a> <a href="https://en.bitcoin.it/wiki/B-money">B-money</a> in 1998 as an "anonymous, distributed electronic cash system".
         </p>
-        <p><a href="https://en.wikipedia.org/wiki/Hal_Finney_(computer_scientist)">Hal Finney</a> was a developer and early bitcoin contributor receiving the first bitcoin transaction.
+        <p><a href="https://en.wikipedia.org/wiki/Hal_Finney_(computer_scientist)">Hal Finney</a> was an early bitcoin contributor.
         </p>
         <p><a href="https://en.wikipedia.org/wiki/Proof_of_work">Proof-of-work</a> is a cryptographic zero-knowledge proof in which one party (the prover) proves to others (the verifiers) that an amount of computational effort has been expended.
+            It is an example of a <a href="https://en.wikipedia.org/wiki/Consensus_(computer_science)#Permissioned_versus_permissionless_consensus">permissionless consensus protocol</a> that allows anyone in the network to join dynamically and participate without prior permission.
         </p>
-        <p><a href="https://en.wikipedia.org/wiki/Hashcash">Hashcash</a> is a proof-of-work system <a href="/resources/ethereum-whitepaper-annotated/Hashcash (2002).pdf">proposed</a> in 1997 by <a href="https://en.wikipedia.org/wiki/Adam_Back">Adam Back</a> used to limit email spam and denial-of-service attacks.
+        <p><a href="https://en.wikipedia.org/wiki/Hashcash">Hashcash</a> is a proof-of-work system <a href="/resources/ethereum-whitepaper-annotated/Hashcash (2002).pdf">proposed</a> in 1997 by <a href="https://en.wikipedia.org/wiki/Adam_Back">Adam Back</a>.
         </p>
-        <p>A <a href="https://en.wikipedia.org/wiki/Cryptocurrency">cryptocurrency</a> is designed to be a medium of exchange where coin ownership is cryptographicallly stored in an immutable ledger.
+        <p>A <a href="https://en.wikipedia.org/wiki/Cryptocurrency">cryptocurrency</a> is a sub-type of <a href="https://en.wikipedia.org/wiki/Digital_currency#Digital_versus_cryptocurrency">digital currency</a> that relies on cryptography to chain together digital signatures of asset transfers.
         </p>
     </div>
 </div>
 
 <div class="row">
     <div class="col-lg-7">
+        <p>Because currency is a first-to-file application, where the order of transactions is often of critical importance, decentralized currencies require a solution to <span class="hl">decentralized consensus</span>. The main roadblock that all pre-Bitcoin currency protocols faced is the fact that, while there had been plenty of research on creating secure <span class="hl">Byzantine-fault-tolerant</span> multiparty consensus systems for many years, all of the protocols described were solving only half of the problem. The protocols assumed that all participants in the system were known, and produced security margins of the form "if N parties participate, then the system can tolerate up to N/4 malicious actors". The problem is, however, that in an <span class="hl">anonymous setting</span> such security margins are vulnerable to <span class="hl">sybil attacks</span>, where a single attacker creates thousands of simulated nodes on a server or botnet and uses these nodes to unilaterally secure a majority share.
+        </p>
+        <p>The innovation provided by Satoshi is the idea of combining a very simple decentralized consensus protocol, based on nodes combining transactions into a "block" every ten minutes creating an ever-growing blockchain, with proof of work as a mechanism through which nodes gain the right to participate in the system. While nodes with a large amount of computational power do have proportionately greater influence, coming up with more computational power than the entire network combined is much harder than simulating a million nodes. Despite the Bitcoin blockchain model's crudeness and simplicity, it has proven to be good enough, and would over the next five years become the bedrock of over two hundred currencies and protocols around the world.
+        </p>
+    </div>
+    <div class="col-lg-5 anno">
+        <p>A fundamental problem in distributed computing is to coordinate processes to <a href="https://en.wikipedia.org/wiki/Consensus_(computer_science)#Permissionless_consensus_protocols">reach consensus</a> on some data value that is needed during computation.
+        </p>
+        <p>A <a href="https://en.wikipedia.org/wiki/Byzantine_fault">Byzantine fault</a> is any fault presenting different symptoms to different observers.
+           <a href="https://en.wikipedia.org/wiki/Byzantine_fault#Resolution">Byzantine fault tolerance</a> is the dependability of a computer system to such conditions and can be achieved if the non-faulty participants have a <a href="https://en.wikipedia.org/wiki/Consensus_(computer_science)">consensus</a>.
+        </p>
+        <p>Nodes can be anonymous and there are no access controls in an open, <a href="https://en.wikipedia.org/wiki/Blockchain#Openness">permissionless blockchain</a>.
+        </p>
+        <p>A <a href="https://en.wikipedia.org/wiki/Sybil_attack">Sybil attack</a> is when an attacker creates a large number of pseudonymous identities and uses them to gain a large influence. Imposing economic costs may be used to make Sybil attacks more expensive.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-7">
         <h3>1.2 Bitcoin As A State Transition System</h3>
-        <p>TODO: img
+        <p><img src="/img/ethereum-whitepaper-annotated/history1.png" />
         </p>
         <p>From a technical standpoint, the Bitcoin ledger can be thought of as a state transition system, where there is a "state" consisting of the ownership status of all existing bitcoins and a "state transition function" that takes a state and a transaction and outputs a new state which is the result. In a standard banking system, for example, the state is a balance sheet, a transaction is a request to move $X from A to B, and the state transition function reduces the value in A's account by $X and increases the value in B's account by $X. If A's account has less than $X in the first place, the state transition function returns an error. Hence, one can formally define:
         </p>
