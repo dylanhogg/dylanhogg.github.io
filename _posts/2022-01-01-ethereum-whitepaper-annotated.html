@@ -2,11 +2,11 @@
 layout:     widepost
 title:      "Ethereum Whitepaper - Annotated"
 subtitle:   ""
-date:       2021-11-07 09:00:00
+date:       2021-11-14 09:00:00
 tags:       [Ethereum, Whitepaper, Blockchain]
 author:     "Dylan Hogg"
 header-img: "img/apps-bg.jpg"
-published:  false
+published:  true
 comments:   true
 ---
 
@@ -19,7 +19,7 @@ https://ethereum.github.io/yellowpaper/paper.pdf (2021-10-15)
 https://ethereum.org/en/learn/
 https://eth.wiki/
 
-Original pdf sources:
+Original sources:
 https://www.semanticscholar.org/paper/A-Next-Generation-Smart-Contract-and-Decentralized-Buterin/0dbb8a54ca5066b82fa086bbf5db4c54b947719a
 https://blockchainlab.com/pdf/Ethereum_white_paper-a_next_generation_smart_contract_and_decentralized_application_platform-vitalik-buterin.pdf
 http://www.fintech.academy/wp-content/uploads/2016/06/EthereumWhitePaper.pdf
@@ -27,6 +27,7 @@ http://www.fintech.academy/wp-content/uploads/2016/06/EthereumWhitePaper.pdf
 Vitalik:
 https://vitalik.ca/
 http://web.archive.org/web/20131228111141/http://vbuterin.com/ethereum.html
+https://blog.ethereum.org/2014/11/13/scalability-part-3-metacoin-history-multichain/ (reference to missing original whitepaper, link to web.archive.org)
 
 General refs:
 https://medium.com/@FolusoOgunlana/cracking-the-ethereum-white-paper-e0e60c44126
@@ -362,29 +363,40 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
 <div class="row">
     <div class="col-lg-7">
         <h3>1.5 Alternative Blockchain Applications</h3>
-        <p>The idea of taking the underlying blockchain idea and applying it to other concepts also has a long history. In 2005, <span class="hl">Nick Szabo</span> came out with the concept of "secure property titles with owner authority", a document describing how "new advances in replicated database technology" will allow for a blockchain-based system for storing a registry of who owns what land, creating an elaborate framework including concepts such as homesteading, adverse possession and Georgian land tax. However, there was unfortunately no effective replicated database system available at the time, and so the protocol was never implemented in practice. After 2009, however, once Bitcoin's decentralized consensus was developed a number of alternative applications rapidly began to emerge:
+        <p>The idea of taking the underlying blockchain idea and applying it to other concepts also has a long history. In 2005, <span class="hl">Nick Szabo</span> came out with the concept of "<span class="hl">secure property titles with owner authority</span>", a document describing how "new advances in replicated database technology" will allow for a blockchain-based system for storing a registry of who owns what land, creating an elaborate framework including concepts such as homesteading, adverse possession and Georgian land tax. However, there was unfortunately no effective replicated database system available at the time, and so the protocol was never implemented in practice. After 2009, however, once Bitcoin's decentralized consensus was developed a number of alternative applications rapidly began to emerge:
         </p>
-        <p>● <b><span class="hl">Namecoin</span></b> - created in 2010, Namecoin is best described as a decentralized name registration database. In decentralized protocols like Tor, Bitcoin and BitMessage, there needs to be some way of identifying accounts so that other people can interact with them, but in all existing solutions the only kind of identifier available is a pseudorandom hash like1LW79wp5ZBqaHW1jL5TCiBCrhQYtHagUWy. Ideally, one would like to be able to have an account with a name like "george". However, the problem is that if one person can create an account named "george" then someone else can use the same process to register "george" for themselves as well and impersonate them. The only solution is a first-to-file paradigm, where the first registrant succeeds and the second fails - a problem perfectly suited for the Bitcoin consensus protocol. Namecoin is the oldest, and most successful, implementation of a name registration system using such an idea.
+        <p>● <b><span class="hl">Namecoin</span></b> - created in 2010, Namecoin is best described as a decentralized name registration database. In decentralized protocols like <span class="hl">Tor</span>, Bitcoin and <span class="hl">BitMessage</span>, there needs to be some way of identifying accounts so that other people can interact with them, but in all existing solutions the only kind of identifier available is a pseudorandom hash like 1LW79wp5ZBqaHW1jL5TCiBCrhQYtHagUWy. Ideally, one would like to be able to have an account with a name like "george". However, the problem is that if one person can create an account named "george" then someone else can use the same process to register "george" for themselves as well and impersonate them. The only solution is a <span class="hl">first-to-file paradigm</span>, where the first registrant succeeds and the second fails - a problem perfectly suited for the Bitcoin consensus protocol. Namecoin is the oldest, and most successful, implementation of a name registration system using such an idea.
         </p>
-        <p>● <b><span class="hl">Colored coins</span></b> - the purpose of colored coins is to serve as a protocol to allow people to create their own digital currencies - or, in the important trivial case of a currency with one unit, digital tokens, on the Bitcoin blockchain. In the colored coins protocol, one "issues" a new currency by publicly assigning a color to a specific Bitcoin UTXO, and the protocol recursively defines the color of other UTXO to be the same as the color of the inputs that the transaction creating them spent (some special rules apply in the case of mixed-color inputs). This allows users to maintain wallets containing only UTXO of a specific color and send them around much like regular bitcoins, backtracking through the blockchain to determine the color of any UTXO that they receive.
+        <p>● <b><span class="hl">Colored coins</span></b> - the purpose of colored coins is to serve as a protocol to <span class="hl">allow people to create their own digital currencies</span> - or, in the important trivial case of a currency with one unit, digital tokens, on the Bitcoin blockchain. In the colored coins protocol, one "issues" a new currency by publicly assigning a color to a specific Bitcoin UTXO, and the protocol recursively defines the color of other UTXO to be the same as the color of the inputs that the transaction creating them spent (some special rules apply in the case of mixed-color inputs). This allows users to maintain wallets containing only UTXO of a specific color and send them around much like regular bitcoins, backtracking through the blockchain to determine the color of any UTXO that they receive.
         </p>
-        <p>● <b><span class="hl">Metacoins</span></b> - the idea behind a metacoin is to have a protocol that lives on top of Bitcoin, using Bitcoin transactions to store metacoin transactions but having a different state transition function, APPLY'. Because the metacoin protocol cannot prevent invalid metacoin transactions from appearing in the Bitcoin blockchain, a rule is added that if APPLY'(S,TX) returns an error, the protocol defaults to APPLY'(S,TX) = S. This provides an easy mechanism for creating an arbitrary cryptocurrency protocol, potentially with advanced features that cannot be implemented inside of Bitcoin itself, but with a very low development cost since the complexities of mining and networking are already handled by the Bitcoin protocol.
+        <p>● <b><span class="hl">Metacoins</span></b> - the idea behind a metacoin is to have <span class="hl">a protocol that lives on top of Bitcoin, using Bitcoin transactions to store metacoin transactions but having a different state transition function, APPLY'</span>. Because the metacoin protocol cannot prevent invalid metacoin transactions from appearing in the Bitcoin blockchain, a rule is added that if APPLY'(S,TX) returns an error, the protocol defaults to APPLY'(S,TX) = S. <span class="hl">This provides an easy mechanism for creating an arbitrary cryptocurrency protocol</span>, potentially with advanced features that cannot be implemented inside of Bitcoin itself, but with a very low development cost since the complexities of mining and networking are already handled by the Bitcoin protocol.
         </p>
-        <p>Thus, in general, there are two approaches toward building a consensus protocol: building an independent network, and building a protocol on top of Bitcoin. The former approach, while reasonably successful in the case of applications like Namecoin, is difficult to implement; each individual implementation needs to bootstrap an independent blockchain, as well as building and testing all of the necessary state transition and networking code. Additionally, we predict that the set of applications for decentralized consensus technology will follow a power law distribution where the vast majority of applications would be too small to warrant their own blockchain, and we note that there exist large classes of decentralized applications, particularly decentralized autonomous organizations, that need to interact with each other.
+        <p>Thus, in general, <span class="hl">there are two approaches toward building a consensus protocol: building an independent network, and building a protocol on top of Bitcoin</span>. The former approach, while reasonably successful in the case of applications like Namecoin, is difficult to implement; each individual implementation needs to bootstrap an independent blockchain, as well as building and testing all of the necessary state transition and networking code. Additionally, we predict that the set of applications for decentralized consensus technology will follow a power law distribution where the vast majority of applications would be too small to warrant their own blockchain, and we note that there exist large classes of decentralized applications, particularly decentralized autonomous organizations, that need to interact with each other.
         </p>
         <p>The Bitcoin-based approach, on the other hand, has the flaw that it does not inherit the simplified payment verification features of Bitcoin. SPV works for Bitcoin because it can use blockchain depth as a proxy for validity; at some point, once the ancestors of a transaction go far enough back, it is safe to say that they were legitimately part of the state. Blockchain-based meta-protocols, on the other hand, cannot force the blockchain not to include transactions that are not valid within the context of their own protocols. Hence, a fully secure SPV meta-protocol implementation would need to backward scan all the way to the beginning of the Bitcoin blockchain to determine whether or not certain transactions are valid. Currently, all "light" implementations of Bitcoin-based meta-protocols rely on a trusted server to provide the data, arguably a highly suboptimal result especially when one of the primary purposes of a cryptocurrency is to eliminate the need for trust.
         </p>
     </div>
     <div class="col-lg-5 anno">
         <h3>&nbsp;</h3>
-        <p>
-            1.5 Annotations
+        <p><a href="https://en.wikipedia.org/wiki/Nick_Szabo">Nick Szabo</a> is a computer scientist, legal scholar, and cryptographer known for his research in digital contracts and digital currency.
         </p>
-        <p>YYY
+        <p>N. Szabo, <a href="/resources/ethereum-whitepaper-annotated/Secure Property Titles with Owner Authority (1998).pdf">Secure Property Titles with Owner Authority</a>, 1998.
         </p>
-        <p>YYY
+        <p><a href="https://www.namecoin.org/">Namecoin</a> is a key/value pair registration and transfer system based on the Bitcoin technology. Similarly, the <a href="https://docs.ens.domains/">Ethereum Name Service</a> is a distributed, open, and extensible naming system based on the Ethereum blockchain that was started in <a href="https://github.com/ensdomains/ens/commit/5ac4a02fb793c6edfa6ecd6ba63d5954026379df">2016</a>.
         </p>
-        <p>YYY
+        <p><a href="https://en.wikipedia.org/wiki/Tor_(network)">Tor</a> is free, open-source software enabling anonymous communication by directing traffic through a worldwide, volunteer network.
+        </p>
+        <p><a href="https://en.wikipedia.org/wiki/Bitmessage">Bitmessage</a> is a decentralized, encrypted, peer-to-peer, trustless communications protocol released in November 2012.
+        </p>
+        <p>In a <a href="https://en.wikipedia.org/wiki/First_to_file_and_first_to_invent">first-to-file</a> system, the right to the grant of a patent lies with the first person to file a patent application, regardless of the invention date.
+        </p>
+        <p>The term "<a href="https://en.bitcoin.it/wiki/Colored_Coins">Colored Coins</a>" loosely describes a class of methods for representing and managing real world assets on a blockchain.</p>
+        <p>In 2013, Buterin briefly worked with <a href="https://en.wikipedia.org/wiki/EToro#History">eToro CEO Yoni Assia</a> on the <a href="https://docs.google.com/a/buterin.com/document/d/1AnkP_cVZTCMLIzw4DvsW6M8Q2JC0lIzrTLuoWu2z1BE/edit">Colored Coins project</a>.
+        </p>
+        <p>The Ethereum <a href="https://ethereum.org/en/developers/docs/standards/tokens/erc-20/">ERC20 Token Standard</a> (proposed by <a href="https://twitter.com/feindura">Fabian Vogelsteller</a> in 2015) allows for fungible tokens and is a similar concept to Colored Coins.</p>
+        <p>A metacoin protocol allows for advanced transactions (custom currencies, <a href="https://en.wikipedia.org/wiki/Decentralized_exchange">decentralized exchanges</a>, derivatives etc) that are implemented on top of another blockchain. In this sense, colored coins are an example of a metacoin.
+        </p>
+        <p><a href="https://blog.ethereum.org/2014/11/13/scalability-part-3-metacoin-history-multichain/">Metacoins require a full client</a> and cannot be supported by a Bitcoin light client. This was one of the reasons Vitalik decided to create Ethereum rather than build on the Bitcoin network.
         </p>
     </div>
 </div>
