@@ -392,11 +392,13 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
         </p>
         <p>The term "<a href="https://en.bitcoin.it/wiki/Colored_Coins">Colored Coins</a>" loosely describes a class of methods for representing and managing real world assets on a blockchain.</p>
         <p>In 2013, Buterin briefly worked with <a href="https://en.wikipedia.org/wiki/EToro#History">eToro CEO Yoni Assia</a> on the <a href="https://docs.google.com/a/buterin.com/document/d/1AnkP_cVZTCMLIzw4DvsW6M8Q2JC0lIzrTLuoWu2z1BE/edit">Colored Coins project</a>.
+            <!-- For Colored Coins also see: https://youtu.be/l9dpjN3Mwps?t=495 (Vitalik Buterin reveals Ethereum at Bitcoin Miami 2014) -->
         </p>
         <p>The Ethereum <a href="https://ethereum.org/en/developers/docs/standards/tokens/erc-20/">ERC20 Token Standard</a> (proposed by <a href="https://twitter.com/feindura">Fabian Vogelsteller</a> in 2015) allows for fungible tokens and is a similar concept to Colored Coins.</p>
-        <p>A metacoin protocol allows for advanced transactions (custom currencies, <a href="https://en.wikipedia.org/wiki/Decentralized_exchange">decentralized exchanges</a>, derivatives etc) that are implemented on top of another blockchain. In this sense, colored coins are an example of a metacoin.
+        <p>A metacoin protocol allows for advanced transactions (custom currencies, <a href="https://en.wikipedia.org/wiki/Decentralized_exchange">decentralized exchanges</a>, derivatives etc) that are implemented on top of another blockchain. In this sense, colored coins are an example of a metacoin implementation.
         </p>
         <p><a href="https://blog.ethereum.org/2014/11/13/scalability-part-3-metacoin-history-multichain/">Metacoins require a full client</a> and cannot be supported by a Bitcoin light client. This was one of the reasons Vitalik decided to create Ethereum rather than build on the Bitcoin network.
+            <!-- For Metacoins also see https://youtu.be/l9dpjN3Mwps?t=541 (Vitalik Buterin reveals Ethereum at Bitcoin Miami 2014) -->
         </p>
     </div>
 </div>
@@ -404,7 +406,7 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
 <div class="row">
     <div class="col-lg-7">
         <h3>1.6 Scripting</h3>
-        <p>Even without any extensions, <span class="hl">the Bitcoin protocol actually does facilitate a weak version of a concept of "smart contracts"</span>. UTXO in Bitcoin can be owned not just by a public key, but also by a more complicated script expressed in a simple stack-based programming language. In this paradigm, a transaction spending that UTXO must provide data that satisfies the script. Indeed, even the basic public key ownership mechanism is implemented via a script: the script takes an <span class="hl">elliptic curve signature</span> as input, verifies it against the transaction and the address that owns the UTXO, and returns 1 if the verification is successful and 0 otherwise. Other, more complicated, scripts exist for various additional use cases. For example, one can construct a script that requires signatures from two out of a given three private keys to validate ("<span class="hl">multisig</span>"), a setup useful for corporate accounts, secure savings accounts and some merchant escrow situations. Scripts can also be used to pay bounties for solutions to computational problems, and one can even construct a script that says something like "this Bitcoin UTXO is yours if you can provide an SPV proof that you sent a <span class="hl">Dogecoin</span> transaction of this denomination to me", essentially allowing <span class="hl">decentralized cross-cryptocurrency exchange</span>.
+        <p>Even without any extensions, <span class="hl">the Bitcoin protocol actually does facilitate a weak version of a concept of "smart contracts"</span>. UTXO in Bitcoin can be owned not just by a public key, but also by a more complicated script expressed in a simple stack-based programming language. In this paradigm, a transaction spending that UTXO must provide data that satisfies the script. Indeed, even the basic public key ownership mechanism is implemented via a script: the script takes an <span class="hl">elliptic curve signature</span> as input, verifies it against the transaction and the address that owns the UTXO, and returns 1 if the verification is successful and 0 otherwise. Other, more complicated, scripts exist for various additional use cases. For example, one can construct a script that requires signatures from two out of a given three private keys to validate ("<span class="hl">multisig</span>"), a setup useful for corporate accounts, secure savings accounts and some merchant escrow situations. Scripts can also be used to pay bounties for solutions to computational problems, and one can even construct a script that says something like "this Bitcoin UTXO is yours if you can provide an SPV proof that you sent a Dogecoin transaction of this denomination to me", essentially allowing <span class="hl">decentralized cross-cryptocurrency exchange</span>.
         </p>
         <p>However, the scripting language as implemented in Bitcoin has several important limitations:
         </p>
@@ -419,14 +421,23 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
     </div>
     <div class="col-lg-5 anno">
         <h3>&nbsp;</h3>
-        <p>
-            1.6 Annotations
+        <p>A <a href="https://en.wikipedia.org/wiki/Smart_contract">smart contract</a> is a program that runs on a blockchain with the objectives of reduction in trusted intermediators, arbitrations, enforcement costs and fraud losses.
         </p>
-        <p>YYY
+        <p>Many ideas underlying <a href="https://en.bitcoin.it/wiki/Contract">Bitcoin contracts</a> were first described by <a href="https://en.wikipedia.org/wiki/Nick_Szabo">Nick Szabo</a> in <a href="/resources/ethereum-whitepaper-annotated/Formalizing and Securing Relationships on Public Networks (1997).pdf">Formalizing and Securing Relationships on Public Networks</a>.
         </p>
-        <p>YYY
+        <p>The <a href="https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm">Elliptic Curve Digital Signature Algorithm</a> (ECDSA) offers a variant of the <a href="https://en.wikipedia.org/wiki/Digital_Signature_Algorithm">Digital Signature Algorithm</a> (DSA) which uses <a href="https://en.wikipedia.org/wiki/Elliptic-curve_cryptography">elliptic curve cryptography</a>.
         </p>
-        <p>YYY
+        <p><a href="https://en.wikipedia.org/wiki/Multisignature">Multisig</a> is a digital signature scheme which allows a group of users to sign a single document.
+        </p>
+        <p><a href="https://en.wikipedia.org/wiki/Decentralized_exchange">Decentralized exchanges</a> (DEX) are a type of cryptocurrency exchange which allows for direct peer-to-peer cryptocurrency transactions without the need for an intermediary.
+        </p>
+        <p>A programming language that is <a href="https://en.wikipedia.org/wiki/Turing_completeness">Turing complete</a> is theoretically capable of expressing all tasks accomplishable by computers
+        </p>
+        <p>A bitcoin wallet balance is the sum of the <a href="https://en.bitcoin.it/wiki/UTXO">UTXOs</a> controlled by the wallet's private keys. It doesn't have a defined account balance.
+        </p>
+        <p><a href="https://www.reddit.com/r/ethereum/comments/48yrib/can_someone_explain_this_section_of_the_white/">UTXO code is deliberately limited</a>. Coins can't tell what they're being divided into - this creates value-blindness in the case of an oracle contract.
+        </p>
+        <p>Ethereum solves value and blockchain blindness through the use of <a href="https://ethereum.org/en/developers/docs/accounts/">accounts</a> with balance and nonce fields.
         </p>
     </div>
 </div>
