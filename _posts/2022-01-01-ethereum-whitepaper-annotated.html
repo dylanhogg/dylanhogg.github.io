@@ -471,14 +471,12 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
     </div>
     <div class="col-lg-5 anno">
         <h3>&nbsp;</h3>
-        <p>
-            2.1 Annotations
+        <p>An <a href="https://ethereum.org/en/developers/docs/accounts/">Ethereum account</a> is an entity with an ether (ETH) balance that can send <a href="https://ethereum.org/en/developers/docs/transactions/">transactions</a> on Ethereum.
+           Accounts can be user-controlled via private key (Externally-owned) or deployed as smart contracts (Contract account).
         </p>
-        <p>YYY
+        <p>An Externally-owned account costs nothing to create, can initiate transactions and transactions can only be ETH/token transfers.
         </p>
-        <p>YYY
-        </p>
-        <p>YYY
+        <p>A Contract account costs ETH to create because you're using network storage, can only send transactions in response to receiving a transaction and transactions from an external account can trigger code.
         </p>
     </div>
 </div>
@@ -495,14 +493,18 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
     </div>
     <div class="col-lg-5 anno">
         <h3>&nbsp;</h3>
-        <p>
-            2.2 Annotations
+        <p><a href="https://ethereum.org/en/developers/docs/transactions/">Transactions</a> are cryptographically signed instructions from accounts. An account will initiate a transaction to update the state of the Ethereum network.
         </p>
-        <p>TODO: https://www.ethdocs.org/en/latest/contracts-and-transactions/account-types-gas-and-transactions.html#what-is-gas
+        <p>Any node can broadcast a request for a transaction to be executed on the <a href="https://ethereum.org/en/developers/docs/evm/">Ethereum Virtual Machine</a> (EVM). After this happens, a <a href="https://ethereum.org/en/developers/docs/consensus-mechanisms/pow/mining/">miner</a> will execute the transaction and propagate the resulting state change to the rest of the network.
         </p>
-        <p>YYY
+        <p>Ethereum is moving to a consensus mechanism called <a href="https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/">proof-of-stake</a> (PoS) from <a href="https://ethereum.org/en/developers/docs/consensus-mechanisms/pow/">proof-of-work</a> (PoW) in 2022.
         </p>
-        <p>YYY
+        <p><a hef="https://ethereum.org/en/developers/docs/gas/">Gas</a> refers to the unit that measures the amount of computational effort required to execute specific operations on the Ethereum network. Gas fees are paid in Ethereum's native currency, ether (ETH).
+        </p>
+        <p>There are 2 main transaction types: Regular transactions from one wallet to another and contract deployment transactions without a 'to' address, where the data field is used for the contract code.
+        </p>
+        <p>There are more transaction types, including <a href="https://blog.mycrypto.com/new-transaction-types-on-ethereum/">legacy 'v' transactions</a> and new Typed Transaction Envelope transactions defined by <a href="https://eips.ethereum.org/EIPS/eip-2718">EIP-2718</a>.
+            <!-- TODO: revise the above -->
         </p>
     </div>
 </div>
