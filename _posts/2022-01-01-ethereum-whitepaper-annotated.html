@@ -298,17 +298,6 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
         </p>
         <p><a href="https://ethereum.org/en/developers/docs/blocks/">Blocks</a> are batches of transactions with a hash of the previous block in the chain. This links blocks together (in a chain) because hashes are cryptographically derived from the block data.
         </p>
-        <p class="align-left"><a href="https://ethereum.org/en/developers/docs/blocks/#block-anatomy">What's in an Ethereum block?</a><br />
-            1. timestamp<br />
-            2. blockNumber<br />
-            3. baseFeePerGas<br />
-            4. difficulty<br />
-            5. mixHash<br />
-            6. parentHash<br />
-            7. transactions<br />
-            8. stateRoot<br />
-            9. nonce
-        </p>
         <p><a href="https://en.wikipedia.org/wiki/SHA-2">SHA-2</a> (<a href="/resources/ethereum-whitepaper-annotated/On the Secure Hash Algorithm family (2008).pdf">Secure Hash Algorithm 2</a>) is a set of cryptographic hash functions designed by the <a href="https://en.wikipedia.org/wiki/National_Security_Agency">NSA</a> in 2001 and includes SHA-256.
         </p>
         <p>Each transaction <a href="https://ethereum.org/en/developers/docs/gas/#what-is-gas">requires a fee</a> since each Ethereum transaction uses computational resources to execute.
@@ -567,7 +556,7 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
 <div class="row">
     <div class="col-lg-7">
         <h3>2.4 Code Execution</h3>
-        <p>The code in Ethereum contracts is written in a low-level, stack-based bytecode language, referred to as "<span class="hl">Ethereum virtual machine code</span>" or "EVM code". The code consists of a series of bytes, where each byte represents an operation. In general, code execution is an infinite loop that consists of repeatedly carrying out the operation at the current program counter (which begins at zero) and then incrementing the program counter by one, until the end of the code is reached or an error or STOP or RETURN instruction is detected. The operations have access to three types of space in which to store data:
+        <p>The code in Ethereum contracts is written in a low-level, stack-based bytecode language, referred to as "<span class="hl">Ethereum virtual machine code</span>" or "EVM code". <span class="hl">The code consists of a series of bytes, where each byte represents an operation</span>. In general, code execution is an infinite loop that consists of repeatedly carrying out the operation at the current program counter (which begins at zero) and then incrementing the program counter by one, until the end of the code is reached or an error or STOP or RETURN instruction is detected. The operations have access to three types of space in which to store data:
         </p>
         <p>● The <b><span class="hl">stack</span></b>, a last-in-first-out container to which 32-byte values can be pushed and popped<br />
             ● <b><span class="hl">Memory</span></b>, an infinitely expandable byte array<br />
@@ -580,14 +569,13 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
     </div>
     <div class="col-lg-5 anno">
         <h3>&nbsp;</h3>
-        <p>
-            2.4 Annotations
+        <p>The <a href="https://ethereum.org/en/developers/docs/evm/#evm-instructions">EVM</a> executes as a <a href="https://en.wikipedia.org/wiki/Stack_machine">stack machine</a> with a depth of 1024 items. Each item is a 256-bit word, which was chosen for the ease of use with 256-bit cryptography
         </p>
-        <p>YYY
+        <p>Compiled smart contract bytecode executes as a number of <a href="https://ethereum.org/en/developers/docs/evm/opcodes/">EVM opcodes</a>, which perform standard stack operations like XOR, AND, ADD, SUB, etc. The EVM also implements a number of blockchain-specific stack operations, such as ADDRESS, BALANCE, BLOCKHASH, etc.
         </p>
-        <p>YYY
+        <p>During execution, the EVM maintains a transient memory which does not persist between transactions. Contracts, however, do contain a Merkle Patricia storage trie associated with the account in question and part of the global state.
         </p>
-        <p>YYY
+        <p>All <a href="https://ethereum.org/en/developers/docs/evm/#evm-implementations">EVM implementations</a> must adhere to the specification described in the <a href="https://ethereum.github.io/yellowpaper/paper.pdf">Ethereum Yellowpaper</a>.
         </p>
     </div>
 </div>
@@ -602,7 +590,7 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
         <p>1. Check if the previous block referenced exists and is valid.<br />
            2. Check that the timestamp of the block is greater than that of the referenced previous block and less than 15 minutes into the future<br />
            3. Check that the block number, difficulty, transaction root, uncle root and gas limit (various low-level Ethereum-specific concepts) are valid.<br />
-           4. Check that the proof of work on the block is valid.<br />
+            4. <span class="hl">Check that the proof of work on the block is valid.</span><br />
            5. Let S[0] be the STATE_ROOT of the previous block.<br />
            6. Let TX be the block's transaction list, with n transactions. For all in in 0...n-1, setS[i+1] =
            APPLY(S[i],TX[i]). If any applications returns an error, or if the total gas consumed in the block up
@@ -615,14 +603,30 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
     </div>
     <div class="col-lg-5 anno">
         <h3>&nbsp;</h3>
-        <p>
-            2.5 Annotations
+        <p><a href="https://ethereum.org/en/developers/docs/blocks/">Blocks</a> are batches of transactions with a hash of the previous block in the chain. This links blocks together (in a chain) because hashes are cryptographically derived from the block data.
         </p>
-        <p>YYY
+        <p class="align-left"><a href="https://ethereum.org/en/developers/docs/blocks/#block-anatomy">What's in an Ethereum block?</a><br />
+            1. timestamp<br />
+            2. blockNumber<br />
+            3. baseFeePerGas<br />
+            4. difficulty<br />
+            5. mixHash<br />
+            6. parentHash<br />
+            7. transactions<br />
+            8. stateRoot<br />
+            9. nonce
         </p>
-        <p>YYY
+        <p>The <a href="https://ethereum.org/en/developers/docs/consensus-mechanisms/pow/#how-it-works">proof-of-work</a> protocol, <a href="https://eth.wiki/en/concepts/ethash/ethash">Ethash</a>, requires miners to go through a race of trial and error to find the nonce for a block. Only blocks with a valid nonce can be added to the chain.
         </p>
-        <p>YYY
+        <p>When racing to <a href="https://ethereum.org/en/developers/docs/consensus-mechanisms/pow/mining/">mine a block</a>, a miner will repeatedly put a dataset, that you can only get from downloading and running the full chain (as a miner does), through a mathematical function. The dataset gets used to generate a mixHash below a target nonce, as dictated by the block difficulty.
+        </p>
+        <p>The difficulty determines the target for the hash. The lower the target, the smaller the set of valid hashes. Once generated, this is incredibly easy for other miners and clients to verify.
+        </p>
+        <p>The objective of proof-of-work is to extend the chain. The longest chain is most believable as the valid one because it's had the most computational work done. To consistently create malicious yet valid blocks, you'd need over 51% of the network mining power.
+        </p>
+        <p>A major criticism of proof-of-work is the amount of energy output required to keep the network safe.
+        </p>
+        <p>Ethereum is moving to a consensus mechanism called <a href="https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/">proof-of-stake</a> from proof-of-work in 2022. At a high level, proof-of-stake has the same end goal as proof-of-work: to help the decentralized network reach consensus securely.
         </p>
     </div>
 </div>
@@ -662,9 +666,9 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
     </div>
     <div class="col-lg-5 anno">
         <h3>&nbsp;</h3>
-        <p>
-            Annotations
+        <p>There are <a href="https://etherscan.io/tokens">thousands of Ethereum tokens</a> standardised by the <a href="https://ethereum.org/en/developers/docs/standards/tokens/erc-20/">ERC-20 fungible token standard</a>, where by <a href="https://en.wikipedia.org/wiki/Fungibility">fungibility</a> is the property of a good or a commodity whose individual units are essentially interchangeable
         </p>
+        <p>Additionally there are <a href="https://ethereum.org/en/developers/docs/standards/tokens/">other ERC token standards</a> for <a href="https://en.wikipedia.org/wiki/Non-fungible_token">non-fungible</a> tokens (NFT's).</p>
     </div>
 </div>
 
@@ -687,14 +691,13 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
     </div>
     <div class="col-lg-5 anno">
         <h3>&nbsp;</h3>
-        <p>
-            Annotations
+        <p><a href="https://www.coingecko.com/en/coins/dai">DAI</a> is an example of an Ethereum based <a href="https://en.wikipedia.org/wiki/Stablecoin">stable coin</a> that is soft pegged to the US Dollar.
         </p>
-        <p>YYY
+        <p><a href="https://www.coingecko.com/en/coins/chainlink">Chainlink</a> is an example of a Ethereum based distributed <a href="https://en.wikipedia.org/wiki/Blockchain_oracle">oracle</a> enabling the creation of hybrid smart contracts by connecting with the outside world.
         </p>
-        <p>YYY
+        <p><a href="https://www.coingecko.com/en/coins/uniswap">Uniswap</a> is an example of a decentralized finance protocol that is used to exchange cryptocurrencies.
         </p>
-        <p>YYY
+        <p>There are <a href="https://ethereum.org/en/dapps/?category=finance">many many more</a> decentralised finance (DeFi) examples around lending, borrowing, swaps, trading, payments etc.
         </p>
     </div>
 </div>
@@ -713,10 +716,9 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
     </div>
     <div class="col-lg-5 anno">
         <h3>&nbsp;</h3>
-        <p>
-            Annotations
+        <p><a href="https://www.coingecko.com/en/coins/ethereum-name-service">Ethereum Name Service</a> (ENS) is a decentralized naming system mallowing human-readable names like "bob.eth" to map to identifiers such as addresses, content hashes, and metadata.
         </p>
-        <p>YYY
+        <p>https://erc725alliance.org/ & https://github.com/ERC725Alliance/ERC725 & https://github.com/ERC725Alliance/ERC725/blob/main/docs/use-cases.md
         </p>
         <p>YYY
         </p>
