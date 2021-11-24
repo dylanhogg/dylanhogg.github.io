@@ -497,9 +497,11 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
         </p>
         <p>Any node can broadcast a request for a transaction to be executed on the <a href="https://ethereum.org/en/developers/docs/evm/">Ethereum Virtual Machine</a> (EVM). After this happens, a <a href="https://ethereum.org/en/developers/docs/consensus-mechanisms/pow/mining/">miner</a> will execute the transaction and propagate the resulting state change to the rest of the network.
         </p>
+        <p>At any given block in the chain, Ethereum has one and only one 'canonical' state, and the <a href="https://ethereum.org/en/developers/docs/evm/">EVM</a> is what defines the rules for computing a new valid state from block to block.
+        </p>
         <p>Ethereum is moving to a consensus mechanism called <a href="https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/">proof-of-stake</a> (PoS) from <a href="https://ethereum.org/en/developers/docs/consensus-mechanisms/pow/">proof-of-work</a> (PoW) in 2022.
         </p>
-        <p><a hef="https://ethereum.org/en/developers/docs/gas/">Gas</a> refers to the unit that measures the amount of computational effort required to execute specific operations on the Ethereum network. Gas fees are paid in Ethereum's native currency, ether (ETH).
+        <p><a href="https://ethereum.org/en/developers/docs/gas/">Gas</a> refers to the unit that measures the amount of computational effort required to execute specific operations on the Ethereum network. Gas fees are paid in Ethereum's native currency, ether (ETH).
         </p>
         <p>There are 2 main transaction types: Regular transactions from one wallet to another and contract deployment transactions without a 'to' address, where the data field is used for the contract code.
         </p>
@@ -514,7 +516,7 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
         <h3>2.3 Ethereum State Transition Function</h3>
         <p><img src="/img/ethereum-whitepaper-annotated/ethereum1.png" />
         </p>
-        <p>The Ethereum state transition function, <span class="hl">APPLY(S,TX) -> S'</span> can be defined as follows:
+        <p>The <span class="hl">Ethereum state transition function, APPLY(S,TX) -> S'</span> can be defined as follows:
         </p>
         <p>1. Check if the transaction is well-formed (ie. has the right number of values), the signature is valid, and the nonce matches the nonce in the sender's account. If not, return an error.<br />
            2. Calculate the transaction fee as STARTGAS * GASPRICE, and determine the sending address from the signature. Subtract the fee from the sender's account balance and increment the sender's nonce. If there is not enough balance to spend, return an error.<br />
@@ -529,7 +531,7 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
     if !contract.storage[msg.data[0]]:
         contract.storage[msg.data[0]] = msg.data[1]
         </code>
-        <p>Note that in reality the contract code is written in the low-level EVM code; this example is written in Serpent, our high-level language, for clarity, and can be compiled down to EVM code. Suppose that the contract's storage starts off empty, and a transaction is sent with 10 ether value, 2000 gas, 0.001 ether gasprice, and two data fields: [ 2, 'CHARLIE' ][3]. The process for the state transition function in this case is as follows:
+        <p>Note that in reality the contract code is written in the low-level EVM code; this example is written in <span class="hl">Serpent</span>, our high-level language, for clarity, and can be compiled down to EVM code. Suppose that the contract's storage starts off empty, and a transaction is sent with 10 ether value, 2000 gas, 0.001 ether gasprice, and two data fields: [ 2, 'CHARLIE' ][3]. The process for the state transition function in this case is as follows:
         </p>
         <p>1. Check that the transaction is valid and well formed.<br />
            2. Check that the transaction sender has at least 2000 * 0.001 = 2 ether. If it is, then subtract 2 ether from the sender's account.<br />
@@ -543,14 +545,21 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
     </div>
     <div class="col-lg-5 anno">
         <h3>&nbsp;</h3>
-        <p>
-            2.3 Annotations
+        <p>The EVM behaves as a mathematical function would: Given an input, it produces a deterministic output. This is referred to as a <a href="https://ethereum.org/en/developers/docs/evm/#the-ethereum-state-transition-function">state transition function</a>.
         </p>
-        <p>YYY
+        <p>The <a href="https://ethereum.org/en/developers/docs/evm/#state">state</a> is an enormous data structure called a <a href="https://eth.wiki/en/fundamentals/patricia-tree">modified Merkle Patricia Trie</a>, which keeps all accounts linked by hashes and reducible to a single root hash stored on the blockchain.
         </p>
-        <p>YYY
+        <p><a href="https://eth.wiki/archive/serpent">Serpent</a> is a <a href="https://twitter.com/VitalikButerin/status/886400133667201024">deprecated</a> assembly language that compiles to <a href="https://ethereum.org/en/developers/docs/evm/opcodes">EVM code</a>. <a href="https://docs.google.com/document/d/1_PqXuAkvgUAOG3jbBvaUvqN6W90eJ3N4IdTLNMRAijo/edit?usp=sharing">Not recommended</a>.
         </p>
-        <p>YYY
+        <p><a href="https://docs.soliditylang.org/">Solidity</a> is recommeded as a high-level language for implementing smart contracts with Javascript/C++ style.
+        </p>
+        <p><a href="https://vyper.readthedocs.io/">Vyper</a> is the 2nd most popular language with a Pythonic style, although not as complete as Solidity.
+        </p>
+        <p><a href="https://lll-docs.readthedocs.io/">Lisp Like Language</a> (LLL) is good for close-to-the-metal optimizations
+        </p>
+        <p>There are <a href="https://ethereum.org/en/developers/docs/smart-contracts/languages/">additional languages</a> like <a href="https://docs.soliditylang.org/en/latest/yul.html">Yul</a>, <a href="https://github.com/fuellabs/yulp">Yul+</a>, and <a href="https://github.com/ethereum/fe">Fe</a> also.
+        </p>
+        <p><a href="https://ethereum.org/en/developers/docs/gas/#what-is-gas-limit">Gas limit</a> refers to the maximum amount of gas you are willing to consume on a transaction. More complicated transactions involving smart contracts require more computational work, so they require a higher gas limit than a simple payment. Although a transaction includes a limit, any gas not used in a transaction is returned to the user.
         </p>
     </div>
 </div>
