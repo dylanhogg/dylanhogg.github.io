@@ -857,14 +857,13 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
     </div>
     <div class="col-lg-5 anno">
         <h3>&nbsp;</h3>
-        <p>
-            Annotations
+        <p>The GHOST protocol was introduced by Sompolinsky and Zohar in "<a href="/resources/ethereum-whitepaper-annotated/Accelerating Bitcoin’s Transaction Processing (2013).pdf">Accelerating Bitcoin’s Transaction Processing</a>", 2013.
         </p>
-        <p>YYY
+        <p>It appears that <a href="https://ethereum.stackexchange.com/questions/38121/why-did-ethereum-abandon-the-ghost-protocol/50693#50693">Ethereum no longer uses the GHOST protocol</a>. Ethereum does, however, use a modified version of the Inclusive protocol as described by Lewenberg, Sompolinsky and Zohar in "<a href="/resources/ethereum-whitepaper-annotated/Inclusive Block Chain Protocols (2015).pdf">Inclusive Block Chain Protocols</a>", 2015..
         </p>
-        <p>YYY
+        <p>Yonatan Sompolinsky discusses Ethereum dropping the GHOST protocol in this talk: <a href="https://youtu.be/57DCYtk0lWI?t=1418">SPECTRE - BPASE '18 at 23m38s</a>.
         </p>
-        <p>YYY
+        <p>When a miner finds a valid block, another miner may have published a competing block which is added to the tip of the blockchain first. This valid, but stale, block can be included by newer blocks as ommers and receive a partial block reward. The term "ommer" is the preferred gender-neutral term for the sibling of a parent block, but this is also sometimes referred to as an "<a href="https://ethereum.org/en/glossary/#ommer">uncle</a>".
         </p>
     </div>
 </div>
@@ -881,7 +880,7 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
            3. There are N mining nodes, each with exactly equal processing power (ie. 1/N of total)<br />
            4. No non-mining full nodes exist.
         </p>
-        <p>tragedy-of-the-commonsA miner would be willing to process a transaction if the expected reward is greater than the cost</p>. Thus, the expected reward is kR/N since the miner has a 1/N chance of processing the next block, and the processing cost for the miner is simply kC. Hence, miners will include transactions where kR/N > kC, or R > NC. Note that R is the per-operation fee provided by the sender, and is thus a lower bound on the benefit that the sender derives from the transaction, and NC is the cost to the entire network together of processing an operation. Hence, miners have the incentive to include only those transactions for which the total utilitarian benefit exceeds the cost.
+        <p>A miner would be willing to process a transaction if the expected reward is greater than the cost. Thus, the expected reward is kR/N since the miner has a 1/N chance of processing the next block, and the processing cost for the miner is simply kC. Hence, miners will include transactions where kR/N > kC, or R > NC. Note that R is the per-operation fee provided by the sender, and is thus a lower bound on the benefit that the sender derives from the transaction, and NC is the cost to the entire network together of processing an operation. Hence, miners have the incentive to include only those transactions for which the total utilitarian benefit exceeds the cost.
         </p>
         <p>However, there are several important deviations from those assumptions in reality:
         </p>
@@ -895,19 +894,14 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
         <code>
     blk.oplimit = floor((blk.parent.oplimit * (EMAFACTOR - 1) + floor(parent.opcount * BLK_LIMIT_FACTOR)) / EMA_FACTOR)
         </code>
-        <p><span class="hl">BLK_LIMIT_FACTOR</span> and <span class="hl">EMA_FACTOR</span> are constants that will be set to 65536 and 1.5 for the time being, but will likely be changed after further analysis.
+        <p>BLK_LIMIT_FACTOR and EMA_FACTOR are constants that will be set to 65536 and 1.5 for the time being, but will likely be changed after further analysis.
         </p>
     </div>
     <div class="col-lg-5 anno">
         <h3>&nbsp;</h3>
-        <p>
-            Annotations
+        <p>Since each transaction requires computational resources to execute, each transaction requires a fee. Gas refers to the <a href="https://ethereum.org/en/developers/docs/gas/#what-is-gas">fee required to conduct a transaction</a> successfully.
         </p>
-        <p>YYY
-        </p>
-        <p>YYY
-        </p>
-        <p>YYY
+        <p>The <a href="https://en.wikipedia.org/wiki/Tragedy_of_the_commons">tragedy of the commons</a> is a situation in which individual users, who have open access to a resource unhampered by shared social structures or formal rules act independently according to their own self-interest and, contrary to the common good of all users, cause depletion of the resource through their uncoordinated action.
         </p>
     </div>
 </div>
