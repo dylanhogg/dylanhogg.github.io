@@ -2,7 +2,7 @@
 
 ## About
 
-Explorations in AI, Machine Learning and the Future.
+Explorations in AI, Machine Learning, Blockchain and the Future.
 
 [blog.infocruncher.com](http://blog.infocruncher.com/): ![Website Up](https://img.shields.io/website?url=http%3A%2F%2Fblog.infocruncher.com%2F)  
 [dylanhogg.github.io](http://dylanhogg.github.io/): ![Gitpages Up](https://img.shields.io/website?url=http%3A%2F%2Fdylanhogg.github.io%2F)
