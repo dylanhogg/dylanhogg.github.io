@@ -16,8 +16,10 @@ https://ethereum.org/en/whitepaper/
 https://ethereum.org/en/glossary/
 https://github.com/ethereum/ethereum-org-website/blob/dev/src/content/whitepaper/index.md
 https://ethereum.github.io/yellowpaper/paper.pdf (2021-10-15)
+https://github.com/ethereum/execution-specs/tree/master/network-upgrades/mainnet-upgrades
 https://ethereum.org/en/learn/
 https://eth.wiki/
+https://beaconscan.com/
 
 Original sources:
 https://www.semanticscholar.org/paper/A-Next-Generation-Smart-Contract-and-Decentralized-Buterin/0dbb8a54ca5066b82fa086bbf5db4c54b947719a
@@ -33,6 +35,7 @@ General refs:
 https://medium.com/@FolusoOgunlana/cracking-the-ethereum-white-paper-e0e60c44126
 https://www.youtube.com/watch?v=M9zgJoID5r8 (A review of the Ethereum White Paper (Ethereum Explained))
 https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ethereum-White-Paper-Made-Simple.pdf
+https://github.com/wolflo/evm-opcodes
 
 -->
 
@@ -571,7 +574,7 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
         <h3>&nbsp;</h3>
         <p>The <a href="https://ethereum.org/en/developers/docs/evm/#evm-instructions">EVM</a> executes as a <a href="https://en.wikipedia.org/wiki/Stack_machine">stack machine</a> with a depth of 1024 items. Each item is a 256-bit word, which was chosen for the ease of use with 256-bit cryptography
         </p>
-        <p>Compiled smart contract bytecode executes as a number of <a href="https://ethereum.org/en/developers/docs/evm/opcodes/">EVM opcodes</a>, which perform standard stack operations like XOR, AND, ADD, SUB, etc. The EVM also implements a number of blockchain-specific stack operations, such as ADDRESS, BALANCE, BLOCKHASH, etc.
+        <p>Compiled smart contract bytecode executes as a number of <a href="https://ethereum.org/en/developers/docs/evm/opcodes/">EVM opcodes</a>, which perform standard stack operations like XOR, AND, ADD, SUB, etc. The EVM also implements a number of blockchain-specific stack operations, such as ADDRESS, BALANCE, BLOCKHASH, etc. A list is available in the <a href="https://github.com/ethereum/go-ethereum/blob/c10a0a62c3537fbcf899358e3c3d6be9507fa18c/core/vm/opcodes.go#L225">go-ethereum source code</a>.
         </p>
         <p>During execution, the EVM maintains a transient memory which does not persist between transactions. Contracts, however, do contain a Merkle Patricia storage trie associated with the account in question and part of the global state.
         </p>
@@ -901,7 +904,15 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
         <h3>&nbsp;</h3>
         <p>Since each transaction requires computational resources to execute, each transaction requires a fee. Gas refers to the <a href="https://ethereum.org/en/developers/docs/gas/#what-is-gas">fee required to conduct a transaction</a> successfully.
         </p>
+        <p><a href="https://ethereum.org/en/developers/docs/gas/#why-do-gas-fees-exist">Gas fees help keep the Ethereum network secure</a>. By requiring a fee for every computation executed on the network, we prevent bad actors from spamming the network. In order to avoid accidental or hostile infinite loops or other computational wastage in code, each transaction is required to set a limit to how many computational steps of code execution it can use.
+        </p>
         <p>The <a href="https://en.wikipedia.org/wiki/Tragedy_of_the_commons">tragedy of the commons</a> is a situation in which individual users, who have open access to a resource unhampered by shared social structures or formal rules act independently according to their own self-interest and, contrary to the common good of all users, cause depletion of the resource through their uncoordinated action.
+        </p>
+        <p>Around 2019 a hidden "fee" was identified with blockchains: <a href="https://ethereum.org/en/developers/docs/mev/">Maximal extractable value</a> (MEV). This refers to the maximum value that can be extracted from block production in excess of the standard block reward and gas fees by including, excluding, and changing the order of transactions in a block.
+        </p>
+        <p>MEV applies to both proof-of-work and <a href="https://hackmd.io/@flashbots/mev-in-eth2">proof-of-stake blockchains</a> since it comes from being able to order transactions in a block.
+        </p>
+        <p>For further MEV details see "<a href="/resources/ethereum-whitepaper-annotated/Flash Boys 2.0 (2019).pdf">Flash Boys 2.0</a>: Frontrunning, Transaction Reordering, and Consensus Instability in Decentralized Exchanges" (Daian et al, 2019)
         </p>
     </div>
 </div>
@@ -909,7 +920,7 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
 <div class="row">
     <div class="col-lg-7">
         <h3>4.3 Computation And Turing-Completeness</h3>
-        <p>An important note is that the Ethereum virtual machine is Turing-complete; this means that EVM code can encode any computation that can be conceivably carried out, including infinite loops. EVM code allows looping in two ways. First, there is a <span class="hl">JUMP</span> instruction that allows the program to jump back to a previous spot in the code, and a <span class="hl">JUMPI</span> instruction to do conditional jumping, allowing for statements like while x < 27: x = x * 2. Second, <span class="hl">contracts can call other contracts</span>, potentially allowing for looping through recursion. This naturally leads to a problem: can malicious users essentially shut miners and full nodes down by forcing them to enter into an infinite loop? The issue arises because of a problem in computer science known as the halting problem: there is no way to tell, in the general case, whether or not a given program will ever halt.
+        <p>An important note is that the Ethereum virtual machine is Turing-complete; this means that <span class="hl">EVM code can encode any computation that can be conceivably carried out, including infinite loops</span>. EVM code allows looping in two ways. First, there is a <span class="hl">JUMP</span> instruction that allows the program to jump back to a previous spot in the code, and a <span class="hl">JUMPI</span> instruction to do conditional jumping, allowing for statements like while x < 27: x = x * 2. Second, <span class="hl">contracts can call other contracts</span>, potentially allowing for looping through recursion. This naturally leads to a problem: can malicious users essentially shut miners and full nodes down by forcing them to enter into an infinite loop? The issue arises because of a problem in computer science known as the halting problem: there is no way to tell, in the general case, whether or not a given program will ever halt.
         </p>
         <p>As described in the state transition section, our solution works by <span class="hl">requiring a transaction to set a maximum number of computational steps that it is allowed to take, and if execution takes longer computation is reverted but fees are still paid</span>. Messages work in the same way. To show the motivation behind our solution, consider the following examples:
         </p>
@@ -933,14 +944,11 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
     </div>
     <div class="col-lg-5 anno">
         <h3>&nbsp;</h3>
-        <p>
-            Annotations
+        <p><a href="https://ethereum.org/en/developers/docs/gas/#what-is-gas-limit">Gas limit</a> refers to the maximum amount of gas you are willing to consume on a transaction. More complicated transactions involving smart contracts require more computational work than a simple payments.
         </p>
-        <p>YYY
+        <p>For example, if you put a gas limit of L for a transaction, and the transaction consumed C gas where C&lt;L, you would get back the remaining L-C gas.
         </p>
-        <p>YYY
-        </p>
-        <p>YYY
+        <p>However, if L is insufficient, the EVM will consume your L gas units attempting to fulfill the transaction and it will not complete. The EVM then reverts any changes, but since the miner has already done L gas units worth of work, that gas is consumed.
         </p>
     </div>
 </div>
@@ -948,7 +956,7 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
 <div class="row">
     <div class="col-lg-7">
         <h3>4.4 Currency And Issuance</h3>
-        <p>The Ethereum network includes its own built-in currency, <span class="hl">ether</span>, which serves the dual purpose of providing a primary liquidity layer to allow for efficient exchange between various types of digital assets and, more importantly, of providing a mechanism for paying transaction fees. For convenience and to avoid future argument (see the current mBTC/uBTC/satoshi debate in Bitcoin), the denominations will be pre-labelled:
+        <p><span class="hl">The Ethereum network includes its own built-in currency, ether, which serves the dual purpose of providing a primary liquidity layer to allow for efficient exchange between various types of digital assets and, more importantly, of providing a mechanism for paying transaction fees.</span> For convenience and to avoid future argument (see the current mBTC/uBTC/satoshi debate in Bitcoin), the denominations will be pre-labelled:
         </p>
         <p>● 1: wei<br />
            ● 10^12: szabo<br />
@@ -988,22 +996,22 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
     </div>
     <div class="col-lg-5 anno">
         <h3>&nbsp;</h3>
-        <p>
-            Annotations
+        <p>Ethereum does not have a fixed supply because a fixed supply would also require a fixed security budget for the Ethereum network. Rather than arbitrarily fix Ethereum's security, Ethereum's monetary policy is best described as "<a href="https://docs.ethhub.io/ethereum-basics/monetary-policy/">minimum issuance to secure the network</a>".
         </p>
-        <p>YYY
+        <p>The <a href="https://ethereum.org/en/history/#london">London Upgrade</a> was implemented on 5 Aug 2021, to make transacting on Ethereum more predictable for users by overhauling Ethereum's transaction-fee-mechanism. This upgrade included <a href="https://ethereum.org/en/developers/docs/gas/#post-london">offsetting the ETH issuance by burning a percentage of transaction fees</a>.
         </p>
-        <p>YYY
+        <p>The <a href="https://decrypt.co/84520/ethereum-supply-pace-shrink-eth-2-upgrade">supply of Ethereum should decrease</a> after the network transitions from proof of work to proof-of-stake.
         </p>
-        <p>YYY
+        <p>According to simulations from <a href="https://ultrasound.money/">Ethereum tracker Ultrasound Money</a>, after the transition to proof-of-stake, the supply of ETH is set to decline 2% annually. If current rates hold, the blockchain will start burning more Ethereum than it produces with each new block.
         </p>
+        <p><a href="https://eips.ethereum.org/EIPS/eip-3675">EIP-3675</a> details the status of the consensus mechanism upgrade on <a href="https://ethereum.org/en/developers/docs/networks/#mainnet">Ethereum Mainnet</a> that introduces proof-of-stake (expected in 2022 as of Nov 2021).</p>
     </div>
 </div>
 
 <div class="row">
     <div class="col-lg-7">
         <h3>4.5 Mining Centralization</h3>
-        <p>The Bitcoin mining algorithm basically works by having miners compute SHA256 on slightly modified versions of the block header millions of times over and over again, until eventually one node comes up with a version whose hash is less than the target (currently around 2190). However, this mining algorithm is vulnerable to two forms of centralization. First, the mining ecosystem has come to be dominated by ASICs (application-specific integrated circuits), computer chips designed for, and therefore thousands of times more efficient at, the specific task of Bitcoin mining. This means that Bitcoin mining is no longer a highly decentralized and egalitarian pursuit, requiring millions of dollars of capital to effectively participate in. Second, most Bitcoin miners do not actually perform block validation locally; instead, they rely on a centralized mining pool to provide the block headers. This problem is arguably worse: as of the time of this writing, the top two mining pools indirectly control roughly 50% of processing power in the Bitcoin network, although this is mitigated by the fact that miners can switch to other mining pools if a pool or coalition attempts a 51% attack.
+        <p>The <span class="hl">Bitcoin mining algorithm</span> basically works by having miners compute SHA256 on slightly modified versions of the block header millions of times over and over again, until eventually one node comes up with a version whose hash is less than the target (currently around 2190). However, this mining algorithm is vulnerable to two forms of centralization. First, the mining ecosystem has come to be dominated by <span class="hl">ASICs (application-specific integrated circuits)</span>, computer chips designed for, and therefore thousands of times more efficient at, the specific task of Bitcoin mining. This means that Bitcoin mining is no longer a highly decentralized and egalitarian pursuit, requiring millions of dollars of capital to effectively participate in. Second, most Bitcoin miners do not actually perform block validation locally; instead, they rely on a centralized mining pool to provide the block headers. This problem is arguably worse: as of the time of this writing, the top two mining pools indirectly control roughly 50% of processing power in the Bitcoin network, although this is mitigated by the fact that miners can switch to other mining pools if a pool or coalition attempts a 51% attack.
         </p>
         <p><span class="hl">The current intent at Ethereum is to use a mining algorithm based on randomly generating a unique hash function for every 1000 nonces, using a sufficiently broad range of computation to remove the benefit of specialized hardware</span>. Such a strategy will certainly not reduce the gain of centralization to zero, but it does not need to. Note that each individual user, on their private laptop or desktop, can perform a certain quantity of mining activity almost for free, paying only electricity costs, but after the point of 100% CPU utilization of their computer additional mining will require them to pay for both electricity and hardware. ASIC mining companies need to pay for electricity and hardware starting from the first hash. Hence, if the centralization gain can be kept to below this ratio, (E + H) / E, then even if ASICs are made there will still be room for ordinary miners.
         </p>
@@ -1012,14 +1020,23 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
     </div>
     <div class="col-lg-5 anno">
         <h3>&nbsp;</h3>
-        <p>
-            Annotations
+        <p>Bitcoin uses the <a href="https://en.bitcoin.it/wiki/Hashcash#Hashcash">hashcash double SHA-256 function</a> for mining.
         </p>
-        <p>YYY
+        <p>An <a href="https://en.bitcoin.it/wiki/ASIC">ASIC (application-specific integrated circuit)</a> is an <a href="https://en.wikipedia.org/wiki/Integrated_circuit">integrated circuit</a> customized for a particular (rather than general) use. In mining hardware, ASICs were the next step of development after <a href="https://en.bitcoin.it/wiki/Why_a_GPU_mines_faster_than_a_CPU">CPUs, GPUs</a> and <a href="https://en.bitcoin.it/wiki/FPGA">FPGAs</a>.
         </p>
-        <p>YYY
+        <p><a href="https://eth.wiki/en/concepts/ethash/ethash">Ethash</a> is the PoW algorithm for Ethereum 1.0. It uses a variant of <a href="https://en.wikipedia.org/wiki/SHA-3">SHA3</a> often referred to as <a href="https://ethereum.stackexchange.com/questions/550/which-cryptographic-hash-function-does-ethereum-use">Keccak-256</a>.
         </p>
-        <p>YYY
+        <p>Ethash was developed with a strong focus on protection from ASIC miners, however in April 2018, first <a href="https://en.bitcoinwiki.org/wiki/Ethash">ASIC miners for Ethash</a> were announced by <a href="https://en.wikipedia.org/wiki/Bitmain">Bitmain</a>. Afterwards, <a href="https://eips.ethereum.org/EIPS/eip-1057">EIP-1057</a> proposed moving to the <a href="https://ethereum-magicians.org/t/progpow-a-compilation-of-reference-material/3040">ProgPoW algorithm</a>, however this stagnated.
+        </p>
+        <p><a href="https://www.coindesk.com/tech/2021/02/05/what-does-hashrate-mean-and-why-does-it-matter/">Hashrate</a> is the total combined computational power used to mine transactions on a PoW blockchain and is a metric for the security of a blockchain network.
+        </p>
+        <p><a href="https://en.bitcoinwiki.org/wiki/Ethermine">Ethermine</a> (245 TH/s) and <a href="https://en.bitcoinwiki.org/wiki/F2Pool">F2Pool</a> (153 TH/s) are the largest <a href="https://etherscan.io/stat/miner?range=7&blocktype=blocks">Ethereum mining pools</a> (as at Nov 2021).
+        </p>
+        <p>Total hashrate of the <a href="https://etherscan.io/chart/hashrate">Ethereum network</a> is ~800 TH/s while the <a href="https://www.blockchain.com/charts/hash-rate">Bitcoin network</a> is significantly greater at ~150 EH/s or ~150 million TH/s (as at Nov 2021).
+        </p>
+        <p>Ethereum is moving to a consensus mechanism called <a href="https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/#what-is-pos">proof-of-stake</a> from proof-of-work in 2022. PoS requires users to stake 32 ETH to become a validator in the network. Validators are responsible for the same thing as miners in PoW: ordering transactions and creating new blocks so that all nodes can agree on the state of the network.
+        </p>
+        <p>As of Nov 2021, there are 250,000+ <a href="https://beaconscan.com/">active validators</a> providing 8+ million ETH (currently USD$35 billion) as <a href="https://twitter.com/drakefjustin/status/1458470584497721346">economic security</a> for Ethereum 2.0.
         </p>
     </div>
 </div>
@@ -1040,8 +1057,10 @@ https://quotebanq.wpcomstaging.com/wp-content/uploads/2018/08/02.01._final_Ether
         <h3>&nbsp;</h3>
         <p>
             Annotations
+            https://ethereum.org/en/developers/docs/scaling/
+            https://ethereum.org/en/eth2/shard-chains/
         </p>
-        <p>YYY
+        <p>Ethereum’s vision is to be more scalable and secure, but also to remain decentralized. Achieving these 3 qualities is a problem known as the <a href="https://vitalik.ca/general/2021/04/07/sharding.html#the-scalability-trilemma">scalability trilemma</a>.
         </p>
         <p>YYY
         </p>
