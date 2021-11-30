@@ -912,7 +912,7 @@ https://github.com/wolflo/evm-opcodes
         </p>
         <p>MEV applies to both proof-of-work and <a href="https://hackmd.io/@flashbots/mev-in-eth2">proof-of-stake blockchains</a> since it comes from being able to order transactions in a block.
         </p>
-        <p>For further MEV details see "<a href="/resources/ethereum-whitepaper-annotated/Flash Boys 2.0 (2019).pdf">Flash Boys 2.0</a>: Frontrunning, Transaction Reordering, and Consensus Instability in Decentralized Exchanges" (Daian et al, 2019)
+        <p>For further MEV details see "<a href="/resources/ethereum-whitepaper-annotated/Flash Boys 2.0 (2019).pdf">Flash Boys 2.0</a>: Frontrunning, Transaction Reordering, and Consensus Instability in Decentralized Exchanges" (Daian et al, 2019) and <a href="https://ethresear.ch/t/flashbots-frontrunning-the-mev-crisis/8251">Flashbots: Frontrunning the MEV crisis</a>.
         </p>
     </div>
 </div>
@@ -1046,7 +1046,7 @@ https://github.com/wolflo/evm-opcodes
         <h3>4.6 Scalability</h3>
         <p>One common concern about Ethereum is the issue of scalability. <span class="hl">Like Bitcoin, Ethereum suffers from the flaw that every transaction needs to be processed by every node in the network</span>. With Bitcoin, the size of the current blockchain rests at about 20 GB, growing by about 1 MB per hour. If the Bitcoin network were to process Visa's 2000 transactions per second, it would grow by 1 MB per three seconds (1 GB per hour, 8 TB per year). Ethereum is likely to suffer a similar growth pattern, worsened by the fact that there will be many applications on top of the Ethereum blockchain instead of just a currency as is the case with Bitcoin, but ameliorated by the fact that Ethereum full nodes need to store just the state instead of the entire blockchain history.
         </p>
-        <p><span class="hl">The problem with such a large blockchain size is centralization risk</span>. If the blockchain size increases to, say, 100 TB, then the likely scenario would be that only a very small number of large businesses would run full nodes, with all regular users using light SPV nodes. In such a situation, there arises the potential concern that the full nodes could band together and all agree to cheat in some profitable fashion (eg. change the block reward, give themselves BTC). Light nodes would have no way of detecting this immediately. Of course, at least one honest full node would likely exist, and after a few hours information about the fraud would trickle out through channels like Reddit, but at that point it would be too late: it would be up to the ordinary users to organize an effort to blacklist the given blocks, a massive and likely infeasible coordination problem on a similar scale as that of pulling off a successful 51% attack. In the case of Bitcoin, this is currently a problem, but there exists a blockchain modification suggested by <span class="hl">Peter Todd</span> which will alleviate this issue.
+        <p><span class="hl">The problem with such a large blockchain size is centralization risk</span>. If the blockchain size increases to, say, 100 TB, then the likely scenario would be that only a very small number of large businesses would run full nodes, with all regular users using light SPV nodes. In such a situation, there arises the potential concern that the full nodes could band together and all agree to cheat in some profitable fashion (eg. change the block reward, give themselves BTC). Light nodes would have no way of detecting this immediately. Of course, at least one honest full node would likely exist, and after a few hours information about the fraud would trickle out through channels like Reddit, but at that point it would be too late: it would be up to the ordinary users to organize an effort to blacklist the given blocks, a massive and likely infeasible coordination problem on a similar scale as that of pulling off a successful 51% attack. In the case of Bitcoin, this is currently a problem, but there exists a blockchain modification suggested by Peter Todd which will alleviate this issue.
         </p>
         <p>In the near term, Ethereum will use two additional strategies to cope with this problem. First, because of the blockchain-based mining algorithms, at least <span class="hl">every miner will be forced to be a full node</span>, creating a lower bound on the number of full nodes. Second and more importantly, however, we will <span class="hl">include an intermediate state tree root in the blockchain after processing each transaction</span>. Even if block validation is centralized, as long as one honest verifying node exists, the centralization problem can be circumvented via a verification protocol. If a miner publishes an invalid block, that block must either be badly formatted, or the state S[n] is incorrect. Since S[0] is known to be correct, there must be some first state S[i] that is incorrect where S[i-1] is correct. The verifying node would provide the index i, along with a "proof of invalidity" consisting of the subset of Patricia tree nodes needing to process APPLY(S[i-1],TX[i]) -> S[i]. Nodes would be able to use those nodes to run that part of the computation, and see that the S[i] generated does not match the S[i] provided.
         </p>
@@ -1055,16 +1055,15 @@ https://github.com/wolflo/evm-opcodes
     </div>
     <div class="col-lg-5 anno">
         <h3>&nbsp;</h3>
-        <p>
-            Annotations
-            https://ethereum.org/en/developers/docs/scaling/
-            https://ethereum.org/en/eth2/shard-chains/
-        </p>
         <p>Ethereum’s vision is to be more scalable and secure, but also to remain decentralized. Achieving these 3 qualities is a problem known as the <a href="https://vitalik.ca/general/2021/04/07/sharding.html#the-scalability-trilemma">scalability trilemma</a>.
         </p>
-        <p>YYY
+        <p>The <a href="https://ethereum.org/en/developers/docs/scaling/#scaling-overview">main goal of scalability</a> is to increase transaction speed (faster finality), and transaction throughput (high transactions per second), without sacrificing decentralization or security.
         </p>
-        <p>YYY
+        <p><a href="https://ethereum.org/en/developers/docs/scaling/#on-chain-scaling">On-chain scaling</a> requires changes to the Ethereum protocol (layer 1 Mainnet). <a href="https://ethereum.org/en/eth2/shard-chains/">Sharding</a> is currently the main focus for this method of scaling.
+        </p>
+        <p><a href="https://ethereum.org/en/developers/docs/scaling/#off-chain-scaling">Off-chain solutions</a> are implemented separately from layer 1 Mainnet - they require no changes to the existing Ethereum protocol. Some solutions, known as "layer 2" solutions, derive their security directly from layer 1 Ethereum consensus, such as <a href="https://ethereum.org/en/developers/docs/scaling/layer-2-rollups/">rollups</a> or <a href="https://ethereum.org/en/developers/docs/scaling/state-channels/">state channels</a>.
+        </p>
+        <p>As of Nov 2021, Bitcoin processes ~3 txn/second, while Etherem processes ~14 txn/second. Ethereum sharding will, hopefully, provide <a href="https://vitalik.ca/general/2021/04/07/sharding.html">thousands of transactions per second</a>.
         </p>
     </div>
 </div>
@@ -1149,13 +1148,6 @@ https://github.com/wolflo/evm-opcodes
     <div class="col-lg-5 anno">
         <h3>&nbsp;</h3>
         <p>
-            Annotations
-        </p>
-        <p>YYY
-        </p>
-        <p>YYY
-        </p>
-        <p>YYY
         </p>
     </div>
 </div>
