@@ -1,7 +1,6 @@
 # Custom
 .DS_Store
 mail
-package-lock.json
 .ipynb_checkpoints/
 _temp/
 .idea/
