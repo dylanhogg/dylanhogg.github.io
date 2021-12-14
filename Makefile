@@ -4,6 +4,10 @@ AWS_PROFILE=prd-non-tf-905234897161
 AWS_ACCOUNT_ID=905234897161
 AWS_REGION=us-east-1
 
+## Generate min.js and .css from .less files
+grunt-css-js:
+	grunt
+
 ## Jekyll local serve unpublished
 jekyll-serve-unpublished:
 	# Serve site locally at http://localhost:4000/ including unpublished content
