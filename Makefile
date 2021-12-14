@@ -13,6 +13,8 @@ jekyll-serve-unpublished:
 	# Serve site locally at http://localhost:4000/ including unpublished content
 	# Ref: https://jekyllrb.com/docs/usage/
 	# Note: 'bundle exec' runs the exact jekyll server version that is specified in your Gemfile/Gemfile.lock.
+	# Note: grunt generates css and min js files
+	grunt
 	bundle exec jekyll serve --unpublished --verbose
 
 ## Jekyll local serve
@@ -20,6 +22,8 @@ jekyll-serve:
 	# Serve site locally at http://localhost:4000/ EXCLUDING unpublished content
 	# Ref: https://jekyllrb.com/docs/usage/
 	# Note: 'bundle exec' runs the exact jekyll server version that is specified in your Gemfile/Gemfile.lock.
+	# Note: grunt generates css and min js files
+	grunt
 	bundle exec jekyll serve --verbose
 
 ## Jekyll bundle production
@@ -27,6 +31,8 @@ jekyll-bundle-prod:
 	# Build website to ./_site folder in production mode (i.e. include Google Analytics & Disqus client code)
 	# Ref: https://jekyllrb.com/docs/usage/
 	# Note: 'bundle exec' runs the exact jekyll server version that is specified in your Gemfile/Gemfile.lock.
+	# Note: grunt generates css and min js files
+	grunt
 	JEKYLL_ENV=production bundle exec jekyll build --verbose
 
 ## AWS deploy _site to production bucket
