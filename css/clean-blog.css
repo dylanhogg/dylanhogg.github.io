@@ -1,6 +1,6 @@
 /*!
  * Dylan's Blog v1.0.0 (https://blog.infocruncher.com/)
- * Copyright 2021 Dylan Hogg
+ * Copyright 2022 Dylan Hogg
  * Licensed under MIT (https://spdx.org/licenses/MIT)
  */
 

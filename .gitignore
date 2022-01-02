@@ -4,6 +4,7 @@ mail
 .ipynb_checkpoints/
 _temp/
 .idea/
+.jekyll-cache/
 
 # Original
 _site
