@@ -6,19 +6,28 @@ description: "Explorations in Data, AI, Machine Learning, Blockchain and the Fut
 {% for post in paginator.posts %}
 <div class="post-preview">
     <a href="{{ post.url | prepend: site.baseurl }}">
-        <h2 class="post-title">            {{ post.title }}
-        </h2>
+        <h2 class="post-title">{{ post.title }}</h2>
         {% if post.subtitle %}
         <h3 class="post-subtitle">
             {{ post.subtitle }}
         </h3>
         {% endif %}
     </a>
-    <p class="post-meta">Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}</p>
+    <p class="post-meta">{{ post.date | date: "%B %-d, %Y" }}</p>
+    <!-- <p class="post-meta">Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}</p> -->
     <!-- <p class="post-meta">Categories: {{ post.categories | join: ', ' }}</p> -->
 </div>
 <hr>
 {% endfor %}
+
+<div class="post-preview">
+    <a href="{{ site.baseurl }}/apps">
+        <h2 class="post-title">My opensource projects</h2>
+        <h3 class="post-subtitle">From AWS study tools to productionised ML models and more...</h3>
+    </a>
+    <p class="post-meta">2020 - 2022</p>
+</div>
+<hr>
 
 <!-- Pager -->
 {% if paginator.total_pages > 1 %}
