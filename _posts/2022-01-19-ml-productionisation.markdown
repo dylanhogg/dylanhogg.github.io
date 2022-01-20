@@ -2,18 +2,13 @@
 layout:     post
 title:      "Machine Learning Productionisation"
 subtitle:   "How to bring your ML model to life for your users"
-date:       2021-10-01 09:00:00
+date:       2022-01-19 09:00:00
 tags:       [Machine Learning, Productionisation, MLOps]
 author:     "Dylan Hogg"
 header-img: "img/post-bg-04.jpg"
 published:  false
 comments:   true
 ---
-
-<p style="color:red">BLOGPOST IN PROGRESS</p>
-
-TODO: investigate https://excalidraw.com/ for diagrams...
-
 
 <!-- ---------------------------------------------------------------------- -->
 <h2 class="section-heading">ML Productionisation</h2>
@@ -70,9 +65,11 @@ Nice to have
 The ML Canvas (adapted from Lean Canvas) identifies requirements, problems and scope of an ML model and is useful to get all parties on the same page early in an ML project.
 
 Its focus is on the goal, learning, evaluation and prediction stages of ML development.
-https://www.ownml.co/machine-learning-canvas
+<a href="https://www.ownml.co/machine-learning-canvas">https://www.ownml.co/machine-learning-canvas</a>
 
-TODO: img
+![](https://www.ownml.co/machine-learning-canvas "Machine Learning Canvas")
+
+![](/img/ml-productionisation/ml-canvas-sample.png "Pipeline 1")
 
 TODO: also https://www.ownml.co/checklist
 
@@ -114,6 +111,7 @@ Here's the gist:
 
 Finally, a popular visualisation of real-world ML systems:
 
+![](/img/ml-productionisation/hidden_tech_debt.png "Pipeline 1")
 TODO: img
 
 <!-- ---------------------------------------------------------------------- -->
@@ -129,18 +127,21 @@ Further down the track data quality, data splits, feature engineering, model opt
 
 The first step is to productionise the trained model to make automated predictions on unlabeled data.
 
+![](/img/ml-productionisation/pipeline1.png "Pipeline 1")
 TODO: img
 
 <h3 class="section-heading">2. Basic ML pipeline with training and testing</h3>
 
 An extension is to automate the data splits, model training and performance evaluation. Helps with reproducibility and saving time.
 
+![](/img/ml-productionisation/pipeline2.png "Pipeline 2")
 TODO: img
 
 <h3 class="section-heading">3. Full pipeline with multiple trained models, evaluation, selection and testing</h3>
 
 The next (possible) step is to automate training and evaluation of multiple models with multiple training input data feature sets.
 
+![](/img/ml-productionisation/pipeline3.png "Pipeline 3")
 TODO: img
 
 (Pipeline image references: http://www.ebc.cat/2017/01/23/predicting-with-labeled-data/)
@@ -206,6 +207,8 @@ https://www.oreilly.com/ideas/what-are-model-governance-and-model-operations
 <!-- ---------------------------------------------------------------------- -->
 <h2 class="section-heading">TODO: Potential references</h2>
 
+https://project-awesome.org/igorbarinov/awesome-data-engineering
+
 https://christophm.github.io/interpretable-ml-book/
 
 https://github.com/eugeneyan/applied-ml
@@ -218,4 +221,7 @@ https://stanford-cs329s.github.io/syllabus.html ?
 
 https://fullstackdeeplearning.com/ ? (2019 version more engineering focussed)
 
+https://d1.awsstatic.com/whitepapers/accenture-industrializes-machine-learning-workloads-on-aws.pdf
+
+Deep Learning With Python (Chollet, 2021) Chapter 6: Workflow of ML
 
