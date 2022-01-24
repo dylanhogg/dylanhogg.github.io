@@ -19,7 +19,8 @@ comments:   true
 
 <h2 class="section-heading" id="wimlp">What is machine learning productionisation?</h2>
 
-Machine learning productionisation can mean different things. It could mean taking a pre-trained ML model and making it available as an API. It could also involve building a pipeline for data preparation, model training, optimisation and validation. There may even be an application or dashboard so that a user can interact with the model. 
+Machine learning productionisation can mean different things. It could mean taking a pre-trained ML model and making it available as an API. It could also involve building a pipeline for data preparation, model training, optimisation, and validation.
+
 
 Hopefully you are also monitoring your productionised system to ensure everything is running well, for example catching unexpected errors or measuring model drift on new data over time. If you're able to reproduce experimental results, iterate quickly and push to production automatically then you get bonus points.
 
@@ -30,7 +31,7 @@ Regardless of the precise definition, getting machine learning models into a pro
 
 Best practices are emerging to ensure you can sucessfully prepare data, train a model, validate predictions, deploy, serve and monitor your model.
 
-This post is a 10,000-foot overview of things to consider during the life-cycle of a machine learning project and includes pointers to useful resources. 
+This post is a 10,000-foot overview of things to consider during the life cycle of a machine learning project and includes pointers to useful resources. 
 
 <h2 class="section-heading">What's covered here?</h2>
 
@@ -54,7 +55,7 @@ Baseline examples:
 * Instrumentation, logging and error alerting
 * Ability to monitor running systems for required metrics
 * The system scales to expected load
-* Code is source controlled (really I have to mention this?)
+* Code is source controlled
 * Continuous integration/continuous deployment (CI/CD) pipelines
 * External (non-hardcoded) configuration
 * Following company coding best practices
@@ -73,9 +74,9 @@ Data is as important to ML systems as code is to traditional software. Also, man
 A comparison of traditional programming vs ML is shown in this diagram. It highlights the shift in thinking required for constructing models and learning rules from data.
 
 <a href="/img/ml-productionisation/programming_vs_ml.jpeg"><img src="/img/ml-productionisation/programming_vs_ml.jpeg" alt="programming vs ML" class="center" /></a>
-<span class="caption text-muted">Source: <a href="https://twitter.com/kpaxs/status/1163058544402411520">twitter.com/kpaxs</a></span>
+<span class="caption text-muted">Classical programming contrasted with machine learning<br />Source: <a href="https://twitter.com/kpaxs/status/1163058544402411520">twitter.com/kpaxs</a></span>
 
-There are several emerging fields growing to address the ML system life-cycle.
+There are several emerging fields growing to address the ML system life cycle.
 
 1) Data Engineering - designing and building systems for collecting, storing, processing and analysing data at scale.  
 2) ML Engineering - intersection of machine learning and software engineering; bringing solid engineering principals to building ML models.  
@@ -90,7 +91,7 @@ These fields are still being defined and created and some may disappear in time.
 
 Highly desirable ML system requirements:
 
-* Reproducable model training and validation
+* Reproducible model training and validation
 * Data lineage for data prep, issue tracing and auditability
 * Model versioning with metadata
 * Protection from data leakage when training
@@ -106,14 +107,14 @@ Desirable ML system requirements:
 * Clear tracking of how features were generated
 * Automated confidence intervals for data quality (input) and predictions (output) 
 * Automated model re-training and validation
-* Feature store for data reuse and reproducability
+* Feature store for data reuse and reproducibility
 * Ability to track model drift over time (e.g. continuous validation after deployment)
 
 
 <!-- ---------------------------------------------------------------------- -->
 <h2 class="section-heading" id="canvas">Machine Learning Canvas</h2>
 
-It's worth remembering that not all models need to be productionised. Before going down this path hopefully you've determined that the value from productionising a model is greater that the cost of productionising and the associated ongoing system maintenance.
+It's worth remembering that not all models need to be productionised. Before going down this path hopefully you've determined that the value from productionising a model is greater than the cost of productionising and the associated ongoing system maintenance.
 
 The <a href="https://www.ownml.co/machine-learning-canvas">Machine Learning Canvas</a> (adapted from the popular <a href="https://leanstack.com/lean-canvas">Lean Canvas</a>) identifies requirements, problems and scope of an ML model and is useful to get all parties on the same page early in an ML project.
 
@@ -158,7 +159,7 @@ It's helpful to know what you're getting into. If you are new on this journey, t
 
 Here's the gist:
 
-"ML systems have a special capacity for incurring technical debt, because they have all of the maintenance problems of traditional code plus an additional set of ML-specific issues. This debt may be difficult to detect because it exists at the system level rather than the code level. Traditional abstractions and boundaries may be subtly corrupted or invalidated by the fact that data influences ML system behavior. Typical methods for paying down code level technical debt are not sufficient to address ML-specific technical debt at the system level."
+"ML systems have a special capacity for incurring technical debt, because they have all of the maintenance problems of traditional code plus an additional set of ML-specific issues. This debt may be difficult to detect because it exists at the system level rather than the code level. Traditional abstractions and boundaries may be subtly corrupted or invalidated by the fact that data influences ML system behaviour. Typical methods for paying down code level technical debt are not sufficient to address ML-specific technical debt at the system level."
 
 "Code dependencies can be identified via static analysis by compilers and linkers. Without similar tooling for data dependencies, it can be inappropriately easy to build large data dependency chains that can be difficult to untangle."
 
@@ -180,19 +181,19 @@ Further down the track data quality, data splits, feature engineering, model opt
 
 <h3>1. Prediction only ML pipeline</h3>
 
-The first step is to productionise the trained model to make automated predictions on unlabeled data.
+The first step is to productionise the trained model to make automated predictions on unlabelled data.
 
 This diagram only shows the input data and output prediction flow - it doesn't address where the data comes from or how the predictions are used.
 
 <a href="/img/ml-productionisation/pipeline1.png"><img src="/img/ml-productionisation/pipeline1.png" alt="Prediction only ML pipeline" /></a>
-<span class="caption text-muted">Source: Author</span>
+<span class="caption text-muted">Prediction only ML pipeline<br />Source: Author</span>
 
 <h3>2. Basic ML pipeline with training and testing</h3>
 
-An extension is to automate the data splits, model training and performance evaluation. This helps with reproducibility, removes error-prone manual steps and saves time.
+An extension is to automate the data splits, model training and performance evaluation. This helps with reproducibility, removes error-prone manual steps, and saves time.
 
-<a href="/img/ml-productionisation/pipeline2.png"><img src="/img/ml-productionisation/pipeline2.png" alt="Prediction only ML pipeline" /></a>
-<span class="caption text-muted">Source: Author</span>
+<a href="/img/ml-productionisation/pipeline2.png"><img src="/img/ml-productionisation/pipeline2.png" alt="Basic ML pipeline with training and testing" /></a>
+<span class="caption text-muted">Basic ML pipeline with training and testing<br />Source: Author</span>
 
 <h3>3. Pipeline with multiple trained models, evaluation, selection and testing</h3>
 
@@ -200,8 +201,8 @@ A next possible step is to automate training and evaluation of multiple models w
 
 This gets complex very quickly and requires pre-requisite systems to be in place to run efficiently. The emerging field of MLOps (machine learning operations) is building tools, techniques and companies to handle these type of scenarios. 
 
-<a href="/img/ml-productionisation/pipeline3.png"><img src="/img/ml-productionisation/pipeline3.png" alt="Prediction only ML pipeline" /></a>
-<span class="caption text-muted">Source: Author</span>
+<a href="/img/ml-productionisation/pipeline3.png"><img src="/img/ml-productionisation/pipeline3.png" alt="Pipeline with multiple trained models, evaluation, selection and testing" /></a>
+<span class="caption text-muted">Pipeline with multiple trained models, evaluation, selection and testing<br />Source: Author</span>
 
 <h3>4. Deploying and monitoring</h3>
 
@@ -209,11 +210,11 @@ What isn't addressed in the pipeline diagrams above is model deployment, serving
 
 This is dependent on many things: your current infrastructure, who will be consuming the model results, performance requirements, size of data etc.
 
-For example if you have a <a href="https://kubernetes.io/">Kubernetes</a> cluster available, you could containerise your model and deploy using <a href="https://www.kubeflow.org/">Kubeflow</a>. 
+For example, if you have a <a href="https://kubernetes.io/">Kubernetes</a> cluster available, you could containerise your model and deploy using <a href="https://www.kubeflow.org/">Kubeflow</a>. 
 Or maybe your company uses AWS and your model is small? In this case you could use existing deployment practices and deploy to <a href="https://aws.amazon.com/lambda/">Lambda</a> or else utilise the managed AWS <a href="https://aws.amazon.com/sagemaker/mlops/">SageMaker</a> service. 
 If you're just starting out, you may be able to set up a Python webserver and utilise a framework like <a href="https://fastapi.tiangolo.com/">FastAPI</a> to serve model results.
 
-Which ever path you choose, follow the software and ML system best practices described above where possible.
+Whichever path you choose, follow the software and ML system best practices described above where possible.
 
 
 <!-- ---------------------------------------------------------------------- -->
@@ -225,7 +226,7 @@ To round off this post, here are a some open-source and commercial offerings tha
 
 It is best to build on the shoulders of giants. Here are some open-source ML frameworks you might find want to explore in your ML productionisation journey:  
 
-- MLFlow (Databricks): An open source platform for the machine learning lifecycle, experiment tracking focussed.  
+- MLFlow (Databricks): An open-source platform for the machine learning lifecycle, experiment tracking focussed.  
   - <a href="https://mlflow.org/">mlflow.org</a>
   - <a href="https://github.com/mlflow/mlflow">github.com/mlflow/mlflow</a>
 - KubeFlow (Google): The Machine Learning Toolkit for Kubernetes. Pipeline focussed. At its core, a container orchestration system
@@ -287,7 +288,7 @@ See more platforms here: <a href="https://mlops.neptune.ai/">mlops.neptune.ai</a
 <!-- ---------------------------------------------------------------------- -->
 <h2 class="section-heading" id="final">Final thoughts</h2>
 
-The machine learning space is evolving rapidly and it's great to see best practices and tools emerging to make producionisation of models faster and more robust. However, there is still a long way to go!!
+The machine learning space is evolving rapidly and it's great to see best practices and tools emerging to make productionisation of models faster and more robust. However, there is still a long way to go!!
 
 <a href="/img/ml-productionisation/xkcd_data_pipeline_2x.png"><img src="/img/ml-productionisation/xkcd_data_pipeline.png" alt="xkcd comic of data pipelines" class="center" /></a>
 <span class="caption text-muted">Source: <a href="https://xkcd.com/2054/">xkcd.com</a></span>
