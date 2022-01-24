@@ -3,15 +3,21 @@ layout:     post
 title:      "Machine Learning Productionisation"
 subtitle:   "How to bring your ML model to life for your users"
 date:       2022-01-19 09:00:00
-tags:       [Machine Learning, Productionisation, MLOps, DataOps]
+tags:       [Machine Learning, Productionisation, Software Engineering, ML Engineering, MLOps, DataOps, Data]
 author:     "Dylan Hogg"
 header-img: "img/post-bg-04.jpg"
-published:  false
+published:  true
 comments:   true
 ---
 
-<!-- ---------------------------------------------------------------------- -->
-<h2 class="section-heading">What is machine learning productionisation?</h2>
+<style>
+    .center {
+      width: 50%;
+      margin: 0 auto;
+    }
+</style>
+
+<h2 class="section-heading" id="wimlp">What is machine learning productionisation?</h2>
 
 Machine learning productionisation can mean different things. It could mean taking a pre-trained ML model and making it available as an API. It could also involve building a pipeline for data preparation, model training, optimisation and validation. There may even be an application or dashboard so that a user can interact with the model. 
 
@@ -19,27 +25,28 @@ Hopefully you are also monitoring your productionised system to ensure everythin
 
 Regardless of the precise definition, getting machine learning models into a production system and maintaining them over time is hard.
 
+<a href="/img/ml-productionisation/xkcd_machine_learning_2x.png"><img src="/img/ml-productionisation/xkcd_machine_learning.png" alt="xkcd comic of machine learning" class="center" /></a>
+<span class="caption text-muted">Source: <a href="https://xkcd.com/1838/">xkcd.com</a></span>
+
 Best practices are emerging to ensure you can sucessfully prepare data, train a model, validate predictions, deploy, serve and monitor your model.
 
 This post is a 10,000-foot overview of things to consider during the life-cycle of a machine learning project and includes pointers to useful resources. 
 
+<h2 class="section-heading">What's covered here?</h2>
 
-<h2 class="section-heading">Contents</h2>
-Sections Original:
-
-* What is machine learning productionisation?
-* Production software requirements
-* Production ML System Requirements
-* Machine Learning Canvas
-* Google's Rules of Machine Learning
-* Technical debt in Machine Learning systems
-* Automated Machine Learning pipelines - basic to advanced
-* Machine Learning frameworks
-* Final thoughts
-
+<p>
+1) <a href="#psr">Production software requirements</a><br />  
+2) <a href="#pmlsr">Production ML System Requirements</a><br />  
+3) <a href="#canvas">Machine Learning Canvas</a><br />  
+4) <a href="#rules">Google's Rules of Machine Learning</a><br />  
+5) <a href="#techdebt">Technical debt in Machine Learning systems</a><br />  
+6) <a href="#pipelines">Automated Machine Learning pipelines - basic to advanced</a><br />  
+7) <a href="#frameworks">Machine Learning frameworks</a><br />  
+8) <a href="#final">Final thoughts</a><br />  
+</p>
 
 <!-- ---------------------------------------------------------------------- -->
-<h2 class="section-heading">Production software requirements</h2>
+<h2 class="section-heading" id="psr">Production software requirements</h2>
 
 As a baseline, a robust production ML system should adhere to good software engineering practices. These foundations must be solid to successfully deploy and operationalise ML models, which come with additional challenges. 
 
@@ -57,11 +64,16 @@ Baseline examples:
 Atlassian has a series of <a href="https://www.atlassian.com/software-development">articles on software best practices</a> that you may find useful.
 
 <!-- ---------------------------------------------------------------------- -->
-<h2 class="section-heading">Production ML System Requirements</h2>
+<h2 class="section-heading" id="pmlsr">Production ML System Requirements</h2>
 
-Due to the nature of ML systems and their reliance on training data to produce a model, they have additional requirements over and above traditional software systems.
+ML systems have additional requirements over and above traditional software systems due to their reliance on training data to construct a model
 
-Data is as important to ML systems as code is to traditional software, and many of the same issues affecting code affect data as well, for example versioning.
+Data is as important to ML systems as code is to traditional software. Also, many of the same issues affecting code affect data as well, for example versioning.
+
+A comparison of traditional programming vs ML is shown in this diagram. It highlights the shift in thinking required for constructing models and learning rules from data.
+
+<a href="/img/ml-productionisation/programming_vs_ml.jpeg"><img src="/img/ml-productionisation/programming_vs_ml.jpeg" alt="programming vs ML" class="center" /></a>
+<span class="caption text-muted">Source: <a href="https://twitter.com/kpaxs/status/1163058544402411520">twitter.com/kpaxs</a></span>
 
 There are several emerging fields growing to address the ML system life-cycle.
 
@@ -71,7 +83,10 @@ There are several emerging fields growing to address the ML system life-cycle.
 4) <a href="https://en.wikipedia.org/wiki/DataOps">DataOps</a> - manages the entire data lifecycle from source to value.  
 5) <a href="https://en.wikipedia.org/wiki/ModelOps">ModelOps</a> or AIOps - extends MLOps and manages all model lifecycles across a company ensuring technical, business and compliance KPI's.  
 
-These fields are still being defined and created and some may come or go. What these descriptions highlight is the interdisciplinary nature required to successfully productionise ML models. 
+<a href="/img/ml-productionisation/wiki_mlops.png"><img src="/img/ml-productionisation/wiki_mlops.png" alt="MLOps intersection venn diagram" class="center" /></a>
+<span class="caption text-muted">Source: <a href="https://en.wikipedia.org/wiki/MLOps">Wikipedia</a></span>
+
+These fields are still being defined and created and some may disappear in time. What these descriptions highlight is the interdisciplinary nature required to successfully productionise ML models. 
 
 Highly desirable ML system requirements:
 
@@ -96,7 +111,7 @@ Desirable ML system requirements:
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h2 class="section-heading">Machine Learning Canvas</h2>
+<h2 class="section-heading" id="canvas">Machine Learning Canvas</h2>
 
 It's worth remembering that not all models need to be productionised. Before going down this path hopefully you've determined that the value from productionising a model is greater that the cost of productionising and the associated ongoing system maintenance.
 
@@ -109,9 +124,9 @@ It helps describe how your ML system will turn predictions into value for end-us
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h2 class="section-heading">Google's Rules of Machine Learning</h2>
+<h2 class="section-heading" id="rules">Google's Rules of Machine Learning</h2>
 
-Google has published their machine learning best practices (<a href="https://developers.google.com/machine-learning/guides/rules-of-ml/">Rules of Machine Learning</a>) with tonnes of wisdom.
+Google has published their machine learning best practices (<a href="https://developers.google.com/machine-learning/guides/rules-of-ml/">Rules of Machine Learning</a>) and has deep wisdom.
 
 These 4 points are recommended when starting to productionise ML:
 
@@ -120,9 +135,9 @@ These 4 points are recommended when starting to productionise ML:
 3. Add common--sense features in a simple way
 4. Make sure that your pipeline stays solid
 
-And they come with this wise caveat: "This approach will work well for a long period of time. Diverge from this approach only when there are no more simple tricks to get you any farther. Adding complexity slows future releases."
+Followed by this wise caveat: "This approach will work well for a long period of time. Diverge from this approach only when there are no more simple tricks to get you any farther. Adding complexity slows future releases."
 
-There are 43 rules and here are some highlights:
+There are 43 rules in total. Here are some highlights:
 
 * Rule #4: Keep the first model simple and get the infrastructure right
 * Rule #5: Test the infrastructure independently from the machine learning
@@ -137,25 +152,27 @@ There are 43 rules and here are some highlights:
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h2 class="section-heading">Technical debt in Machine Learning systems</h2>
+<h2 class="section-heading" id="techdebt">Technical debt in Machine Learning systems</h2>
 
-Know what you're getting into. If you are new on this journey, the Google paper <a href="http://papers.neurips.cc/paper/5656-hidden-technical-debt-in-machine-learning-systems.pdf">Hidden Technical Debt in Machine Learning Systems</a> is a must-read. 
+It's helpful to know what you're getting into. If you are new on this journey, the paper <a href="http://papers.neurips.cc/paper/5656-hidden-technical-debt-in-machine-learning-systems.pdf">Hidden Technical Debt in Machine Learning Systems</a> is a must-read. 
 
 Here's the gist:
 
-"In this paper, we argue that ML systems have a special capacity for incurring technical debt, because they have all of the maintenance problems of traditional code plus an additional set of ML-specific issues. This debt may be difficult to detect because it exists at the system level rather than the code level. Traditional abstractions and boundaries may be subtly corrupted or invalidated by the fact that data influences ML system behavior. Typical methods for paying down code level technical debt are not sufficient to address ML-specific technical debt at the system level."
+"ML systems have a special capacity for incurring technical debt, because they have all of the maintenance problems of traditional code plus an additional set of ML-specific issues. This debt may be difficult to detect because it exists at the system level rather than the code level. Traditional abstractions and boundaries may be subtly corrupted or invalidated by the fact that data influences ML system behavior. Typical methods for paying down code level technical debt are not sufficient to address ML-specific technical debt at the system level."
 
 "Code dependencies can be identified via static analysis by compilers and linkers. Without similar tooling for data dependencies, it can be inappropriately easy to build large data dependency chains that can be difficult to untangle."
 
-Finally, a popular visualisation from the paper of real-world ML systems:
+This image summarises the paper very well and puts the core ML code into perspective when productionising: 
 
 <a href="/img/ml-productionisation/hidden_tech_debt.png"><img src="/img/ml-productionisation/hidden_tech_debt.png" alt="Hidden tech debt" /></a>
 <span class="caption text-muted">Source: <a href="http://papers.neurips.cc/paper/5656-hidden-technical-debt-in-machine-learning-systems.pdf">Hidden Technical Debt in Machine Learning Systems (Sculley et al.)</a></span>
 
 <!-- ---------------------------------------------------------------------- -->
-<h2 class="section-heading">Automated Machine Learning pipelines - basic to advanced</h2>
+<h2 class="section-heading" id="pipelines">Automated Machine Learning pipelines - basic to advanced</h2>
 
-There are several steps in a full ML pipeline, some steps can be manual, others automated.
+There are several steps in a full ML pipeline. Some steps may be manual at first, especially when proving value to the business. 
+
+The key is to understand that the manual steps should be automated in time rather than continuing to accumulate tech debt and potentially produce error-prone results. It is best to understand this commitment at the start.
 
 A productionised predictive ML model is one piece with a fair bit going on, and the best place to start.
 
@@ -168,27 +185,41 @@ The first step is to productionise the trained model to make automated predictio
 This diagram only shows the input data and output prediction flow - it doesn't address where the data comes from or how the predictions are used.
 
 <a href="/img/ml-productionisation/pipeline1.png"><img src="/img/ml-productionisation/pipeline1.png" alt="Prediction only ML pipeline" /></a>
-<span class="caption text-muted">Source: Dylan Hogg</span>
+<span class="caption text-muted">Source: Author</span>
 
 <h3>2. Basic ML pipeline with training and testing</h3>
 
 An extension is to automate the data splits, model training and performance evaluation. This helps with reproducibility, removes error-prone manual steps and saves time.
 
 <a href="/img/ml-productionisation/pipeline2.png"><img src="/img/ml-productionisation/pipeline2.png" alt="Prediction only ML pipeline" /></a>
-<span class="caption text-muted">Source: Dylan Hogg</span>
+<span class="caption text-muted">Source: Author</span>
 
-<h3>3. Full pipeline with multiple trained models, evaluation, selection and testing</h3>
+<h3>3. Pipeline with multiple trained models, evaluation, selection and testing</h3>
 
 A next possible step is to automate training and evaluation of multiple models with multiple training input data feature sets.
 
 This gets complex very quickly and requires pre-requisite systems to be in place to run efficiently. The emerging field of MLOps (machine learning operations) is building tools, techniques and companies to handle these type of scenarios. 
 
 <a href="/img/ml-productionisation/pipeline3.png"><img src="/img/ml-productionisation/pipeline3.png" alt="Prediction only ML pipeline" /></a>
-<span class="caption text-muted">Source: Dylan Hogg</span>
+<span class="caption text-muted">Source: Author</span>
+
+<h3>4. Deploying and monitoring</h3>
+
+What isn't addressed in the pipeline diagrams above is model deployment, serving and monitoring. 
+
+This is dependent on many things: your current infrastructure, who will be consuming the model results, performance requirements, size of data etc.
+
+For example if you have a <a href="https://kubernetes.io/">Kubernetes</a> cluster available, you could containerise your model and deploy using <a href="https://www.kubeflow.org/">Kubeflow</a>. 
+Or maybe your company uses AWS and your model is small? In this case you could use existing deployment practices and deploy to <a href="https://aws.amazon.com/lambda/">Lambda</a> or else utilise the managed AWS <a href="https://aws.amazon.com/sagemaker/mlops/">SageMaker</a> service. 
+If you're just starting out, you may be able to set up a Python webserver and utilise a framework like <a href="https://fastapi.tiangolo.com/">FastAPI</a> to serve model results.
+
+Which ever path you choose, follow the software and ML system best practices described above where possible.
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h2 class="section-heading">Machine Learning frameworks</h2>
+<h2 class="section-heading" id="frameworks">Machine Learning frameworks</h2>
+
+To round off this post, here are a some open-source and commercial offerings that you could check out.
 
 <h3>Machine Learning Frameworks</h3>
 
@@ -246,10 +277,18 @@ The big cloud players are in MLOps now too.
 - <a href="https://valohai.com/">Valohai</a> - Train, Evaluate, Deploy, Repeat. Automates everything from data extraction to model deployment
 - <a href="https://gradient.run/">Gradient</a> - Develop, track, and collaborate on Deep Learning models
 - <a href="https://polyaxon.com/">Polyaxon</a> - Reproduce, automate, and scale your data science workflows with production-grade MLOps tools
+- <a href="https://neptune.ai/">neptune.ai</a> - Log, store, display, organize, compare and query all your MLOps metadata
 - <a href="https://www.tecton.ai/">Tecton</a> - Enterprise Feature Store for Machine Learning
 
 
-See more platforms here: https://mlops.neptune.ai/
+See more platforms here: <a href="https://mlops.neptune.ai/">mlops.neptune.ai</a>
 
 
+<!-- ---------------------------------------------------------------------- -->
+<h2 class="section-heading" id="final">Final thoughts</h2>
+
+The machine learning space is evolving rapidly and it's great to see best practices and tools emerging to make producionisation of models faster and more robust. However, there is still a long way to go!!
+
+<a href="/img/ml-productionisation/xkcd_data_pipeline_2x.png"><img src="/img/ml-productionisation/xkcd_data_pipeline.png" alt="xkcd comic of data pipelines" class="center" /></a>
+<span class="caption text-muted">Source: <a href="https://xkcd.com/2054/">xkcd.com</a></span>
 
