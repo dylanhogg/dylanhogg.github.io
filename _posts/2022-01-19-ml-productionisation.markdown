@@ -3,7 +3,7 @@ layout:     post
 title:      "Machine Learning Productionisation"
 subtitle:   "How to bring your ML model to life for your users"
 date:       2022-01-19 09:00:00
-tags:       [Machine Learning, Productionisation, MLOps]
+tags:       [Machine Learning, Productionisation, MLOps, DataOps]
 author:     "Dylan Hogg"
 header-img: "img/post-bg-04.jpg"
 published:  false
@@ -13,13 +13,13 @@ comments:   true
 <!-- ---------------------------------------------------------------------- -->
 <h2 class="section-heading">What is machine learning productionisation?</h2>
 
-Machine learning productionisation can mean different things. It could mean taking a pre-trained ML model and making it available as an API. Or it could involve building a pipeline for data preparation, model training, optimisation and validation. There may even be an application or dashboard so that a user can interact with the model. 
+Machine learning productionisation can mean different things. It could mean taking a pre-trained ML model and making it available as an API. It could also involve building a pipeline for data preparation, model training, optimisation and validation. There may even be an application or dashboard so that a user can interact with the model. 
 
-Hopefully you are also monitoring your productionised system to ensure everything is running as required, for example catching unexpected errors or measuring model drift on new data over time. If you're able to reproduce experimental results, iterate quickly and push to production reliably then you get bonus points.
+Hopefully you are also monitoring your productionised system to ensure everything is running well, for example catching unexpected errors or measuring model drift on new data over time. If you're able to reproduce experimental results, iterate quickly and push to production automatically then you get bonus points.
 
 Regardless of the precise definition, getting machine learning models into a production system and maintaining them over time is hard.
 
-Best practices are emerging to ensure you can sucessfully train, validate, operationalise and monitor your model. 
+Best practices are emerging to ensure you can sucessfully prepare data, train a model, validate predictions, deploy, serve and monitor your model.
 
 This post is a 10,000-foot overview of things to consider during the life-cycle of a machine learning project and includes pointers to useful resources. 
 
@@ -34,11 +34,8 @@ Sections Original:
 * Google's Rules of Machine Learning
 * Technical debt in Machine Learning systems
 * Automated Machine Learning pipelines - basic to advanced
-* TODO: Online / Streaming / Realtime ML
-* TODO: Proof of Concept to Production
-* TODO: Model deployment
-* TODO: Model serving, monitoring and maintenance
-* 3rd Party Machine Learning frameworks
+* Machine Learning frameworks
+* Final thoughts
 
 
 <!-- ---------------------------------------------------------------------- -->
@@ -57,14 +54,24 @@ Baseline examples:
 * Unit tests to enable confident refactoring
 * Integration tests to catch bugs early
 
-Atlassian has a series of <a href="https://www.atlassian.com/software-development">articles on software best practices</a> that you may find useful
+Atlassian has a series of <a href="https://www.atlassian.com/software-development">articles on software best practices</a> that you may find useful.
 
 <!-- ---------------------------------------------------------------------- -->
 <h2 class="section-heading">Production ML System Requirements</h2>
 
 Due to the nature of ML systems and their reliance on training data to produce a model, they have additional requirements over and above traditional software systems.
 
-Data is as important to ML developers as code is to traditional software developers, and many of the same issues affecting code affect data as well, for example versioning.
+Data is as important to ML systems as code is to traditional software, and many of the same issues affecting code affect data as well, for example versioning.
+
+There are several emerging fields growing to address the ML system life-cycle.
+
+1) Data Engineering - designing and building systems for collecting, storing, processing and analysing data at scale.  
+2) ML Engineering - intersection of machine learning and software engineering; bringing solid engineering principals to building ML models.  
+3) <a href="https://en.wikipedia.org/wiki/MLOps">MLOps</a> - intersection of machine learning, data engineering and <a href="https://en.wikipedia.org/wiki/DevOps">DevOps</a>; deployment, health, diagnostics and governance of production ML models.  
+4) <a href="https://en.wikipedia.org/wiki/DataOps">DataOps</a> - manages the entire data lifecycle from source to value.  
+5) <a href="https://en.wikipedia.org/wiki/ModelOps">ModelOps</a> or AIOps - extends MLOps and manages all model lifecycles across a company ensuring technical, business and compliance KPI's.  
+
+These fields are still being defined and created and some may come or go. What these descriptions highlight is the interdisciplinary nature required to successfully productionise ML models. 
 
 Highly desirable ML system requirements:
 
@@ -154,168 +161,95 @@ A productionised predictive ML model is one piece with a fair bit going on, and 
 
 Further down the track data quality, data splits, feature engineering, model optimisation and training comprise other pieces.
 
-<h3 class="section-heading">1. Prediction only ML pipeline</h3>
+<h3>1. Prediction only ML pipeline</h3>
 
 The first step is to productionise the trained model to make automated predictions on unlabeled data.
 
-![](/img/ml-productionisation/pipeline1.png "Pipeline 1")
+This diagram only shows the input data and output prediction flow - it doesn't address where the data comes from or how the predictions are used.
+
+<a href="/img/ml-productionisation/pipeline1.png"><img src="/img/ml-productionisation/pipeline1.png" alt="Prediction only ML pipeline" /></a>
 <span class="caption text-muted">Source: Dylan Hogg</span>
 
-<h3 class="section-heading">2. Basic ML pipeline with training and testing</h3>
+<h3>2. Basic ML pipeline with training and testing</h3>
 
-An extension is to automate the data splits, model training and performance evaluation. Helps with reproducibility and saving time.
+An extension is to automate the data splits, model training and performance evaluation. This helps with reproducibility, removes error-prone manual steps and saves time.
 
-![](/img/ml-productionisation/pipeline2.png "Pipeline 2")
+<a href="/img/ml-productionisation/pipeline2.png"><img src="/img/ml-productionisation/pipeline2.png" alt="Prediction only ML pipeline" /></a>
 <span class="caption text-muted">Source: Dylan Hogg</span>
 
-<h3 class="section-heading">3. Full pipeline with multiple trained models, evaluation, selection and testing</h3>
+<h3>3. Full pipeline with multiple trained models, evaluation, selection and testing</h3>
 
-The next (possible) step is to automate training and evaluation of multiple models with multiple training input data feature sets.
+A next possible step is to automate training and evaluation of multiple models with multiple training input data feature sets.
 
-![](/img/ml-productionisation/pipeline3.png "Pipeline 3")
+This gets complex very quickly and requires pre-requisite systems to be in place to run efficiently. The emerging field of MLOps (machine learning operations) is building tools, techniques and companies to handle these type of scenarios. 
+
+<a href="/img/ml-productionisation/pipeline3.png"><img src="/img/ml-productionisation/pipeline3.png" alt="Prediction only ML pipeline" /></a>
 <span class="caption text-muted">Source: Dylan Hogg</span>
 
 
 <!-- ---------------------------------------------------------------------- -->
-<h2 class="section-heading">3rd Party Machine Learning frameworks</h2>
+<h2 class="section-heading">Machine Learning frameworks</h2>
 
-Here are some frameworks by other companies/organisations. Mainly as a place to collect them for evaluation.
+<h3>Machine Learning Frameworks</h3>
 
-AWS SageMaker
-* https://aws.amazon.com/sagemaker/ SageMaker customers
-* AWS internal use case
-* Intuit case study
+It is best to build on the shoulders of giants. Here are some open-source ML frameworks you might find want to explore in your ML productionisation journey:  
 
-Uber
-* https://eng.uber.com/michelangelo/ 
-* https://eng.uber.com/scaling-michelangelo/
-* https://eng.uber.com/michelangelo-pyml/
-
-Airbnb
-* https://databricks.com/session/bighead-airbnbs-end-to-end-machine-learning-platform
-* https://github.com/airbnb/aerosolve
-
-Stripe
-* https://stripe.com/au/blog/railyard-training-models
-
-Facebook
-* https://code.fb.com/core-data/introducing-fblearner-flow-facebook-s-ai-backbone/
-
-Salesforce
-* https://github.com/salesforce/TransmogrifAI
-
-Other
-* https://www.kubeflow.org/ - ML Toolkit for Kubernetes
-* https://www.mlflow.org/ - Open source platform for the machine learning lifecycle https://github.com/apache/predictionio - Open source ML framework 
-* https://polyaxon.com/ - Platform for ML applications
-
-
-<!-- ---------------------------------------------------------------------- -->
-<h2 class="section-heading">Recommended ML books</h2>
-
-* Hands-On Machine Learning with Scikit-Learn and TensorFlow 
-* An Introduction to Statistical Learning: with Applications in R
-* Pattern Recognition and Machine Learning
-
-
-<!-- ---------------------------------------------------------------------- -->
-<h2 class="section-heading">References</h2>
-
-http://martin.zinkevich.org/rules_of_ml/rules_of_ml.pdf
-
-https://developers.google.com/machine-learning/guides/rules-of-ml/
-
-https://papers.nips.cc/paper/5656-hidden-technical-debt-in-machine-learning-systems.pdf
-
-https://developers.google.com/machine-learning/crash-course/production-ml-systems
-
-https://www.louisdorard.com/machine-learning-canvas
-
-https://www.oreilly.com/ideas/what-are-model-governance-and-model-operations
-
-
-<!-- ---------------------------------------------------------------------- -->
-<h2 class="section-heading">TODO: TEMP: Potential references</h2>
-
-Productionisation
-- https://blog.streamlit.io/how-to-master-streamlit-for-data-science/amp/  !!
-
-Awesome lists:
-- https://project-awesome.org/igorbarinov/awesome-data-engineering
-- https://github.com/eugeneyan/applied-ml
-
-Interpretable:
-- https://christophm.github.io/interpretable-ml-book/
-
-Training and experiments:
-https://valohai.com/mlops-platforms-compared/
-
-- MLFlow (Databricks): An open source platform for the machine learning lifecycle
-  - Experiment tracking focussed. A Python program for tracking experiments and versioning models.
-  - https://mlflow.org/
-  - https://github.com/mlflow/mlflow
-- KubeFlow (Google): The Machine Learning Toolkit for Kubernetes
-  - Pipeline focussed. At its core, a container orchestration system
-  - https://www.kubeflow.org/
-  - https://github.com/kubeflow/kubeflow
-  - https://valohai.com/blog/kubeflow-vs-mlflow/
+- MLFlow (Databricks): An open source platform for the machine learning lifecycle, experiment tracking focussed.  
+  - <a href="https://mlflow.org/">mlflow.org</a>
+  - <a href="https://github.com/mlflow/mlflow">github.com/mlflow/mlflow</a>
+- KubeFlow (Google): The Machine Learning Toolkit for Kubernetes. Pipeline focussed. At its core, a container orchestration system
+  - <a href="https://www.kubeflow.org/">www.kubeflow.org</a>
+  - <a href="https://github.com/kubeflow/kubeflow">github.com/kubeflow/kubeflow</a>
+  - <a href="https://valohai.com/blog/kubeflow-vs-mlflow/">valohai.com/blog/kubeflow-vs-mlflow</a>
 - Weights & Biases: Build better models faster with experiment tracking, dataset versioning, and model management
-  - https://wandb.ai/site
-  - https://github.com/wandb/client
+  - <a href="https://wandb.ai/site">wandb.ai/site</a>
+  - <a href="https://github.com/wandb/client">github.com/wandb/client</a>
 - Metaflow (Netflix): Build and manage real-life data science projects with ease
-  - https://metaflow.org/
-  - https://github.com/Netflix/metaflow
+  - <a href="https://metaflow.org/">metaflow.org</a>
+  - <a href="https://github.com/Netflix/metaflow">github.com/Netflix/metaflow</a>
 - Neptune: Manage all your model building metadata in a single place
-  - https://neptune.ai/
-  - https://github.com/neptune-ai/neptune-client
+  - <a href="https://neptune.ai/">neptune.ai</a>
+  - <a href="https://neptune.ai/">github.com/neptune-ai/neptune-client</a>
 - Comet: Manage and optimize the entire ML lifecycle, from experiment tracking to model production monitoring.
-  - https://www.comet.ml/site/
-  - https://github.com/comet-ml
-- Valohai (commercial?): Train, Evaluate, Deploy, Repeat. Valohai is the only MLOps platform that automates everything from data extraction to model deployment.
-  - https://valohai.com/
-  - https://github.com/valohai/valohai-cli
-- SageMaker
-- Databricks
+  - <a href="https://www.comet.ml/site/">www.comet.ml/site</a>
+  - <a href="https://github.com/comet-ml">github.com/comet-ml</a>
+- Ludwig: Data-centric declarative deep learning framework
+  - <a href="http://ludwig.ai/">http://ludwig.ai</a>
+  - <a href="https://github.com/ludwig-ai/ludwig">github.com/ludwig-ai/ludwig</a>
+- Kedro: A framework for creating reproducible, maintainable and modular data science code.
+  - <a href="https://kedro.readthedocs.io/">kedro.readthedocs.io</a>
+  - <a href="https://github.com/kedro-org/kedro">github.com/kedro-org/kedro</a>
+- Dagster: An orchestration platform for the development, production, and observation of data assets.
+  - <a href="https://dagster.io/">dagster.io</a>
+  - <a href="https://github.com/dagster-io/dagster">github.com/dagster-io/dagster</a>
+- ClearML (commercial): CI/CD to streamline your ML workflow. Experiment Manager, MLOps and Data-Management.
+  - <a href="https://clear.ml/docs">clear.ml/docs</a>
+  - <a href="https://github.com/allegroai/clearml">github.com/allegroai/clearml</a>
+- Valohai (commercial): Train, Evaluate, Deploy, Repeat. Valohai is the only MLOps platform that automates everything from data extraction to model deployment.
+  - <a href="https://valohai.com/">valohai.com</a>
+  - <a href="https://github.com/valohai/valohai-cli">github.com/valohai/valohai-cli</a>
+- Feast: An open-source feature store. It is the fastest path to operationalizing analytic data for model training and online inference.
+  - <a href="https://feast.dev/">feast.dev</a>
+  - <a href="https://github.com/feast-dev/feast">github.com/feast-dev/feast</a>
+
+
+<h3>Managed Cloud ML Services</h3>
+
+The big cloud players are in MLOps now too.  
+
+- <a href="https://aws.amazon.com/sagemaker/mlops/">AWS SageMaker</a> - Build, train, deploy, and manage ML models 
+- <a href="https://cloud.google.com/vertex-ai">Google Vertex AI</a> - Build, deploy, and scale ML models
+- <a href="https://azure.microsoft.com/en-au/services/machine-learning/mlops/">Azure MLOps</a>  - Automate and accelerate the machine learning lifecycle
+- <a href="https://databricks.com/product/machine-learning">Databricks ML</a> - Data-native and collaborative ML solution for the full ML lifecycle
+- <a href="https://www.datarobot.com/platform/mlops/">DataRobot</a> - Center of Excellence for Machine Learning Operations and Production AI
+- <a href="https://www.dataiku.com/product/key-capabilities/mlops/">Dataiku</a> - Deploy, monitor, and manage machine learning projects in production
+- <a href="https://valohai.com/">Valohai</a> - Train, Evaluate, Deploy, Repeat. Automates everything from data extraction to model deployment
+- <a href="https://gradient.run/">Gradient</a> - Develop, track, and collaborate on Deep Learning models
+- <a href="https://polyaxon.com/">Polyaxon</a> - Reproduce, automate, and scale your data science workflows with production-grade MLOps tools
+- <a href="https://www.tecton.ai/">Tecton</a> - Enterprise Feature Store for Machine Learning
+
+
+See more platforms here: https://mlops.neptune.ai/
 
 
 
-Proof of Concept to Production:
-- X 
-
-People:
-- https://eugeneyan.com/
-  - https://applyingml.com/
-- https://huyenchip.com
-  - https://huyenchip.com/2022/01/02/real-time-machine-learning-challenges-and-solutions.html
-  - https://www.youtube.com/watch?v=t9cwk3zB7N0 (ML Production Myths)
-- Andrew Ng
-  - https://www.andrewng.org/
-  - https://read.deeplearning.ai/the-batch/tag/letters/
-  - 
-
-Courses:
-- https://www.coursera.org/learn/machine-learning
-- https://www.deeplearning.ai/program/machine-learning-engineering-for-production-mlops/
-- https://stanford-cs329s.github.io/syllabus.html ?
-- https://fullstackdeeplearning.com/ ? (2019 version more engineering focussed)
-
-Industry info:
-- https://d1.awsstatic.com/whitepapers/accenture-industrializes-machine-learning-workloads-on-aws.pdf
-
-Books:
-- https://blog.floydhub.com/best-machine-learning-books/
-- https://leanpub.com/MLE
-- Deep Learning With Python (Chollet, 2021)
-- 
-
-Frameworks:
-- PyTorch
-  - https://pytorch.org/tutorials/intermediate/flask_rest_api_tutorial.html
-  - https://pytorch.org/tutorials/intermediate/tensorboard_profiler_tutorial.html
-  - https://github.com/pytorch/serve
-
-Career:
-- https://read.deeplearning.ai/the-batch/building-your-ai-career-a-report-by-workera/
-
-
-Feast: https://cloud.google.com/blog/products/ai-machine-learning/introducing-feast-an-open-source-feature-store-for-machine-learning
