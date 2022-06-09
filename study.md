@@ -15,10 +15,10 @@ header-img: "img/apps-bg.jpg"
 1. [Python Systems/Numeric](#python-systems)
 2. [Python Geospatial](#python-gis)
 3. [Systems / Data Engineering](#engineering)
-4. [Machine Learning](#ml)
+4. [Machine Learning Courses](#ml)
 5. [Geospatial](#gis)
-6. [Blogs](#blogs)
-7. [Essential Papers](#papers)
+6. [Computational geometry](#compgeo)
+7. [Blogs](#blogs)
 
 
 <a name="python-systems"></a>
@@ -75,18 +75,20 @@ header-img: "img/apps-bg.jpg"
 
 
 <a name="ml"></a>
-# Machine Learning / Deep Learning
+# Machine Learning / Deep Learning Courses
 
-| Project                | Details                                                                                                                                                                                                                                 |
-|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Stanford CS231n course | [CS231n: DL for Computer Vision](http://vision.stanford.edu/teaching/cs231n/) <br />[Youtube 2016](https://www.youtube.com/playlist?list=PLkt2uSq6rBVctENoVBg1TpCC7OQi31AlC) <br />[Github](https://github.com/cs231n/cs231n.github.io) |
-| ML Course              | [Introduction to Machine Learning](https://sebastianraschka.com/blog/2021/ml-course.html) with [Sebastian Raschka](https://sebastianraschka.com/) <br />[Github](https://github.com/rasbt/stat451-machine-learning-fs20)                |
-| DL Course              | [Introduction to Deep Learning](https://sebastianraschka.com/blog/2021/dl-course.html) with [Sebastian Raschka](https://sebastianraschka.com/) <br />[Github](https://github.com/rasbt/stat453-deep-learning-ss20)                      |
-| DL Course              | [Deep Learning Course](https://cds.nyu.edu/deep-learning/) with [Yann LeCun](http://yann.lecun.com/)                                                                                                                                    |
-| DL Courses             | [Coursera Deep Learning Specialization](https://www.coursera.org/specializations/deep-learning) with [Andrew Ng](https://twitter.com/AndrewYNg)                                                                                         |
-| Math course            | [Mathematical/Computational Techniques for Scientists and Engineers](https://primer-computational-mathematics.github.io/book/c_mathematics/intro.html)                                                                                  |
+| Project                   | Details                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+|---------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Stanford <br />CS229      | [CS229: Machine Learning - Home](https://cs229.stanford.edu/) <br />[Youtube 2018](https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU) (20 vids)  with [Andrew Ng](https://www.andrewng.org/) <br />[Syllabus 2018](https://cs229.stanford.edu/syllabus-autumn2018.html) <br />[CS229 cheatsheets](https://stanford.edu/~shervine/teaching/cs-229/) <br />[Lecture notes 2022](https://cs229.stanford.edu/lectures-spring2022/main_notes.pdf)                                                                                                                                                                                                                                        |
+| Stanford <br />CS230      | [CS230: Deep Learning - Home](https://cs230.stanford.edu/) <br />[Youtube 2018](https://www.youtube.com/playlist?list=PLoROMvodv4rOABXSygHTsbvUz4G_YQhOb) (10 vids) with [Andrew Ng](https://www.andrewng.org/) <br />[Syllabus and Notes current](https://cs230.stanford.edu/syllabus/) <br />[Blog](https://cs230.stanford.edu/blog/) <br />[CS230 cheatsheets](https://stanford.edu/~shervine/teaching/cs-230/)                                                                                                                                                                                                                                                                                         |
+| Stanford <br />CS231n     | [CS231n: DL for Computer Vision - Home](http://cs231n.stanford.edu/) <br />[Lecture notes current](https://cs231n.github.io/) <br />[Slides all years](http://cs231n.stanford.edu/slides/) <br />[Youtube 2017](https://www.youtube.com/playlist?list=PLC1qU-LWwrF64f4QKQT-Vg5Wr4qEE1Zxk) (16 vids) with [Fei-Fei Li](http://vision.stanford.edu/feifeili/); [Lecture notes 2017](http://cs231n.stanford.edu/slides/2017/) <br />[Youtube 2016](https://www.youtube.com/playlist?list=PLkt2uSq6rBVctENoVBg1TpCC7OQi31AlC) (15 vids) with [Andrej Karpathy](https://karpathy.ai/); [Lecture notes 2016](http://cs231n.stanford.edu/slides/2016/) <br />[Github](https://github.com/cs231n/cs231n.github.io) |
+| MIT <br />6.S191          | [MIT 6.S191 Intro to DL Home](http://introtodeeplearning.com/) with [Alexander Amini](https://www.mit.edu/~amini/) <br />[Youtube](https://www.youtube.com/playlist?list=PLtBw6njQRU-rwp5__7C0oIVt26ZgjG9NI) (multi-year) <br />[Github](https://github.com/aamini/introtodeeplearning/)                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| UW-Madison <br />STAT 451 | [Introduction to Machine Learning 2021](https://sebastianraschka.com/blog/2021/ml-course.html) with [Sebastian Raschka](https://sebastianraschka.com/) <br />[Youtube](https://www.youtube.com/playlist?list=PLTKMiZHVd_2KyGirGEvKlniaWeLOHhUF3) <br />[Github](https://github.com/rasbt/stat451-machine-learning-fs20)                                                                                                                                                                                                                                                                                                                                                                                    |
+| UW-Madison <br />STAT 453 | [Introduction to Deep Learning](https://sebastianraschka.com/blog/2021/dl-course.html) with [Sebastian Raschka](https://sebastianraschka.com/) <br />[Youtube](https://www.youtube.com/playlist?list=PLTKMiZHVd_2KJtIXOW0zFhFfBaJJilH51) <br />[Github](https://github.com/rasbt/stat453-deep-learning-ss20)                                                                                                                                                                                                                                                                                                                                                                                               |
+| NYU <br />DLSP21          | [Deep Learning - Home](https://cds.nyu.edu/deep-learning/) with [Yann LeCun](http://yann.lecun.com/) <br />[Leture notes, links, videos](https://atcold.github.io/NYU-DLSP21/) <br />[Github](https://github.com/Atcold/NYU-DLSP21)                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Coursera <br />DL Spec    | [Coursera Deep Learning Specialization](https://www.coursera.org/specializations/deep-learning) with [Andrew Ng](https://twitter.com/AndrewYNg)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| Math course               | [Mathematical/Computational Techniques for Scientists and Engineers](https://primer-computational-mathematics.github.io/book/c_mathematics/intro.html)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 
-TODO: more ML
 
 <a name="gis"></a>
 # Geospatial
@@ -98,7 +100,19 @@ TODO: more ML
 | GIS course             | [Geographic Data Science - ENVS363/563](https://darribas.org/gds_course/content/overview.html) (Arribas-Bel)                       |
 | Cartopy                | [Docs](https://scitools.org.uk/cartopy/docs/latest/getting_started/index.html) <br />[GitHub](https://github.com/SciTools/cartopy) |
 
-TODO: more GIS
+
+<a name="compgeo"></a>
+# Computational geometry
+
+| Resource     | Details                                                                                                                                                                                                   |
+|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Code library | [Computational Geometry Algorithms Library](https://doc.cgal.org/latest/Manual/packages.html)                                                                                                             |
+| Primer       | [Primer on Mathematical/Computational Techniques for Scientists and Engineers](https://primer-computational-mathematics.github.io/book/intro.html) (Dept of Earth Sci & Eng, Imperial College London)     |
+| Course       | [CMPT 813: Computational Geometry Course](https://www2.cs.sfu.ca/~binay/813.2011/) (Fall 2011, Simon Fraser University) - [Lecture notes](https://www2.cs.sfu.ca/~binay/813.2011/754lects-Mount.pdf)      |
+| Course       | [ETH Zürich: Computational Geometry Course](https://ti.inf.ethz.ch/ew/Lehre/CG13/index.html) - [Lecture notes](https://ti.inf.ethz.ch/ew/Lehre/CG13/lecture/cg-2013.pdf)                                  |
+| Course       | [METU CENG 773 - Computational Geometry](https://user.ceng.metu.edu.tr/~tcan/ceng773_s1314/overview.shtml) - [Youtube lectures](https://www.youtube.com/playlist?list=PLuiPz6iU5SQ8W6v1F5OgogHel4T6KjKob) |
+| Book         | [Computational Geometry: Algorithms and Applications](https://www.amazon.com.au/Computational-Geometry-Applications-Mark-Berg/dp/3540779736), Berg et al, 2008                                            |
+| Book         | [Computational Geometry: An Introduction](https://www.amazon.com.au/Computational-Geometry-Introduction-Franco-Preparata/dp/0387961313), Preparata and Shamos, 1993                                       |
 
 
 <a name="blogs"></a>
@@ -111,16 +125,4 @@ TODO: more GIS
 | ML/DL          | [Andrej Karpathy](http://karpathy.github.io/)                        |
 | Blockchain     | [Vitalik Buterin](https://vitalik.ca/)                               |
 | ML             | [Machine Learning Mastery](https://machinelearningmastery.com/blog/) |
-
-
-<a name="papers"></a>
-# Essential Papers
-
-| Category | Blogs                                                                                                                                                                  |
-|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ML       | [A Survey of Deep Learning for Scientific Discovery](https://arxiv.org/abs/2003.11755)                                                                                 |
-| ML       | [Machine Learning in Python: Main developments and technology trends in data science, machine learning, and artificial intelligence](https://arxiv.org/abs/2002.04803) |
-| GIS ML   | [Polygonal Building Segmentation by Frame Field Learning](https://arxiv.org/abs/2004.14875)                                                                            |
-| GIS ML   | [Semantically Accurate Super-Resolution Generative Adversarial Networks](https://arxiv.org/abs/2205.08659)                                                             |
-
-TODO: more papers
+| Science        | [Quanta Magazine Blog](https://www.quantamagazine.org/abstractions/) |
