@@ -140,6 +140,13 @@ header-img: "img/apps-bg.jpg"
 | ML Engineering | [Chip Huyen](https://huyenchip.com/blog/)                                                                                                                                     |
 | ML Engineering | [Eugene Yan](https://eugeneyan.com/writing/)                                                                                                                                  |
 | ML/DL          | [Andrej Karpathy](http://karpathy.github.io/)                                                                                                                                 |
-| Blockchain     | [Vitalik Buterin](https://vitalik.ca/)                                                                                                                                        |
+| ML/DL          | [Open AI BLog](https://openai.com/blog/)                                                                                                                                      |
+| ML/DL          | [Hugging Face BLog](https://huggingface.co/blog)                                                                                                                              |
+| ML/DL          | [DeepLearning.ai ML Research](https://read.deeplearning.ai/the-batch/tag/research/)                                                                                           |
+| ML             | [Towards Data Science](https://towardsdatascience.com/tagged/deep-dives)                                                                                                      |
 | ML             | [Machine Learning Mastery](https://machinelearningmastery.com/blog/)                                                                                                          |
+| Blockchain     | [Vitalik Buterin](https://vitalik.ca/)                                                                                                                                        |
+| Rationality    | [LessWrong Library](https://www.lesswrong.com/library)                                                                                                                        |
 | Science        | [Quanta Magazine Blog](https://www.quantamagazine.org/abstractions/); [Quanta Magazine Videos](https://www.youtube.com/c/QuantaScienceChannel/videos?view=0&sort=p&flow=grid) |
+| Random         | [Wait But Why](https://waitbutwhy.com/archive)                                                                                                                                |
+| Random         | [xkcd](https://xkcd.com/)                                                                                                                                                     |
