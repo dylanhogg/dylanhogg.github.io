@@ -115,6 +115,7 @@ header-img: "img/apps-bg.jpg"
 | Project                  | Details                                                                                                                            |
 |--------------------------|------------------------------------------------------------------------------------------------------------------------------------|
 | Online GIS book          | [Geographic Data Science with Python](https://geographicdata.science/book/intro.html) (Arribas-Bel et al)                          |
+| Spatial Data Programming | [Spatial Data Programming with Python course](https://geobgu.xyz/py/) (Ben-Gurion University of the Negev)                         |
 | Automating GIS-processes | [Automating GIS-processes course 2021](https://autogis-site.readthedocs.io/en/latest/index.html) (University of Helsinki)          |
 | GIS Twitter              | [Geospatial Twitter accounts](https://twitter.com/i/lists/1517735762246377472)                                                     |
 | GIS course               | [Geographic Data Science - ENVS363/563](https://darribas.org/gds_course/content/overview.html) (Arribas-Bel)                       |
