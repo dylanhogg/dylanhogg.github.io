@@ -110,6 +110,9 @@ Desirable ML system requirements:
 * Feature store for data reuse and reproducibility
 * Ability to track model drift over time (e.g. continuous validation after deployment)
 
+<i>Update Nov 2022:</i><br />
+<a href="https://arxiv.org/abs/2209.09125">Operationalizing Machine Learning: An Interview Study</a> from University of California, Berkeley is a great read. It covers interviews with 18 MLEs working across many applications and summarises common practices for successful ML experimentation, deployment, sustaining production performance, pain points and antipatterns.
+
 
 <!-- ---------------------------------------------------------------------- -->
 <h2 class="section-heading" id="canvas">Machine Learning Canvas</h2>
