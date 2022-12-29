@@ -296,3 +296,11 @@ The machine learning space is evolving rapidly and it's great to see best practi
 <a href="/img/ml-productionisation/xkcd_data_pipeline_2x.png"><img src="/img/ml-productionisation/xkcd_data_pipeline.png" alt="xkcd comic of data pipelines" class="center" /></a>
 <span class="caption text-muted">Source: <a href="https://xkcd.com/2054/">xkcd.com</a></span>
 
+
+<!-- ---------------------------------------------------------------------- -->
+<h2 class="section-heading" id="additional">Additional references</h2>
+
+- <a href="https://ml-ops.org/">ml-ops.org</a> - Great MLOps resource by <a href="https://www.innoq.com/">innoq</a>
+- <a href="https://mymlops.com/">mymlops.com</a> - Build your MLOps stack by <a href="https://www.linkedin.com/in/tanel-sarnet/">Tanel Sarnet</a> and <a href="https://www.linkedin.com/in/nathaliamdc/">Nathalia Campos</a> 
+- <a href="/resources/ml-productionisation/The Big Book of MLOps (Databricks, v6, 2022).pdf">The Big Book of MLOps (pdf)</a> by <a href="https://www.databricks.com/p/ebook/the-big-book-of-mlops">Databricks</a>
+- <a href="/resources/ml-productionisation/MLOps - A Holistic Approach (wandb, 2022).pdf">MLOps - A Holistic Approach (pdf)</a> by <a href="https://wandb.ai/site/holistic-mlops-whitepaper-download">wandb.ai</a>
