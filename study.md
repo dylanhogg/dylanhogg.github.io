@@ -13,10 +13,10 @@ header-img: "img/apps-bg.jpg"
 
 # Study Sections
 1. [Python Systems/Numeric](#python-systems)
-2. [Python Geospatial](#python-gis)
-3. [Systems / Data Engineering](#engineering)
-4. [Machine Learning Courses](#ml)
-5. [Math Resources](#math)
+2. [Systems / Data Engineering](#engineering)
+3. [Machine Learning Courses](#ml)
+4. [Math Resources](#math)
+5. [Python Geospatial](#python-gis)
 6. [Geospatial](#gis)
 7. [Computational geometry](#compgeo)
 8. [Blogs](#blogs)
@@ -44,21 +44,6 @@ header-img: "img/apps-bg.jpg"
 | Conda/Mumba       | [Conda](https://docs.conda.io/projects/conda/en/latest/) <br />[Conda-forge](https://conda-forge.org/docs/user/introduction.html) <br />[Miniconda](https://docs.conda.io/en/latest/miniconda.html) <br />[Mamba](https://github.com/mamba-org/mamba) <br />[Micromamba](https://github.com/mamba-org/mamba/blob/master/docs/source/user_guide/micromamba.rst) |
 
 
-<a name="python-gis"></a>
-# Python Geospatial
-
-| Project            | Details                                                                                                                                                 |
-|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Libraries overview | [Awesome Python geospatial](https://www.awesomepython.org/app.html?q=geo)                                                                               |
-| GeoPandas          | [Intro](https://geopandas.org/en/stable/getting_started/introduction.html) <br />[User guide](https://geopandas.org/en/stable/docs/user_guide.html)     |
-| Dask-GeoPandas     | [Guide](https://dask-geopandas.readthedocs.io/en/stable/guide.html) <br />[API](https://dask-geopandas.readthedocs.io/en/stable/api.html)               |
-| Shapely            | [Manual](https://shapely.readthedocs.io/en/latest/manual.html)                                                                                          |
-| Rasterio           | [Quickstart](https://rasterio.readthedocs.io/en/latest/quickstart.html) <br />[Adv topics](https://rasterio.readthedocs.io/en/latest/topics/index.html) |
-| PySal              | [Overview](http://pysal.org/pysal/api.html)                                                                                                             |
-| Scipy              | [User guide](https://docs.scipy.org/doc/scipy/tutorial/index.html) <br />[Spatial library](https://docs.scipy.org/doc/scipy/tutorial/spatial.html)      |
-| OSMnx              | [Overview blog](https://geoffboeing.com/2016/11/osmnx-python-street-networks/)                                                                          |                                                                                                                                                                                                                                                                                                                                |
-
-
 <a name="engineering"></a>
 # Systems / Data Engineering
 
@@ -72,8 +57,8 @@ header-img: "img/apps-bg.jpg"
 | Kafka     | [Docs](https://kafka.apache.org/documentation/) <br />[Ecosystem](https://cwiki.apache.org/confluence/display/KAFKA/Ecosystem)                                                                                                        |
 | AWS       | [Certification plan](https://docs.google.com/document/d/17D2PPbEKwLEpSmvEr-4eemtfMgjCiT1VmnQ_R2dkMIE/edit#heading=h.hns8txt42qra) <br />[]()                                                                                          |
 | Terraform | [Language](https://www.terraform.io/language) <br />[AWS provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)                                                                                                 |
+| Snowflake | [Resources](https://resources.snowflake.com/)                                                                                                                                                                                         |
 | Postgis   | [Reference](https://postgis.net/docs/manual-3.2/reference.html)                                                                                                                                                                       |
-| QGIS      | [User manual](https://docs.qgis.org/3.22/en/docs/user_manual/)                                                                                                                                                                        |
 
 
 <a name="ml"></a>
@@ -107,6 +92,21 @@ header-img: "img/apps-bg.jpg"
 | Khan videos     | [Khan Academy Math](https://www.khanacademy.org/math); [Alg2](https://www.khanacademy.org/math/algebra2); [Trig](https://www.khanacademy.org/math/trigonometry); [Stats](https://www.khanacademy.org/math/statistics-probability); [Diff calc](https://www.khanacademy.org/math/differential-calculus); [Int calc](https://www.khanacademy.org/math/integral-calculus); [Calc1](https://www.khanacademy.org/math/calculus-1); [Calc2](https://www.khanacademy.org/math/calculus-2); [MV calc](https://www.khanacademy.org/math/multivariable-calculus); [Diff eq](https://www.khanacademy.org/math/differential-equations); [Lin alg](https://www.khanacademy.org/math/linear-algebra) |
 | 3b1b videos     | [3Blue1Brown](https://www.3blue1brown.com/); [Youtube](https://www.youtube.com/c/3blue1brown/playlists?view=1)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | Math videos     | [Mathematical Monk](https://www.youtube.com/user/mathematicalmonk/playlists); [Youtube](https://www.youtube.com/c/3blue1brown/playlists?view=1)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+
+
+<a name="python-gis"></a>
+# Python Geospatial
+
+| Project            | Details                                                                                                                                                 |
+|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Libraries overview | [Awesome Python geospatial](https://www.awesomepython.org/app.html?q=geo)                                                                               |
+| GeoPandas          | [Intro](https://geopandas.org/en/stable/getting_started/introduction.html) <br />[User guide](https://geopandas.org/en/stable/docs/user_guide.html)     |
+| Dask-GeoPandas     | [Guide](https://dask-geopandas.readthedocs.io/en/stable/guide.html) <br />[API](https://dask-geopandas.readthedocs.io/en/stable/api.html)               |
+| Shapely            | [Manual](https://shapely.readthedocs.io/en/latest/manual.html)                                                                                          |
+| Rasterio           | [Quickstart](https://rasterio.readthedocs.io/en/latest/quickstart.html) <br />[Adv topics](https://rasterio.readthedocs.io/en/latest/topics/index.html) |
+| PySal              | [Overview](http://pysal.org/pysal/api.html)                                                                                                             |
+| Scipy              | [User guide](https://docs.scipy.org/doc/scipy/tutorial/index.html) <br />[Spatial library](https://docs.scipy.org/doc/scipy/tutorial/spatial.html)      |
+| OSMnx              | [Overview blog](https://geoffboeing.com/2016/11/osmnx-python-street-networks/)                                                                          |                                                                                                                                                                                                                                                                                                                                |
 
 
 <a name="gis"></a>
@@ -152,7 +152,9 @@ header-img: "img/apps-bg.jpg"
 | Blockchain     | [Vitalik Buterin](https://vitalik.ca/) - ethereum and crypto-economics                                                                                                                                          |
 | Rationality    | [LessWrong Library](https://www.lesswrong.com/library) - improving decision-making                                                                                                                              |
 | Science        | [Quanta Magazine Blog](https://www.quantamagazine.org/abstractions/); [Quanta Magazine Videos](https://www.youtube.com/c/QuantaScienceChannel/videos?view=0&sort=p&flow=grid) - science, math, physics, compsci |
-| Career         | [Irrational Exuberance](https://lethain.com/) - writing by engineering leader Will Larson                                                                                                                       |
+| Career         | [Irrational Exuberance](https://lethain.com/) - writing by engineering leader [Will Larson](https://twitter.com/lethain)                                                                                        |
+| Career         | [StaffEng](https://staffeng.com/) - stories about operating in Staff/Principal roles (also by Will Larson)                                                                                                      |
+| Career         | [No Idea](https://noidea.dog/) - notes by [Tanya Reilly](https://twitter.com/whereistanya), author of The Staff Engineer’s Path                                                                                 |
 | Random         | [Wait But Why](https://waitbutwhy.com/archive) - ai, psychology, space, everything                                                                                                                              |
 | Random         | [xkcd](https://xkcd.com/) - check it out!                                                                                                                                                                       |
 
