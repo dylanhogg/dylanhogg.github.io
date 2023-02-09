@@ -46,7 +46,8 @@ cf-invalidation:
 
 ## AWS remove production bucket
 s3-remove-files:
-	aws s3 rm s3://${BUCKET} --recursive
+	@echo "Really?"
+	# aws s3 rm s3://${BUCKET} --recursive
 
 ## Browse to public S3 bucket
 s3-browse:
