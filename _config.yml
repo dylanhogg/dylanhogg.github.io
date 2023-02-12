@@ -20,7 +20,7 @@ disqus_shortname: infocruncher  # https://infocruncher.disqus.com/admin/
 
 # Google Analytics
 # To enable google analytics, uncomment below line with a valid Google Tracking ID
-google_tracking_id: UA-5303260-14
+google_tracking_id: G-8GFQFYPREF
 
 # Extra options
 timezone: Australia/Sydney
