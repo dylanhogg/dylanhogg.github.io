@@ -12,7 +12,7 @@ comments:   true
 
 <style>
     .center {
-      width: 50%;
+      width: 60%;
       margin: 0 auto;
     }
 </style>
@@ -29,7 +29,7 @@ Regardless of the precise definition, getting machine learning models into a pro
 <a href="/img/ml-productionisation/xkcd_machine_learning_2x.png"><img src="/img/ml-productionisation/xkcd_machine_learning.png" alt="xkcd comic of machine learning" class="center" /></a>
 <span class="caption text-muted">Source: <a href="https://xkcd.com/1838/">xkcd.com</a></span>
 
-Best practices are emerging to ensure you can sucessfully prepare data, train a model, validate predictions, deploy, serve and monitor your model.
+Best practices are emerging to ensure you can successfully prepare data, train a model, validate predictions, deploy, serve and monitor your model.
 
 This post is a 10,000-foot overview of things to consider during the life cycle of a machine learning project and includes pointers to useful resources. 
 
@@ -111,7 +111,7 @@ Desirable ML system requirements:
 * Ability to track model drift over time (e.g. continuous validation after deployment)
 
 <i>Update Nov 2022:</i><br />
-<a href="https://arxiv.org/abs/2209.09125">Operationalizing Machine Learning: An Interview Study</a> from University of California, Berkeley is a great read. It covers interviews with 18 MLEs working across many applications and summarises common practices for successful ML experimentation, deployment, sustaining production performance, pain points and antipatterns.
+<a href="https://arxiv.org/abs/2209.09125">Operationalizing Machine Learning: An Interview Study</a> from University of California, Berkeley is a great read. It covers interviews with 18 MLEs working across many applications and summarises common practices for successful ML experimentation, deployment, sustaining production performance, pain points and anti-patterns.
 
 
 <!-- ---------------------------------------------------------------------- -->
@@ -293,7 +293,7 @@ See more platforms here: <a href="https://mlops.neptune.ai/">mlops.neptune.ai</a
 
 The machine learning space is evolving rapidly and it's great to see best practices and tools emerging to make productionisation of models faster and more robust. However, there is still a long way to go!!
 
-<a href="/img/ml-productionisation/xkcd_data_pipeline_2x.png"><img src="/img/ml-productionisation/xkcd_data_pipeline.png" alt="xkcd comic of data pipelines" class="center" /></a>
+<a href="/img/ml-productionisation/xkcd_data_pipeline_2x.png"><img src="/img/ml-productionisation/xkcd_data_pipeline.png" alt="xkcd comic of data pipelines" /></a>
 <span class="caption text-muted">Source: <a href="https://xkcd.com/2054/">xkcd.com</a></span>
 
 
