@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      "What is a Machine Learning Algorithm?"
-subtitle:   "Overview of machine learning algorithm families and types"
+title:      "Machine Learning Introduction"
+subtitle:   "Overview of machine learning and common algorithms"
 date:       2023-02-15 09:00:00
 tags:       [Machine Learning, Data]
 author:     "Dylan Hogg"
@@ -30,14 +30,14 @@ Regardless of the precise definition of ML, there are a few essential ingredient
 
 <h2>Families of ML Algorithms</h2>
 
-There are several families of ML algorithms that typically have different qualities of input data and achieve a different task objective to each other.
+An <a href="https://en.wikipedia.org/wiki/Algorithm">algorithm</a> is a set of rules used for solving a problem or performing a computation. There are several families of ML algorithms that typically have different qualities of input data and achieve different task objectives.
 
 <a href="/img/ml-overview/types_of_algorithms.png"><img src="/img/ml-overview/types_of_algorithms.png" alt="Machine Learning Types" /></a>
 <span class="caption text-muted">Machine Learning Types.<br />Source: <a href="https://en.proft.me/2015/12/24/types-machine-learning-algorithms/">en.proft.me</a></span>
 
 <h3>1. Supervised Learning</h3>
 
-<a href="https://en.wikipedia.org/wiki/Supervised_learning">Supervised learning</a> algorithms operate on labelled examples, where each data point has features (or attributes) and an associated known true label value. For example, features of a patient medical condition with a known label of the disease.
+<a href="https://en.wikipedia.org/wiki/Supervised_learning">Supervised learning</a> algorithms operate on labelled examples, where each data point has features (also known as attributes) and an associated known true label value. For example, features of a patient medical condition with a known label of the disease.
 
 If you have labelled data, supervised learning algorithms learn a function that maps input feature vectors to the output label. Within supervised learning there are different types of algorithms depending on your data and task objective. 
 
@@ -132,7 +132,7 @@ Experimentation is important when developing a machine learning model. It allows
 
 Experimentation also enables the practitioner to evaluate the model's generalisation ability, which is crucial for ensuring that the model can make accurate predictions on unseen data. This aspect of training a model will be covered in a future post.
 
-Finally, I recommend playing with the <a href="https://playground.tensorflow.org/">TensorFlow Playground</a> which lets you create, run and experiment with simple neural networks on sample data. This is a great way to get a intuition about what a network can and cannot learn.
+I recommend playing with the <a href="https://playground.tensorflow.org/">TensorFlow Playground</a> which lets you create, run and experiment with simple neural networks on sample data. This is a great way to get a intuition about what a network can and cannot learn.
 
 <a href="/img/ml-overview/tensorflow-playground.png"><img src="/img/ml-overview/tensorflow-playground.png" alt="TensorFlow Playground" /></a>
 <span class="caption text-muted">TensorFlow Playground.<br />Source: <a href="https://playground.tensorflow.org/">playground.tensorflow.org</a></span>
