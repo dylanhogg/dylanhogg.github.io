@@ -21,9 +21,7 @@ comments:   true
     }
 </style>
 
-<h2 class="section-heading" id="what-is-ml">What is Machine Learning?</h2>
-
-<h2>How does an ML Algorithm actually learn?</h2>
+<h2 class="section-heading" id="how">How does an ML Algorithm actually learn?</h2>
 
 <p>There are many types of ML algorithms. In this post I will discuss <a href="https://en.wikipedia.org/wiki/Supervised_learning">supervised learning</a> algorithms. These operate on labelled data, where each data point has one or more features (also known as attributes) and an associated known true label value.</p>
 
@@ -36,7 +34,7 @@ comments:   true
 
 <p>Some algorithms are quite simple with few parameters to tune (for example <a href="https://en.wikipedia.org/wiki/Logistic_regression">logistic regression</a>) while others are very complex (for example <a href="https://en.wikipedia.org/wiki/Transformer_(machine_learning_model)">transformer deep learning models</a>). Below we’ll cover the trade-offs between different algorithms and the subtleties of training a model that generalises well for predictions.</p>
 
-<h2>Components of an ML Algorithm</h2>
+<h2 class="section-heading" id="components">Components of an ML Algorithm</h2>
 
 <p>A typical ML algorithm consists of a few essential components:</p>
 
@@ -67,7 +65,7 @@ comments:   true
 <p>An <strong>optimisation algorithm</strong>. One possible example is <a href="https://en.wikipedia.org/wiki/Gradient_descent">Gradient Descent</a>, since the objective function is differentiable. (Another option is a closed form solution, but that isn’t always solvable when the dataset is large).</p>
 </li></ol>
 
-<h2>Gradient Descent Optimisation Algorithm</h2>
+<h2 class="section-heading" id="gradient">Gradient Descent Optimisation Algorithm</h2>
 
 <p><a href="https://en.wikipedia.org/wiki/Gradient_descent">Gradient Descent</a> is a first-order iterative optimisation algorithm for finding a local minimum of a differentiable function. It’s commonly used to optimise linear regression, logistic regression and neural networks.</p>
 
@@ -87,7 +85,7 @@ comments:   true
 
 <p>The assumptions of a great model for one problem may not hold for another problem, so it is common to try multiple models and find one that works best for a particular problem.</p>
 
-<h2>Under and Over-fitting</h2>
+<h2 class="section-heading" id="under">Under and Over-fitting</h2>
 
 <p><a href="https://en.wikipedia.org/wiki/Overfitting#Underfitting">Underfitting</a> and <a href="https://en.wikipedia.org/wiki/Overfitting">overfitting</a> are common problems that can occur when training models.</p>
 
@@ -100,7 +98,7 @@ comments:   true
 <a href="/img/ml-training/overfitting.png"><img src="/img/ml-training/overfitting.png" alt="Examples of under/good/over fitting" class="center-large" /></a>
 <span class="caption text-muted">Examples of under/good/over fitting<br />Source: <a href="https://medium.com/greyatom/what-is-underfitting-and-overfitting-in-machine-learning-and-how-to-deal-with-it-6803a989c76">Anup Bhande</a></span>
 
-<h2>Bias and Variance</h2>
+<h2 class="section-heading" id="bias">Bias and Variance</h2>
 
 <p><a href="https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff">Bias and variance</a> are two important concepts that relate to the ability of a model to accurately capture the underlying patterns in the data.</p>
 
@@ -111,7 +109,7 @@ comments:   true
 <a href="/img/ml-training/bias_variance.png"><img src="/img/ml-training/bias_variance.png" alt="Bias/variance intuition" class="center" /></a>
 <span class="caption text-muted">Bias/variance intuition<br />Source: <a href="https://towardsdatascience.com/understanding-the-bias-variance-tradeoff-165e6942b229">Seema Singh</a></span>
 
-<h2>Bias / Variance Tradeoff</h2>
+<h2 class="section-heading" id="tradeoff">Bias / Variance Tradeoff</h2>
 
 <p>Bias and variance trade off against each other. This tradeoff is a central problem in supervised learning.</p>
 
@@ -130,7 +128,7 @@ comments:   true
 <a href="/img/ml-training/bias_variance_tradeoff.png"><img src="/img/ml-training/bias_variance_tradeoff.png" alt="Bias/variance error decomposition" class="center-large" /></a>
 <span class="caption text-muted">Bias/variance error decomposition<br />Source: <a href="https://djsaunde.wordpress.com/2017/07/17/the-bias-variance-tradeoff/">Daniel Saunders</a></span>
 
-<h2>Training/Validation/Test Data Splits</h2>
+<h2 class="section-heading" id="data-splits">Training/Validation/Test Data Splits</h2>
 
 <p><a href="https://en.wikipedia.org/wiki/Training,_validation,_and_test_data_sets">Training, validation, and test data splits</a> are used to evaluate the performance of a model on new, unseen data. These data splits are used to train the model, tune its hyperparameters, and evaluate its performance.</p>
 
@@ -145,7 +143,7 @@ comments:   true
 <a href="/img/ml-training/data_splits.png"><img src="/img/ml-training/data_splits.png" alt="Data splits" class="center-large" /></a>
 <span class="caption text-muted">Data splits<br />Source: <a href="https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6">Adi Bronshtein</a></span>
 
-<h2>Hyperparameters</h2>
+<h2 class="section-heading" id="hyperparms">Hyperparameters</h2>
 
 <p><a href="https://en.wikipedia.org/wiki/Hyperparameter_(machine_learning)">Hyperparameters</a> in machine learning are model settings that cannot be learned during training but must be set before the training process begins. They control the behaviour of the model and can have a significant impact on its performance.</p>
 
@@ -163,7 +161,7 @@ comments:   true
 <p><strong><a href="https://en.wikipedia.org/wiki/Hyperparameter_optimization#Bayesian_optimization">Bayesian optimisation</a> </strong>- builds a model of the function mapping from hyper-parameter values to the objective</p>
 </li></ul>
 
-<h2>Regularisation</h2>
+<h2 class="section-heading" id="regularisation">Regularisation</h2>
 
 <p><a href="https://en.wikipedia.org/wiki/Regularization_(mathematics)">Regularisation</a> is an umbrella term of methods that force the learning algorithm to build a less complex model. It is any modiﬁcation we make to a learning algorithm that is intended to reduce its <a href="https://en.wikipedia.org/wiki/Generalization_error">generalisation error</a> but not its training error.</p>
 
@@ -186,7 +184,7 @@ comments:   true
     </li></ul>
 </li></ul>
 
-<h2>Learning Curves</h2>
+<h2 class="section-heading" id="learning-curves">Learning Curves</h2>
 
 <p>A <a href="https://en.wikipedia.org/wiki/Learning_curve_(machine_learning)">learning curve</a> is a graph that shows how the performance of a model changes as the size of the training set increases or the model complexity increases. </p>
 
@@ -198,7 +196,7 @@ comments:   true
 <a href="/img/ml-training/learning_trainingset_size.png"><img src="/img/ml-training/learning_trainingset_size.png" alt="Training set size learning curve" class="center" /></a>
 <span class="caption text-muted">Training set size learning curve<br />Source: <a href="https://upload.wikimedia.org/wikipedia/commons/9/90/Variance-bias.svg">wikimedia</a></span>
 
-<h2>Assessing Model Performance</h2>
+<h2 class="section-heading" id="performance">Assessing Model Performance</h2>
 
 <p>To assess the performance of a machine learning model, several evaluation metrics can be used. The choice of the metric depends on the specific problem and the type of model being used.</p>
 
@@ -228,7 +226,7 @@ comments:   true
 <a href="/img/ml-training/roc_curve.png"><img src="/img/ml-training/roc_curve.png" alt="TP vs FP rate at different classification thresholds" class="center" /></a>
 <span class="caption text-muted">TP vs FP rate at different classification thresholds<br />Source: <a href="https://developers.google.com/machine-learning/crash-course/classification/roc-and-auc">developers.google.com</a></span>
 
-<h2>Further Considerations</h2>
+<h2 class="section-heading" id="further">Further Considerations</h2>
 
 <p>There are many further important considerations when training a good machine learning model. I plan to cover these in a future post. For now I’ll list</p>
 
@@ -254,7 +252,7 @@ comments:   true
 <p>Ease of trained model productionisation, <a href="https://en.wikipedia.org/wiki/MLOps">MLOps</a> and <a href="https://en.wikipedia.org/wiki/ModelOps">ModelOps</a></p>
 </li></ul>
 
-<h2>Further Resources</h2>
+<h2 class="section-heading" id="resources">Further Resources</h2>
 
 <p>These are my recommended machine and deep learning lecture videos, all available via Youtube:</p>
 
