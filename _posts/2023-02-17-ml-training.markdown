@@ -21,6 +21,8 @@ comments:   true
     }
 </style>
 
+This is Part 2 in the machine learning series, covering model training and learning from data. Part 1 covers <a href="https://blog.infocruncher.com/2023/02/15/ml-overview/">an overview of machine learning and common algorithms</a>.  
+
 <h2 class="section-heading" id="how">How does an ML Algorithm actually learn?</h2>
 
 <p>There are many types of ML algorithms. In this post I will discuss <a href="https://en.wikipedia.org/wiki/Supervised_learning">supervised learning</a> algorithms. These operate on labelled data, where each data point has one or more features (also known as attributes) and an associated known true label value.</p>
@@ -253,6 +255,8 @@ comments:   true
 </li></ul>
 
 <h2 class="section-heading" id="resources">Further Resources</h2>
+
+<p>Check out <a href="https://blog.infocruncher.com/2022/01/19/ml-productionisation/">Part 3 of this machine learning series</a> covering deploying machine learning models into a production system and maintaining them over time.</p>
 
 <p>These are my recommended machine and deep learning lecture videos, all available via Youtube:</p>
 

@@ -139,7 +139,7 @@ I recommend playing with the <a href="https://playground.tensorflow.org/">Tensor
 
 <h2 class="section-heading" id="next-steps">Next Steps</h2>
 
-In followup posts I’ll cover how ML algorithms actually learn from data, as well as ways to ensure you train a good model by addressing model complexity, overfitting and data splits.
+Check out <a href="https://blog.infocruncher.com/2023/02/17/ml-training/">Part 2 of the machine learning series</a> covering how algorithms learn from data, as well as ways to ensure you train a good model by addressing model complexity, overfitting and data splits.  
 
 If you really want to jump into ML, I also recommend <a href="https://www.andrewng.org/">Andrew Ng</a>’s fantastic Stanford CS229 lecture series available on youtube. Have fun!
 

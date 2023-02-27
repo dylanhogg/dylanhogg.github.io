@@ -17,10 +17,11 @@ comments:   true
     }
 </style>
 
+This is Part 3 in the machine learning series, covering productionisation of models. Part 1 covers <a href="https://blog.infocruncher.com/2023/02/15/ml-overview/">an overview of machine learning</a> and common algorithms, while Part 2 covers <a href="https://blog.infocruncher.com/2023/02/17/ml-training/">model training and learning from data</a>.  
+
 <h2 class="section-heading" id="wimlp">What is machine learning productionisation?</h2>
 
 Machine learning productionisation can mean different things. It could mean taking a pre-trained ML model and making it available as an API. It could also involve building a pipeline for data preparation, model training, optimisation, and validation.
-
 
 Hopefully you are also monitoring your productionised system to ensure everything is running well, for example catching unexpected errors or measuring model drift on new data over time. If you're able to reproduce experimental results, iterate quickly and push to production automatically then you get bonus points.
 
@@ -302,5 +303,7 @@ The machine learning space is evolving rapidly and it's great to see best practi
 
 - <a href="https://ml-ops.org/">ml-ops.org</a> - Great MLOps resource by <a href="https://www.innoq.com/">innoq</a>
 - <a href="https://mymlops.com/">mymlops.com</a> - Build your MLOps stack by <a href="https://www.linkedin.com/in/tanel-sarnet/">Tanel Sarnet</a> and <a href="https://www.linkedin.com/in/nathaliamdc/">Nathalia Campos</a> 
+- <a href="https://arxiv.org/abs/2209.09125">Operationalizing Machine Learning: An Interview Study</a> arxiv paper by Shankar et al, 2022
+- <a href="https://arxiv.org/abs/2205.02302">Machine Learning Operations (MLOps): Overview, Definition, and Architecture</a> arxiv paper by Kreuzberger et al, 2022
 - <a href="/resources/ml-productionisation/The Big Book of MLOps (Databricks, v6, 2022).pdf">The Big Book of MLOps (pdf)</a> by <a href="https://www.databricks.com/p/ebook/the-big-book-of-mlops">Databricks</a>
 - <a href="/resources/ml-productionisation/MLOps - A Holistic Approach (wandb, 2022).pdf">MLOps - A Holistic Approach (pdf)</a> by <a href="https://wandb.ai/site/holistic-mlops-whitepaper-download">wandb.ai</a>
