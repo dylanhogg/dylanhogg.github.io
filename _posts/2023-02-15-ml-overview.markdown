@@ -141,6 +141,4 @@ I recommend playing with the <a href="https://playground.tensorflow.org/">Tensor
 
 Check out <a href="https://blog.infocruncher.com/2023/02/17/ml-training/">Part 2 of the machine learning series</a> covering how algorithms learn from data, as well as ways to ensure you train a good model by addressing model complexity, overfitting and data splits.  
 
-If you really want to jump into ML, I also recommend <a href="https://www.andrewng.org/">Andrew Ng</a>’s fantastic Stanford CS229 lecture series available on youtube. Have fun!
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/jGwO_UgTS7I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+If you really want to jump into ML, I also recommend <a href="https://www.andrewng.org/">Andrew Ng</a>’s fantastic <a href="https://www.youtube.com/playlist?list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU" title="Stanford CS229 lecture series">Stanford CS229 lecture series</a> available on YouTube. Have fun!
