@@ -38,11 +38,11 @@ jekyll-bundle-prod:
 ## AWS deploy _site to production bucket
 s3-deploy-files: jekyll-bundle-prod
 	aws s3 cp _site s3://${BUCKET} --recursive --profile ${AWS_PROFILE}
-	aws cloudfront create-invalidation --distribution-id E139HGPJPEHK3F --paths "/*"
+	AWS_PAGER="" aws cloudfront create-invalidation --distribution-id E139HGPJPEHK3F --paths "/*"
 
 ## AWS Cloudfront invalidation (limit 1000 free calls per month)
 cf-invalidation:
-	aws cloudfront create-invalidation --distribution-id E139HGPJPEHK3F --paths "/*"
+	AWS_PAGER="" aws cloudfront create-invalidation --distribution-id E139HGPJPEHK3F --paths "/*"
 
 ## AWS remove production bucket
 s3-remove-files:
