@@ -34,14 +34,16 @@ header-img: "img/apps-bg.jpg"
 <a name="company-blogs"></a>
 # Company & Organisation Blogs
 
-| Category       | Blog details                                                                                                                                                                                                    |
-|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ML/DL          | [Open AI BLog](https://openai.com/blog/) - ai research and deployment company                                                                                                                                   |
-| ML/DL          | [Hugging Face Blog](https://huggingface.co/blog) - democratising ml                                                                                                                                             |
-| ML/DL          | [DeepLearning.ai ML Research](https://read.deeplearning.ai/the-batch/tag/research/) - ml research                                                                                                               |
-| ML             | [Towards Data Science](https://towardsdatascience.com/tagged/deep-dives) - general data science                                                                                                                 |
-| Rationality    | [LessWrong Library](https://www.lesswrong.com/library) - improving decision-making                                                                                                                              |
-| Science        | [Quanta Magazine Blog](https://www.quantamagazine.org/abstractions/); [Quanta Magazine Videos](https://www.youtube.com/c/QuantaScienceChannel/videos?view=0&sort=p&flow=grid) - science, math, physics, compsci |
+| Category       | Blog details                                                                                                                                                                                                                  |
+|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ML/DL          | [Open AI BLog](https://openai.com/blog/) - AI research and deployment company                                                                                                                                                 |
+| ML/DL          | [Hugging Face Blog](https://huggingface.co/blog) - Democratising ml                                                                                                                                                           |
+| ML/DL          | [DeepLearning.ai ML Research](https://read.deeplearning.ai/the-batch/tag/research/) - ML research                                                                                                                             |
+| ML/DL          | [transformer-circuits.pub](https://transformer-circuits.pub/) - Reverse engineering transformer language models (Chris Olah et al), also: [youtube](https://www.youtube.com/playlist?list=PLoyGOS2WIonajhAVqKUgEMNmeq3nEeM51) |
+| ML/DL          | [distill.pub](https://distill.pub/) - Clear, dynamic and vivid ML research (Chris Olah et al, 2016-2021)                                                                                                                      |
+| ML             | [Towards Data Science](https://towardsdatascience.com/tagged/deep-dives) - General data science                                                                                                                               |
+| Rationality    | [LessWrong Library](https://www.lesswrong.com/library) - Improving decision-making                                                                                                                                            |
+| Science        | [Quanta Magazine Blog](https://www.quantamagazine.org/abstractions/); [Quanta Magazine Videos](https://www.youtube.com/c/QuantaScienceChannel/videos?view=0&sort=p&flow=grid) - Science, math, physics, compsci               |
 
 
 <a name="resources"></a>
