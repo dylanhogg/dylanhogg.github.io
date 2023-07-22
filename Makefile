@@ -14,6 +14,7 @@ jekyll-serve-unpublished:
 	# Ref: https://jekyllrb.com/docs/usage/
 	# Note: 'bundle exec' runs the exact jekyll server version that is specified in your Gemfile/Gemfile.lock.
 	# Note: grunt generates css and min js files
+	# Note: May need `bundle add webrick` if you see an error like: servlet.rb:3:in `require': cannot load such file -- webrick (LoadError)
 	grunt
 	bundle exec jekyll serve --unpublished --verbose
 
@@ -21,8 +22,7 @@ jekyll-serve-unpublished:
 jekyll-serve:
 	# Serve site locally at http://localhost:4000/ EXCLUDING unpublished content
 	# Ref: https://jekyllrb.com/docs/usage/
-	# Note: 'bundle exec' runs the exact jekyll server version that is specified in your Gemfile/Gemfile.lock.
-	# Note: grunt generates css and min js files
+	# Note: see `jekyll-serve-unpublished` for more info.
 	grunt
 	bundle exec jekyll serve --verbose
 
@@ -34,6 +34,20 @@ jekyll-bundle-prod:
 	# Note: grunt generates css and min js files
 	grunt
 	JEKYLL_ENV=production bundle exec jekyll build --verbose
+
+## Installed Gems
+gem-query:
+	gem query --local
+
+## Install gems in the Gemfile
+bundle-install:
+	# `bundle install` command always does a conservative update, refusing to update gems (or their dependencies) that you have not explicitly changed in the Gemfile
+	bundle install
+
+## Update every gem in the Gemfile to the latest possible versions
+bundle-update:
+	# Can be useful if versions change
+	bundle update
 
 ## AWS deploy _site to production bucket
 s3-deploy-files: jekyll-bundle-prod
