@@ -57,7 +57,7 @@ header-img: "img/apps-bg.jpg"
 | AWS        | [Docs](https://docs.aws.amazon.com/) <br /> [My Cert plan](https://docs.google.com/document/d/17D2PPbEKwLEpSmvEr-4eemtfMgjCiT1VmnQ_R2dkMIE/edit#heading=h.hns8txt42qra)                                                               |
 | Terraform  | [Language](https://www.terraform.io/language) <br />[AWS provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)                                                                                                 |
 | Databricks | [Docs](https://www.databricks.com/databricks-documentation) <br />[Blog](https://www.databricks.com/blog)                                                                                                                             |
-| Snowflake  | [Resources](https://resources.snowflake.com/)                                                                                                                                                                                         |
+| Snowflake  | [Docs](https://docs.snowflake.com/) <br /> [Resources](https://resources.snowflake.com/)                                                                                                                                              |
 | DBT        | [Dev Hub](https://docs.getdbt.com/) <br /> [Docs](https://docs.getdbt.com/docs/introduction)                                                                                                                                          |
 | Fivetran   | [Docs](https://fivetran.com/docs/getting-started)                                                                                                                                                                                     |
 
