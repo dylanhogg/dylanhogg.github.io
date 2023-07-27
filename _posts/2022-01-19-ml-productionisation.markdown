@@ -303,6 +303,7 @@ The machine learning space is evolving rapidly and it's great to see best practi
 
 <h3>General Resources</h3>
 
+- <a href="https://www.awesomepython.org/?c=ml-ops">awesomepython.org MLOps</a> - A collection of GitHub repositories related to MLOps
 - <a href="https://ml-ops.org/">ml-ops.org</a> - Great MLOps resource by <a href="https://www.innoq.com/">innoq</a>
 - <a href="https://mymlops.com/">mymlops.com</a> - Build your MLOps stack by <a href="https://www.linkedin.com/in/tanel-sarnet/">Tanel Sarnet</a> and <a href="https://www.linkedin.com/in/nathaliamdc/">Nathalia Campos</a> 
 - <a href="https://arxiv.org/abs/2209.09125">Operationalizing Machine Learning: An Interview Study</a> arxiv paper by Shankar et al, 2022
