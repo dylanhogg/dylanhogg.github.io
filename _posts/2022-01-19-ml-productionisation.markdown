@@ -308,6 +308,7 @@ The machine learning space is evolving rapidly and it's great to see best practi
 - <a href="https://mymlops.com/">mymlops.com</a> - Build your MLOps stack by <a href="https://www.linkedin.com/in/tanel-sarnet/">Tanel Sarnet</a> and <a href="https://www.linkedin.com/in/nathaliamdc/">Nathalia Campos</a> 
 - <a href="https://arxiv.org/abs/2209.09125">Operationalizing Machine Learning: An Interview Study</a> arxiv paper by Shankar et al, 2022
 - <a href="https://arxiv.org/abs/2205.02302">Machine Learning Operations (MLOps): Overview, Definition, and Architecture</a> arxiv paper by Kreuzberger et al, 2022
+- <a href="https://arxiv.org/abs/2304.07296">MLOps Spanning Whole Machine Learning Life Cycle: A Survey</a> arxiv paper by Zhengxin et al, 2023
 - <a href="/resources/ml-productionisation/The Big Book of MLOps (Databricks, v6, 2022).pdf">The Big Book of MLOps (pdf)</a> by <a href="https://www.databricks.com/p/ebook/the-big-book-of-mlops">Databricks</a>
 - <a href="/resources/ml-productionisation/MLOps - A Holistic Approach (wandb, 2022).pdf">MLOps - A Holistic Approach (pdf)</a> by <a href="https://wandb.ai/site/holistic-mlops-whitepaper-download">wandb.ai</a>
 - <a href="https://mlops-guide.github.io/">MLOps Guide</a> - An MLOps Guide to help projects and companies to build more reliable MLOps environment.
