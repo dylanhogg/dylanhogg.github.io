@@ -86,7 +86,8 @@ header-img: "img/apps-bg.jpg"
 
 - [ ] https://github.com/mermaid-js/mermaid & https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/
 - [ ] https://app.diagrams.net/ & https://github.com/jgraph/drawio-desktop/releases
-- [ ] 
+- [ ] https://revealjs.com/ - open source HTML presentation framework
+- [ ] https://www.geogebra.org/calculator - Graphing calculator online and app
 
 
 ## Local config files
