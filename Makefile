@@ -4,27 +4,28 @@ AWS_PROFILE=prd-non-tf-905234897161
 AWS_ACCOUNT_ID=905234897161
 AWS_REGION=us-east-1
 
+# ######################################################################################################################
 ## Generate min.js and .css from .less files
 grunt-css-js:
 	grunt
 
 ## Jekyll local serve unpublished
 jekyll-serve-unpublished:
-	# Serve site locally at http://localhost:4000/ including unpublished content
+	# Serve site locally at http://localhost:4001/ including unpublished content
 	# Ref: https://jekyllrb.com/docs/usage/
 	# Note: 'bundle exec' runs the exact jekyll server version that is specified in your Gemfile/Gemfile.lock.
 	# Note: grunt generates css and min js files
 	# Note: May need `bundle add webrick` if you see an error like: servlet.rb:3:in `require': cannot load such file -- webrick (LoadError)
 	grunt
-	bundle exec jekyll serve --unpublished --verbose
+	bundle exec jekyll serve --port 4001 --unpublished --verbose
 
 ## Jekyll local serve
 jekyll-serve:
-	# Serve site locally at http://localhost:4000/ EXCLUDING unpublished content
+	# Serve site locally at http://localhost:4001/ EXCLUDING unpublished content
 	# Ref: https://jekyllrb.com/docs/usage/
 	# Note: see `jekyll-serve-unpublished` for more info.
 	grunt
-	bundle exec jekyll serve --verbose
+	bundle exec jekyll serve --port 4001 --verbose
 
 ## Jekyll bundle production
 jekyll-bundle-prod:
@@ -49,6 +50,8 @@ bundle-update:
 	# Can be useful if versions change
 	bundle update
 
+
+# ######################################################################################################################
 ## AWS deploy _site to production bucket
 s3-deploy-files: jekyll-bundle-prod
 	aws s3 cp _site s3://${BUCKET} --recursive --profile ${AWS_PROFILE}
@@ -75,61 +78,9 @@ tf-plan:
 tf-apply:
 	cd infra; terraform apply -var-file=variables.tfvars -auto-approve; cd -
 
-#################################################################################
-# Self Documenting Commands                                                     #
-#################################################################################
 
+# Makefile documentation
 .DEFAULT_GOAL := help
-
-# Inspired by <http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html>
-# sed script explained:
-# /^##/:
-# 	* save line in hold space
-# 	* purge line
-# 	* Loop:
-# 		* append newline + line to hold space
-# 		* go to next line
-# 		* if line starts with doc comment, strip comment character off and loop
-# 	* remove target prerequisites
-# 	* append hold space (+ newline) to line
-# 	* replace newline plus comments by `---`
-# 	* print line
-# Separate expressions are necessary because labels cannot be delimited by
-# semicolon; see <http://stackoverflow.com/a/11799865/1968>
 .PHONY: help
 help:
-	@sed -n -e "/^## / { \
-		h; \
-		s/.*//; \
-		:doc" \
-		-e "H; \
-		n; \
-		s/^## //; \
-		t doc" \
-		-e "s/:.*//; \
-		G; \
-		s/\\n## /---/; \
-		s/\\n/ /g; \
-		p; \
-	}" ${MAKEFILE_LIST} \
-	| LC_ALL='C' sort --ignore-case \
-	| awk -F '---' \
-		-v ncol=$$(tput cols) \
-		-v indent=19 \
-		-v col_on="$$(tput setaf 6)" \
-		-v col_off="$$(tput sgr0)" \
-	'{ \
-		printf "%s%*s%s ", col_on, -indent, $$1, col_off; \
-		n = split($$2, words, " "); \
-		line_length = ncol - indent; \
-		for (i = 1; i <= n; i++) { \
-			line_length -= length(words[i]) + 1; \
-			if (line_length <= 0) { \
-				line_length = ncol - indent - length(words[i]) - 1; \
-				printf "\n%*s ", -indent, " "; \
-			} \
-			printf "%s ", words[i]; \
-		} \
-		printf "\n"; \
-	}' \
-	| more $(shell test $(shell uname) = Darwin && echo '--no-init --raw-control-chars')
+	@LC_ALL=C $(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
