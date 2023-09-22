@@ -23,6 +23,7 @@ header-img: "img/apps-bg.jpg"
     - [ ] https://packagecontrol.io/packages/Pretty%20JSON
     - [ ] 
 - [ ] iTerm2
+- [ ] Fig.io autocomplete via dmg (next time: brew install --cask fig)
 - [ ] /opt/homebrew/bin/pip3 install aws-adfs
 - [ ] Kafkatools / OffsetExplorer
 - [ ] Terraform ?
@@ -37,13 +38,12 @@ header-img: "img/apps-bg.jpg"
     - [ ] tar xf kfctl_v1.2.0-0-gbc038f9_darwin.tar.gz; mv kfctl /usr/local/bin/kfctl
 - [ ] Diffmerge
 - [ ] CyberDuck - https://cyberduck.io/
-- [ ] Fig.io autocomplete via dmg (next time: brew install --cask fig)
 - [ ] https://www.zotero.org/download/ - Research organiser
 - [ ] https://github.com/mermaid-js/mermaid
 - [ ] Protoege ontology: https://protege.stanford.edu/products.php#desktop-protege
 - [ ] TadViewer for parquet, duckdb: https://www.tadviewer.com/
 - [ ] https://github.com/vincelwt/chatgpt-mac - ChatGPT - A macOS app for chatting with GPT-2
-- [ ] Brew Utils
+- [ ] Brew Utils Must Have
     - [ ] brew install miniforge - https://github.com/conda-forge/miniforge - Linking Binary 'conda' to '/opt/homebrew/bin/conda'
     - [ ] brew install python@3.9 - /opt/homebrew/bin/python3
     - [ ] brew install pyenv (switch between multiple versions of Python - https://github.com/pyenv/pyenv#homebrew-in-macos)
@@ -58,8 +58,11 @@ header-img: "img/apps-bg.jpg"
     - [ ] brew install netron - viewer for neural network models. https://github.com/lutzroeder/netron https://netron.app/
     - [ ] brew install md5sha1sum - Microbrew md5sum/sha1sum/ripemd160sum by Bulent Yilmaz
     - 
+- [ ] Brew Utils Nice to Have
+   - [ ] brew install jello - https://github.com/kellyjonbrazil/jello
+   - [ ] brew install saulpw/vd/visidata - https://github.com/saulpw/visidata - TUI  interactive multitool for tabular data.
 
-    - [ ] 
+
 - [ ] Brew k8s
     - [ ] brew install kubectl
     - [ ] brew install helm (k8s packaging)
@@ -68,8 +71,8 @@ header-img: "img/apps-bg.jpg"
     - [ ] brew install kubectx (kubectx + kubens: Power tools for kubectl)
     - [ ] brew install kube-ps1 (Kubernetes prompt for bash and zsh)
     - [ ] brew install kustomize
-    - [ ] 
     - [ ] brew install derailed/k9s/k9s - k9s: managing clusters vis CLI - https://k9scli.io/topics/install/
+    - [ ] Investigate: https://k3s.io/
     - [ ] https://k8slens.dev/
     - [ ] TODO: https://eksctl.io/introduction/#installation - eksctl - The official CLI for Amazon EKS
     - [ ] maybe: https://k8slens.dev/desktop.html
@@ -88,6 +91,7 @@ header-img: "img/apps-bg.jpg"
 - [ ] https://app.diagrams.net/ & https://github.com/jgraph/drawio-desktop/releases
 - [ ] https://revealjs.com/ - open source HTML presentation framework
 - [ ] https://www.geogebra.org/calculator - Graphing calculator online and app
+- [ ] (todo) https://yadm.io/ - Yet Another Dotfiles Manager 
 
 
 ## Local config files
