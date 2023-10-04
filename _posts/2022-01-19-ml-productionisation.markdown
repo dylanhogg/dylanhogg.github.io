@@ -311,9 +311,10 @@ The machine learning space is evolving rapidly and it's great to see best practi
 - <a href="https://arxiv.org/abs/2304.07296">MLOps Spanning Whole Machine Learning Life Cycle: A Survey</a> arxiv paper by Zhengxin et al, 2023
 - <a href="/resources/ml-productionisation/The Big Book of MLOps (Databricks, v6, 2022).pdf">The Big Book of MLOps (pdf)</a> by <a href="https://www.databricks.com/p/ebook/the-big-book-of-mlops">Databricks</a>
 - <a href="/resources/ml-productionisation/MLOps - A Holistic Approach (wandb, 2022).pdf">MLOps - A Holistic Approach (pdf)</a> by <a href="https://wandb.ai/site/holistic-mlops-whitepaper-download">wandb.ai</a>
-- <a href="/resources/ml-productionisation/Practitioners guide to MLOps - A framework for continuous delivery and automation of machine learning (pdf)">Practitioners guide to MLOps - A framework for continuous delivery and automation of ML</a> by <a href="https://services.google.com/fh/files/misc/practitioners_guide_to_mlops_whitepaper.pdf">google cloud</a>
+- <a href="/resources/ml-productionisation/Practitioners guide to MLOps - A framework for continuous delivery and automation of machine learning (google cloud, 2021).pdf">Practitioners guide to MLOps - A framework for continuous delivery and automation of ML</a> by <a href="https://services.google.com/fh/files/misc/practitioners_guide_to_mlops_whitepaper.pdf">google cloud</a>
 - <a href="https://mlops-guide.github.io/">MLOps Guide</a> - An MLOps Guide to help projects and companies to build more reliable MLOps environment.
 - <a href="https://github.com/kelvins/awesome-mlops">awesome-mlops</a> - A curated list of awesome MLOps tools
+- <a href="https://www.youtube.com/@MLOps/playlists">MLOps.community on youtube</a> - Machine Learning Operations best practices from engineers in the field
 
 
 <h3>Study Resources</h3>
