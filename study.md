@@ -14,17 +14,18 @@ header-img: "img/apps-bg.jpg"
 # Study Sections
 1. [Python Systems/Numeric](#python-systems)
 2. [Systems / Data Engineering](#engineering)
-3. [Machine Learning Courses](#ml)
-4. [Math Resources](#math)
-5. [Python Geospatial](#python-gis)
-6. [Geospatial](#gis)
-7. [Computational geometry](#compgeo)
+3. [Rust Language](#rust)
+4. [Machine Learning Courses](#ml)
+5. [Math Resources](#math)
+6. [Python Geospatial](#python-gis)
+7. [Geospatial](#gis)
+8. [Computational geometry](#compgeo)
 
 
 <a name="python-systems"></a>
 # Python Systems/Numeric
 
-| Project           | Details                                                                                                                                                                                                                                                                                                                                                        |
+| Resource          | Details                                                                                                                                                                                                                                                                                                                                                        |
 |-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Python language   | [Standard Library Summary](https://www.awesomepython.org/docs.html) <br />[Language reference](https://docs.python.org/3/reference/index.html)                                                                                                                                                                                                                 |
 | Numpy             | [Quickstart](https://numpy.org/doc/stable/user/quickstart.html) <br />[Fundamentals](https://numpy.org/doc/stable/user/basics.html) <br />[API Ref](https://numpy.org/devdocs/reference/index.html) <br/>[Glossary](https://numpy.org/doc/stable/glossary.html)                                                                                                |
@@ -45,7 +46,7 @@ header-img: "img/apps-bg.jpg"
 <a name="engineering"></a>
 # Systems / Data Engineering
 
-| Project    | Details                                                                                                                                                                                                                               |
+| Resource   | Details                                                                                                                                                                                                                               |
 |------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | K8s        | [Concepts](https://kubernetes.io/docs/concepts/) <br />[Tasks](https://kubernetes.io/docs/tasks/) <br />[Tutorials](https://kubernetes.io/docs/tutorials/) <br />[Kube Academy](https://kube.academy/courses)                         |
 | Docker     | [Guides](https://docs.docker.com/get-started/) <br />[cli](https://docs.docker.com/engine/reference/commandline/cli/) <br />[k8s deploy](https://docs.docker.com/get-started/kube-deploy/)                                            |
@@ -60,6 +61,21 @@ header-img: "img/apps-bg.jpg"
 | Snowflake  | [Docs](https://docs.snowflake.com/) <br /> [Resources](https://resources.snowflake.com/)                                                                                                                                              |
 | DBT        | [Dev Hub](https://docs.getdbt.com/) <br /> [Docs](https://docs.getdbt.com/docs/introduction)                                                                                                                                          |
 | Fivetran   | [Docs](https://fivetran.com/docs/getting-started)                                                                                                                                                                                     |
+
+
+<a name="rust"></a>
+# Rust
+
+| Resource              | Details                                                                                                                 |
+|-----------------------|-------------------------------------------------------------------------------------------------------------------------|
+| Main Docs             | [Learn Rust](https://www.rust-lang.org/learn)                                                                           |
+| Rust Excercises       | [rustlings](https://github.com/rust-lang/rustlings/)                                                                    |
+| Language Guide        | [The Rust Book](https://doc.rust-lang.org/book/) also see: [The Interactive Rust Book](https://rust-book.cs.brown.edu/) |
+| Cargo Package Manager | [The Cargo Book](https://doc.rust-lang.org/cargo/index.html)                                                            |
+| rustc compiler        | [The rustc Book](https://doc.rust-lang.org/rustc/index.html)                                                            |
+| Standard lib          | [Crate std](https://doc.rust-lang.org/std/index.html)                                                                   |
+| Rust and wasm         | [The WebAssembly Book](https://rustwasm.github.io/docs/book/)                                                           |
+| Rust and CLI          | [Command line apps in Rust](https://rust-cli.github.io/book/index.html)                                                 |
 
 
 <a name="ml"></a>
@@ -109,7 +125,7 @@ header-img: "img/apps-bg.jpg"
 <a name="python-gis"></a>
 # Python Geospatial
 
-| Project            | Details                                                                                                                                                 |
+| Resource           | Details                                                                                                                                                 |
 |--------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Libraries overview | [Awesome Python geospatial](https://www.awesomepython.org/app.html?q=geo)                                                                               |
 | GeoPandas          | [Intro](https://geopandas.org/en/stable/getting_started/introduction.html) <br />[User guide](https://geopandas.org/en/stable/docs/user_guide.html)     |
@@ -124,7 +140,7 @@ header-img: "img/apps-bg.jpg"
 <a name="gis"></a>
 # Geospatial Learning Resources
 
-| Project                  | Details                                                                                                                            |
+| Resource                 | Details                                                                                                                            |
 |--------------------------|------------------------------------------------------------------------------------------------------------------------------------|
 | Online GIS book          | [Geographic Data Science with Python](https://geographicdata.science/book/intro.html) (Arribas-Bel et al)                          |
 | Spatial Data Programming | [Spatial Data Programming with Python course](https://geobgu.xyz/py/) (Ben-Gurion University of the Negev)                         |

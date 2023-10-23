@@ -267,6 +267,9 @@ It is best to build on the shoulders of giants. Here are some open-source ML fra
 - Feast: An open-source feature store. It is the fastest path to operationalizing analytic data for model training and online inference.
   - <a href="https://feast.dev/">feast.dev</a>
   - <a href="https://github.com/feast-dev/feast">github.com/feast-dev/feast</a>
+- Pachyderm: Automate data transformations with data versioning and lineage.
+  - <a href="https://www.pachyderm.com/">pachyderm.com</a>
+  - <a href="https://github.com/pachyderm/pachyderm">github.com/pachyderm/pachyderm</a>
 
 
 <h3>Managed Cloud ML Services</h3>

@@ -13,6 +13,10 @@ header-img: "img/apps-bg.jpg"
 
 # Fresh OSX Install 
 
+## Helpful guides
+- https://sourabhbajaj.com/mac-setup/
+- 
+
 ## OSX
 
 - [ ] Docker
@@ -49,6 +53,8 @@ header-img: "img/apps-bg.jpg"
     - [ ] brew install pyenv (switch between multiple versions of Python - https://github.com/pyenv/pyenv#homebrew-in-macos)
     - [ ] brew install git-lfs
     - [ ] brew install zsh-completions
+    - [ ] brew install ack - replacement for grep with higher speed and more options
+    - [ ] brew install tree
     - [ ] brew install bat (modern cat)
     - [ ] brew install node
     - [ ] brew install fzf
@@ -57,11 +63,12 @@ header-img: "img/apps-bg.jpg"
     - [ ] brew install exa
     - [ ] brew install netron - viewer for neural network models. https://github.com/lutzroeder/netron https://netron.app/
     - [ ] brew install md5sha1sum - Microbrew md5sum/sha1sum/ripemd160sum by Bulent Yilmaz
-    - 
+
 - [ ] Brew Utils Nice to Have
    - [ ] brew install jello - https://github.com/kellyjonbrazil/jello
    - [ ] brew install saulpw/vd/visidata - https://github.com/saulpw/visidata - TUI  interactive multitool for tabular data.
-
+   - [ ] brew install zoxide - A smarter cd command. Supports all major shells.
+   - 
 
 - [ ] Brew k8s
     - [ ] brew install kubectl
@@ -76,10 +83,17 @@ header-img: "img/apps-bg.jpg"
     - [ ] https://k8slens.dev/
     - [ ] TODO: https://eksctl.io/introduction/#installation - eksctl - The official CLI for Amazon EKS
     - [ ] maybe: https://k8slens.dev/desktop.html
+
 - [ ] Brew kafka
     - [ ] brew install kafka (/opt/homebrew/etc/kafka/server.properties; brew services restart kafka)
     - [ ] brew install kcat
     - [ ] 
+
+- [ ] pip install
+  - [ ] https://github.com/xonsh/xonsh - Python-powered, cross-platform, Unix-gazing shell
+  - [ ] https://github.com/prompt-toolkit/ptpython
+  - 
+
 - [ ] npm
     - [ ] npm install -g doctoc
     - [ ] 
@@ -118,7 +132,8 @@ brew install miniforge
 
 ## Zsh
 
-/Users/<user>/.zshrc
+- https://github.com/ohmyzsh/ohmyzsh
+- /Users/<user>/.zshrc
 
 ```
 alias pwdc='pwd | pbcopy'
