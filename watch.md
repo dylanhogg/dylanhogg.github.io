@@ -10,9 +10,8 @@ header-img: "img/apps-bg.jpg"
 </style>
 <!-- []()<br />[]() -->
 
-
 | Playlist collections                                                                                 | Details                                                                                                                                                                                                  |
-|------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [The Royal Institution](https://www.youtube.com/@TheRoyalInstitution/playlists)                      | Videos to deepen your interest and passion for science. Explosive short films, full length talks from the world’s leading scientists and writers, and videos to challenge the way you look at the world. |
 | [Simons Institute](https://www.youtube.com/@SimonsInstituteTOC/playlists)                            | The world's leading venue for collaborative research in theoretical computer science.                                                                                                                    |
 | [The Institute of Art and Ideas (iai)](https://www.youtube.com/@TheInstituteOfArtAndIdeas/playlists) | The Institute of Art and Ideas creates hundreds of educational debates, lectures, and interviews on Philosophy, Science, Politics, and Arts.                                                             |
@@ -34,11 +33,9 @@ header-img: "img/apps-bg.jpg"
 | [Khan Academy](https://www.youtube.com/@khanacademy/playlists)                                       | Khan Academy                                                                                                                                                                                             |
 | [Santa Fe Institute](https://www.youtube.com/@SFIScience/playlists)                                  | Santa Fe Institute                                                                                                                                                                                       |
 | [Sebastian Raschka](https://www.youtube.com/@SebastianRaschka/playlists)                             | I love creating educational content around machine learning and deep learning                                                                                                                            |
-| [Andrew Huberman](https://www.youtube.com/@hubermanlab/playlists)                                    | discusses neuroscience and science-based tools, including how our brain and its connections with the organs of our body control our perceptions, our behaviors, and our health                           |
-
-
+| [Andrew Huberman](https://www.youtube.com/@hubermanlab/playlists)                                    | Discusses neuroscience and science-based tools, including how our brain and its connections with the organs of our body control our perceptions, our behaviors, and our health                           |
+| [Seattle Data Guy / Benjamin Rogojan](https://www.youtube.com/@SeattleDataGuy/playlists)             | Videos on data science, data engineering and consulting. [website](https://www.theseattledataguy.com/)                                                                                                   |
 
 | Specific Playlist                                                                                                    | Details                                                                                                                                                                                                  |
-|----------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [The Royal Institution - Maths](https://www.youtube.com/watch?v=S1AEWuCFq6A&list=PLbnrZHfNEDZyDfeVsNBMNDUu-o5j9_QMb) | Videos to deepen your interest and passion for science. Explosive short films, full length talks from the world’s leading scientists and writers, and videos to challenge the way you look at the world. |
-
