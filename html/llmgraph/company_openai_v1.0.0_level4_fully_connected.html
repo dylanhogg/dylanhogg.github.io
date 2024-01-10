@@ -1,0 +1,462 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-8GFQFYPREF"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-8GFQFYPREF');
+        </script>
+        
+            <script>function neighbourhoodHighlight(params) {
+  // console.log("in nieghbourhoodhighlight");
+  allNodes = nodes.get({ returnType: "Object" });
+  // originalNodes = JSON.parse(JSON.stringify(allNodes));
+  // if something is selected:
+  if (params.nodes.length > 0) {
+    highlightActive = true;
+    var i, j;
+    var selectedNode = params.nodes[0];
+    var degrees = 2;
+
+    // mark all nodes as hard to read.
+    for (let nodeId in allNodes) {
+      // nodeColors[nodeId] = allNodes[nodeId].color;
+      allNodes[nodeId].color = "rgba(200,200,200,0.5)";
+      if (allNodes[nodeId].hiddenLabel === undefined) {
+        allNodes[nodeId].hiddenLabel = allNodes[nodeId].label;
+        allNodes[nodeId].label = undefined;
+      }
+    }
+    var connectedNodes = network.getConnectedNodes(selectedNode);
+    var allConnectedNodes = [];
+
+    // get the second degree nodes
+    for (i = 1; i < degrees; i++) {
+      for (j = 0; j < connectedNodes.length; j++) {
+        allConnectedNodes = allConnectedNodes.concat(
+          network.getConnectedNodes(connectedNodes[j])
+        );
+      }
+    }
+
+    // all second degree nodes get a different color and their label back
+    for (i = 0; i < allConnectedNodes.length; i++) {
+      // allNodes[allConnectedNodes[i]].color = "pink";
+      allNodes[allConnectedNodes[i]].color = "rgba(150,150,150,0.75)";
+      if (allNodes[allConnectedNodes[i]].hiddenLabel !== undefined) {
+        allNodes[allConnectedNodes[i]].label =
+          allNodes[allConnectedNodes[i]].hiddenLabel;
+        allNodes[allConnectedNodes[i]].hiddenLabel = undefined;
+      }
+    }
+
+    // all first degree nodes get their own color and their label back
+    for (i = 0; i < connectedNodes.length; i++) {
+      // allNodes[connectedNodes[i]].color = undefined;
+      allNodes[connectedNodes[i]].color = nodeColors[connectedNodes[i]];
+      if (allNodes[connectedNodes[i]].hiddenLabel !== undefined) {
+        allNodes[connectedNodes[i]].label =
+          allNodes[connectedNodes[i]].hiddenLabel;
+        allNodes[connectedNodes[i]].hiddenLabel = undefined;
+      }
+    }
+
+    // the main node gets its own color and its label back.
+    // allNodes[selectedNode].color = undefined;
+    allNodes[selectedNode].color = nodeColors[selectedNode];
+    if (allNodes[selectedNode].hiddenLabel !== undefined) {
+      allNodes[selectedNode].label = allNodes[selectedNode].hiddenLabel;
+      allNodes[selectedNode].hiddenLabel = undefined;
+    }
+  } else if (highlightActive === true) {
+    // console.log("highlightActive was true");
+    // reset all nodes
+    for (let nodeId in allNodes) {
+      // allNodes[nodeId].color = "purple";
+      allNodes[nodeId].color = nodeColors[nodeId];
+      // delete allNodes[nodeId].color;
+      if (allNodes[nodeId].hiddenLabel !== undefined) {
+        allNodes[nodeId].label = allNodes[nodeId].hiddenLabel;
+        allNodes[nodeId].hiddenLabel = undefined;
+      }
+    }
+    highlightActive = false;
+  }
+
+  // transform the object into an array
+  var updateArray = [];
+  if (params.nodes.length > 0) {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        // console.log(allNodes[nodeId]);
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  } else {
+    // console.log("Nothing was selected");
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        // console.log(allNodes[nodeId]);
+        // allNodes[nodeId].color = {};
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  }
+}
+
+function filterHighlight(params) {
+  allNodes = nodes.get({ returnType: "Object" });
+  // if something is selected:
+  if (params.nodes.length > 0) {
+    filterActive = true;
+    let selectedNodes = params.nodes;
+
+    // hiding all nodes and saving the label
+    for (let nodeId in allNodes) {
+      allNodes[nodeId].hidden = true;
+      if (allNodes[nodeId].savedLabel === undefined) {
+        allNodes[nodeId].savedLabel = allNodes[nodeId].label;
+        allNodes[nodeId].label = undefined;
+      }
+    }
+
+    for (let i=0; i < selectedNodes.length; i++) {
+      allNodes[selectedNodes[i]].hidden = false;
+      if (allNodes[selectedNodes[i]].savedLabel !== undefined) {
+        allNodes[selectedNodes[i]].label = allNodes[selectedNodes[i]].savedLabel;
+        allNodes[selectedNodes[i]].savedLabel = undefined;
+      }
+    }
+
+  } else if (filterActive === true) {
+    // reset all nodes
+    for (let nodeId in allNodes) {
+      allNodes[nodeId].hidden = false;
+      if (allNodes[nodeId].savedLabel !== undefined) {
+        allNodes[nodeId].label = allNodes[nodeId].savedLabel;
+        allNodes[nodeId].savedLabel = undefined;
+      }
+    }
+    filterActive = false;
+  }
+
+  // transform the object into an array
+  var updateArray = [];
+  if (params.nodes.length > 0) {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  } else {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  }
+}
+
+function selectNode(nodes) {
+  network.selectNodes(nodes);
+  neighbourhoodHighlight({ nodes: nodes });
+  return nodes;
+}
+
+function selectNodes(nodes) {
+  network.selectNodes(nodes);
+  filterHighlight({nodes: nodes});
+  return nodes;
+}
+
+function highlightFilter(filter) {
+  let selectedNodes = []
+  let selectedProp = filter['property']
+  if (filter['item'] === 'node') {
+    let allNodes = nodes.get({ returnType: "Object" });
+    for (let nodeId in allNodes) {
+      if (allNodes[nodeId][selectedProp] && filter['value'].includes((allNodes[nodeId][selectedProp]).toString())) {
+        selectedNodes.push(nodeId)
+      }
+    }
+  }
+  else if (filter['item'] === 'edge'){
+    let allEdges = edges.get({returnType: 'object'});
+    // check if the selected property exists for selected edge and select the nodes connected to the edge
+    for (let edge in allEdges) {
+      if (allEdges[edge][selectedProp] && filter['value'].includes((allEdges[edge][selectedProp]).toString())) {
+        selectedNodes.push(allEdges[edge]['from'])
+        selectedNodes.push(allEdges[edge]['to'])
+      }
+    }
+  }
+  selectNodes(selectedNodes)
+}</script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+            
+            
+            
+            
+            
+
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 1200px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+             #config {
+                 float: left;
+                 width: 400px;
+                 height: 600px;
+             }
+             
+
+             
+             /* position absolute is important and the container has to be relative or absolute as well. */
+          div.popup {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 display:none;
+                 background-color:#f5f4ed;
+                 -moz-border-radius: 3px;
+                 -webkit-border-radius: 3px;
+                 border-radius: 3px;
+                 border: 1px solid #808074;
+                 box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+          }
+
+          /* hide the original tooltip */
+          .vis-tooltip {
+            display:none;
+          }
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+            <div id="config"></div>
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"group": 4, "id": "IBM", "label": "IBM", "level": 4, "name": "IBM", "node_count": 29, "processed": 2, "reason_for_similarity": "IBM is a global technology company that, like Samsung Advanced Institute of Technology, invests heavily in research and development. Both companies aim to create innovative solutions for various industries.", "shape": "dot", "size": 10, "title": "29. \u003ca href=\u0027https://en.wikipedia.org/wiki/IBM\u0027 target=\u0027_blank\u0027\u003eIBM\u003c/a\u003e\u003cbr /\u003eThe International Business Machines Corporation, nicknamed Big Blue, is an American multinational technology corporation headquartered in Armonk, New York and is present in over 175 countries. It specializes in computer hardware, middleware, and software, and provides hosting and consulting services in areas ranging from mainframe computers to nanotechnology. IBM is the largest industrial research organization in the world, with 19 research facilities across a dozen countries, and has held the r\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "IBM", "wikipedia_content": "The International Business Machines Corporation, nicknamed Big Blue, is an American multinational technology corporation headquartered in Armonk, New York and is present in over 175 countries. It specializes in computer hardware, middleware, and software, and provides hosting and consulting services in areas ranging from mainframe computers to nanotechnology. IBM is the largest industrial research organization in the world, with 19 research facilities across a dozen countries, and has held the r", "wikipedia_link": "https://en.wikipedia.org/wiki/IBM", "wikipedia_normalized": "IBM", "wikipedia_resp_code": 200}, {"group": 4, "id": "Microsoft", "label": "Microsoft", "level": 4, "name": "Microsoft", "node_count": 14, "processed": 2, "reason_for_similarity": "Microsoft has invested heavily in AI research and development. Its AI platform, Microsoft Azure Cognitive Services, offers similar capabilities to IBM Watson, including natural language processing and computer vision.", "shape": "dot", "size": 10, "title": "14. \u003ca href=\u0027https://en.wikipedia.org/wiki/Microsoft\u0027 target=\u0027_blank\u0027\u003eMicrosoft\u003c/a\u003e\u003cbr /\u003eMicrosoft Corporation is an American multinational technology corporation headquartered in Redmond, Washington. Microsoft\u0027s best-known software products are the Windows line of operating systems, the Microsoft 365 suite of productivity applications, and the Edge web browser. Its flagship hardware products are the Xbox video game consoles and the Microsoft Surface lineup of touchscreen personal computers. Microsoft ranked No. 14 in the 2022 Fortune 500 rankings of the largest United States corpor\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Microsoft", "wikipedia_content": "Microsoft Corporation is an American multinational technology corporation headquartered in Redmond, Washington. Microsoft\u0027s best-known software products are the Windows line of operating systems, the Microsoft 365 suite of productivity applications, and the Edge web browser. Its flagship hardware products are the Xbox video game consoles and the Microsoft Surface lineup of touchscreen personal computers. Microsoft ranked No. 14 in the 2022 Fortune 500 rankings of the largest United States corpor", "wikipedia_link": "https://en.wikipedia.org/wiki/Microsoft", "wikipedia_normalized": "Microsoft", "wikipedia_resp_code": 200}, {"group": 4, "id": "Apple Inc.#Research and development", "label": "Apple Inc.#Research and development", "level": 4, "name": "Apple Research", "node_count": 19, "processed": 2, "reason_for_similarity": "Apple Research, like Google Research, is dedicated to research and development. Both organizations prioritize innovation and technological advancements in their products and services.", "shape": "dot", "size": 10, "title": "19. \u003ca href=\u0027https://en.wikipedia.org/wiki/Apple_Inc.#Research_and_development\u0027 target=\u0027_blank\u0027\u003eApple Inc.#Research and development\u003c/a\u003e \u2192 \u003ca href=\u0027https://en.wikipedia.org/wiki/Apple_Inc.\u0027 target=\u0027_blank\u0027\u003eApple Inc.\u003c/a\u003e\u003cbr /\u003eApple Inc. is an American multinational technology company headquartered in Cupertino, California. As of March\u00a02023, Apple is the world\u0027s biggest company by market capitalization, and with US$394.3 billion the largest technology company by 2022 revenue. As of June 2022, Apple is the fourth-largest personal computer vendor by unit sales; the largest manufacturing company by revenue; and the second-largest mobile phone manufacturer in the world. It is considered one of the Big Five American inform\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Apple_Inc.", "wikipedia_content": "Apple Inc. is an American multinational technology company headquartered in Cupertino, California. As of March\u00a02023, Apple is the world\u0027s biggest company by market capitalization, and with US$394.3 billion the largest technology company by 2022 revenue. As of June 2022, Apple is the fourth-largest personal computer vendor by unit sales; the largest manufacturing company by revenue; and the second-largest mobile phone manufacturer in the world. It is considered one of the Big Five American inform", "wikipedia_link": "https://en.wikipedia.org/wiki/Apple_Inc.#Research_and_development", "wikipedia_normalized": "Apple Inc.", "wikipedia_resp_code": 200}, {"group": 4, "id": "Samsung Electronics", "label": "Samsung Electronics", "level": 4, "name": "Samsung Electronics", "node_count": 31, "processed": 2, "reason_for_similarity": "Both Sony Research \u0026 Development and Samsung Electronics are global leaders in the consumer electronics industry, known for their innovative products and cutting-edge research and development.", "shape": "dot", "size": 10, "title": "31. \u003ca href=\u0027https://en.wikipedia.org/wiki/Samsung_Electronics\u0027 target=\u0027_blank\u0027\u003eSamsung Electronics\u003c/a\u003e\u003cbr /\u003eSamsung Electronics Co., Ltd. is a South Korean multinational major appliance and consumer electronics corporation headquartered in Yeongtong-gu, Suwon, South Korea. It is currently the pinnacle of the Samsung chaebol, accounting for 70% of the group\u0027s revenue in 2012. However, Lee Jae-yong has stated his intentions on making sure his children would not inherit significant Samsung Electronics positions, which would significantly change the company\u0027s inner workings.\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Samsung_Electronics", "wikipedia_content": "Samsung Electronics Co., Ltd. is a South Korean multinational major appliance and consumer electronics corporation headquartered in Yeongtong-gu, Suwon, South Korea. It is currently the pinnacle of the Samsung chaebol, accounting for 70% of the group\u0027s revenue in 2012. However, Lee Jae-yong has stated his intentions on making sure his children would not inherit significant Samsung Electronics positions, which would significantly change the company\u0027s inner workings.", "wikipedia_link": "https://en.wikipedia.org/wiki/Samsung_Electronics", "wikipedia_normalized": "Samsung Electronics", "wikipedia_resp_code": 200}, {"group": 4, "id": "Google", "label": "Google", "level": 4, "name": "Google", "node_count": 13, "processed": 2, "reason_for_similarity": "Google has a similar focus on artificial intelligence and machine learning technologies. It has developed various AI-powered products and services, such as Google Assistant and Google Cloud AI.", "shape": "dot", "size": 10, "title": "13. \u003ca href=\u0027https://en.wikipedia.org/wiki/Google\u0027 target=\u0027_blank\u0027\u003eGoogle\u003c/a\u003e\u003cbr /\u003eGoogle LLC is an American multinational technology company focusing on artificial intelligence, online advertising, search engine technology, cloud computing, computer software, quantum computing, e-commerce, and consumer electronics. It has been referred to as \"the most powerful company in the world\" and as one of the world\u0027s most valuable brands due to its market dominance, data collection, and technological advantages in the field of artificial intelligence. Alongside Amazon, Apple Inc., Meta\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Google", "wikipedia_content": "Google LLC is an American multinational technology company focusing on artificial intelligence, online advertising, search engine technology, cloud computing, computer software, quantum computing, e-commerce, and consumer electronics. It has been referred to as \"the most powerful company in the world\" and as one of the world\u0027s most valuable brands due to its market dominance, data collection, and technological advantages in the field of artificial intelligence. Alongside Amazon, Apple Inc., Meta", "wikipedia_link": "https://en.wikipedia.org/wiki/Google", "wikipedia_normalized": "Google", "wikipedia_resp_code": 200}, {"group": 4, "id": "Amazon (company)", "label": "Amazon (company)", "level": 4, "name": "Amazon", "node_count": 15, "processed": 2, "reason_for_similarity": "Amazon has its own AI assistant, Alexa, which competes with IBM Watson\u0027s conversational AI capabilities. Both companies also offer cloud-based AI services for developers.", "shape": "dot", "size": 10, "title": "15. \u003ca href=\u0027https://en.wikipedia.org/wiki/Amazon_(company)\u0027 target=\u0027_blank\u0027\u003eAmazon (company)\u003c/a\u003e\u003cbr /\u003eAmazon.com, Inc. is an American multinational technology company focusing on e-commerce, cloud computing, online advertising, digital streaming, and artificial intelligence. It has been often referred to as \"one of the most influential economic and cultural forces in the world\", and is often regarded as one of the world\u0027s most valuable brands. It is considered to be one of the Big Five American technology companies, alongside Alphabet, Apple, Meta and Microsoft.\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Amazon_(company)", "wikipedia_content": "Amazon.com, Inc. is an American multinational technology company focusing on e-commerce, cloud computing, online advertising, digital streaming, and artificial intelligence. It has been often referred to as \"one of the most influential economic and cultural forces in the world\", and is often regarded as one of the world\u0027s most valuable brands. It is considered to be one of the Big Five American technology companies, alongside Alphabet, Apple, Meta and Microsoft.", "wikipedia_link": "https://en.wikipedia.org/wiki/Amazon_(company)", "wikipedia_normalized": "Amazon (company)", "wikipedia_resp_code": 200}, {"group": 4, "id": "Sony", "label": "Sony", "level": 4, "name": "Sony Corporation", "node_count": 27, "processed": 2, "reason_for_similarity": "Sony Corporation, like Samsung Advanced Institute of Technology, is a global leader in technology and innovation. Both companies invest heavily in research and development to create cutting-edge products.", "shape": "dot", "size": 10, "title": "27. \u003ca href=\u0027https://en.wikipedia.org/wiki/Sony\u0027 target=\u0027_blank\u0027\u003eSony\u003c/a\u003e\u003cbr /\u003eSony Group Corporation , formerly known as Tokyo Tsushin Kogyo K.K.  and Sony Corporation (\u30bd\u30cb\u30fc\u682a\u5f0f\u4f1a\u793e), is a Japanese multinational conglomerate corporation headquartered in Minato, Tokyo, Japan. The Sony Group comprises entities such as Sony Corporation, Sony Semiconductor Solutions, Sony Entertainment, Sony Interactive Entertainment, Sony Financial Group, and others.\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Sony", "wikipedia_content": "Sony Group Corporation , formerly known as Tokyo Tsushin Kogyo K.K.  and Sony Corporation (\u30bd\u30cb\u30fc\u682a\u5f0f\u4f1a\u793e), is a Japanese multinational conglomerate corporation headquartered in Minato, Tokyo, Japan. The Sony Group comprises entities such as Sony Corporation, Sony Semiconductor Solutions, Sony Entertainment, Sony Interactive Entertainment, Sony Financial Group, and others.", "wikipedia_link": "https://en.wikipedia.org/wiki/Sony", "wikipedia_normalized": "Sony", "wikipedia_resp_code": 200}, {"group": 4, "id": "Apple Inc.", "label": "Apple Inc.", "level": 4, "name": "Apple", "node_count": 36, "processed": 2, "reason_for_similarity": "Apple is a multinational technology company that incorporates AI into its products and services. Apple\u0027s AI initiatives include Siri, its virtual assistant, and machine learning algorithms used in various applications. Similar to Google AI, Apple focuses on integrating AI technologies into user-friendly and innovative products.", "shape": "dot", "size": 10, "title": "36. \u003ca href=\u0027https://en.wikipedia.org/wiki/Apple_Inc.\u0027 target=\u0027_blank\u0027\u003eApple Inc.\u003c/a\u003e\u003cbr /\u003eApple Inc. is an American multinational technology company headquartered in Cupertino, California. As of March\u00a02023, Apple is the world\u0027s biggest company by market capitalization, and with US$394.3 billion the largest technology company by 2022 revenue. As of June 2022, Apple is the fourth-largest personal computer vendor by unit sales; the largest manufacturing company by revenue; and the second-largest mobile phone manufacturer in the world. It is considered one of the Big Five American inform\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Apple_Inc.", "wikipedia_content": "Apple Inc. is an American multinational technology company headquartered in Cupertino, California. As of March\u00a02023, Apple is the world\u0027s biggest company by market capitalization, and with US$394.3 billion the largest technology company by 2022 revenue. As of June 2022, Apple is the fourth-largest personal computer vendor by unit sales; the largest manufacturing company by revenue; and the second-largest mobile phone manufacturer in the world. It is considered one of the Big Five American inform", "wikipedia_link": "https://en.wikipedia.org/wiki/Apple_Inc.", "wikipedia_normalized": "Apple Inc.", "wikipedia_resp_code": 200}, {"group": 4, "id": "Facebook", "label": "Facebook", "level": 4, "name": "Facebook", "node_count": 35, "processed": 2, "reason_for_similarity": "Facebook is a social media and technology company that heavily relies on AI for various purposes. Facebook\u0027s AI applications include facial recognition, content moderation, and personalized recommendations. Like Google AI, Facebook utilizes AI algorithms to analyze and process large amounts of data.", "shape": "dot", "size": 10, "title": "35. \u003ca href=\u0027https://en.wikipedia.org/wiki/Facebook\u0027 target=\u0027_blank\u0027\u003eFacebook\u003c/a\u003e\u003cbr /\u003eFacebook is an online social media and social networking service owned by American technology giant Meta Platforms. Created in 2004 by Mark Zuckerberg with 4 other Harvard College students and roommates Eduardo Saverin, Andrew McCollum, Dustin Moskovitz, and Chris Hughes, its name derives from the face book directories often given to American university students. Membership was initially limited to Harvard students, gradually expanding to other North American universities. Since 2006, Facebook a\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Facebook", "wikipedia_content": "Facebook is an online social media and social networking service owned by American technology giant Meta Platforms. Created in 2004 by Mark Zuckerberg with 4 other Harvard College students and roommates Eduardo Saverin, Andrew McCollum, Dustin Moskovitz, and Chris Hughes, its name derives from the face book directories often given to American university students. Membership was initially limited to Harvard students, gradually expanding to other North American universities. Since 2006, Facebook a", "wikipedia_link": "https://en.wikipedia.org/wiki/Facebook", "wikipedia_normalized": "Facebook", "wikipedia_resp_code": 200}, {"group": 4, "id": "LG Electronics", "label": "LG Electronics", "level": 4, "name": "LG Electronics", "node_count": 26, "processed": 2, "reason_for_similarity": "Both Samsung Advanced Institute of Technology and LG Electronics are South Korean companies that are leaders in the electronics industry. They both focus on research and development of advanced technologies.", "shape": "dot", "size": 10, "title": "26. \u003ca href=\u0027https://en.wikipedia.org/wiki/LG_Electronics\u0027 target=\u0027_blank\u0027\u003eLG Electronics\u003c/a\u003e\u003cbr /\u003eLG Electronics Inc. is a South Korean multinational electronics company headquartered in Yeouido-dong, Seoul, South Korea. LG Electronics is a part of LG Corporation, the fourth largest chaebol in South Korea, and often considered as the pinnacle of LG Corp with the group\u0027s chemical and battery division LG Chem. It comprises four business units: home entertainment, mobile communications, home appliances \u0026 air solutions, and vehicle components. LG Electronics acquired Zenith in 1995 and the large\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "LG_Electronics", "wikipedia_content": "LG Electronics Inc. is a South Korean multinational electronics company headquartered in Yeouido-dong, Seoul, South Korea. LG Electronics is a part of LG Corporation, the fourth largest chaebol in South Korea, and often considered as the pinnacle of LG Corp with the group\u0027s chemical and battery division LG Chem. It comprises four business units: home entertainment, mobile communications, home appliances \u0026 air solutions, and vehicle components. LG Electronics acquired Zenith in 1995 and the large", "wikipedia_link": "https://en.wikipedia.org/wiki/LG_Electronics", "wikipedia_normalized": "LG Electronics", "wikipedia_resp_code": 200}, {"group": 4, "id": "Sharp Corporation", "label": "Sharp Corporation", "level": 4, "name": "Sharp Corporation", "node_count": 34, "processed": 2, "reason_for_similarity": "Sharp Corporation is known for its expertise in electronics and display technologies, similar to Sony Research \u0026 Development. Both companies have a strong focus on research and development to deliver cutting-edge products.", "shape": "dot", "size": 10, "title": "34. \u003ca href=\u0027https://en.wikipedia.org/wiki/Sharp_Corporation\u0027 target=\u0027_blank\u0027\u003eSharp Corporation\u003c/a\u003e\u003cbr /\u003eSharp Corporation  is a Japanese electronics company. It is headquartered in Sakai, Osaka and was founded by Tokuji Hayakawa in 1912 in Honjo, Tokyo and established as the Hayakawa Metal Works Institute in Abeno, Osaka in 1924. Since 2016, it is majority owned by Taiwan-based manufacturer Hon Hai Precision Industry Co., Ltd., better known as Foxconn.\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Sharp_Corporation", "wikipedia_content": "Sharp Corporation  is a Japanese electronics company. It is headquartered in Sakai, Osaka and was founded by Tokuji Hayakawa in 1912 in Honjo, Tokyo and established as the Hayakawa Metal Works Institute in Abeno, Osaka in 1924. Since 2016, it is majority owned by Taiwan-based manufacturer Hon Hai Precision Industry Co., Ltd., better known as Foxconn.", "wikipedia_link": "https://en.wikipedia.org/wiki/Sharp_Corporation", "wikipedia_normalized": "Sharp Corporation", "wikipedia_resp_code": 200}, {"group": 4, "id": "Toshiba Corporation", "label": "Toshiba Corporation", "level": 4, "name": "Toshiba Corporation", "node_count": 33, "processed": 2, "reason_for_similarity": "Toshiba Corporation, like Sony Research \u0026 Development, is involved in various industries including electronics, semiconductors, and home appliances. Both companies emphasize technological innovation and research-driven development.", "shape": "dot", "size": 10, "title": "33. \u003ca href=\u0027https://en.wikipedia.org/wiki/Toshiba_Corporation\u0027 target=\u0027_blank\u0027\u003eToshiba Corporation\u003c/a\u003e \u2192 \u003ca href=\u0027https://en.wikipedia.org/wiki/Toshiba\u0027 target=\u0027_blank\u0027\u003eToshiba\u003c/a\u003e\u003cbr /\u003eToshiba Corporation  is a Japanese multinational electronics company headquartered in Minato, Tokyo, Japan. Its diversified products and services include power, industrial and social infrastructure systems, elevators and escalators, electronic components, semiconductors, hard disk drives (HDD), printers, batteries, lighting, as well as IT solutions such as quantum cryptography which has been in development at Cambridge Research Laboratory, Toshiba Europe, located in the United Kingdom, now being\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Toshiba", "wikipedia_content": "Toshiba Corporation  is a Japanese multinational electronics company headquartered in Minato, Tokyo, Japan. Its diversified products and services include power, industrial and social infrastructure systems, elevators and escalators, electronic components, semiconductors, hard disk drives (HDD), printers, batteries, lighting, as well as IT solutions such as quantum cryptography which has been in development at Cambridge Research Laboratory, Toshiba Europe, located in the United Kingdom, now being", "wikipedia_link": "https://en.wikipedia.org/wiki/Toshiba_Corporation", "wikipedia_normalized": "Toshiba", "wikipedia_resp_code": 200}, {"group": 3, "id": "Google AI", "label": "Google AI", "level": 3, "name": "Google AI", "node_count": 12, "processed": 2, "reason_for_similarity": "Both Facebook AI Research and Google AI are leading research organizations in the field of artificial intelligence.", "shape": "dot", "size": 10, "title": "12. \u003ca href=\u0027https://en.wikipedia.org/wiki/Google_AI\u0027 target=\u0027_blank\u0027\u003eGoogle AI\u003c/a\u003e\u003cbr /\u003eGoogle AI is a division of Google dedicated to artificial intelligence. It was announced at Google I/O 2017 by CEO Sundar Pichai.\u003cbr /\u003e[200, G3, L3, PR]", "wikipedia_canonical": "Google_AI", "wikipedia_content": "Google AI is a division of Google dedicated to artificial intelligence. It was announced at Google I/O 2017 by CEO Sundar Pichai.", "wikipedia_link": "https://en.wikipedia.org/wiki/Google_AI", "wikipedia_normalized": "Google AI", "wikipedia_resp_code": 200}, {"group": 500, "id": "Sony Research \u0026 Development", "label": "Sony Research \u0026 Development", "level": 3, "name": "Sony Research \u0026 Development", "node_count": 11, "processed": 2, "reason_for_similarity": "Sony Research \u0026 Development is the research division of Sony Corporation. Like IBM Research, they focus on developing cutting-edge technologies and driving innovation across various industries.", "shape": "dot", "size": 10, "title": "11. \u003ca href=\u0027https://en.wikipedia.org/wiki/Sony_Research_%26_Development\u0027 target=\u0027_blank\u0027\u003eSony Research \u0026 Development\u003c/a\u003e\u003cbr /\u003e\u003cbr /\u003e[404, G500, L3, PR]", "wikipedia_canonical": "", "wikipedia_content": "", "wikipedia_link": "https://en.wikipedia.org/wiki/Sony_Research_%26_Development", "wikipedia_normalized": "", "wikipedia_resp_code": 404}, {"group": 4, "id": "Panasonic Corporation", "label": "Panasonic Corporation", "level": 4, "name": "Panasonic Corporation", "node_count": 32, "processed": 2, "reason_for_similarity": "Panasonic Corporation shares similarities with Sony Research \u0026 Development in terms of their focus on research and development, particularly in the fields of electronics, home appliances, and automotive technologies.", "shape": "dot", "size": 10, "title": "32. \u003ca href=\u0027https://en.wikipedia.org/wiki/Panasonic_Corporation\u0027 target=\u0027_blank\u0027\u003ePanasonic Corporation\u003c/a\u003e \u2192 \u003ca href=\u0027https://en.wikipedia.org/wiki/Panasonic\u0027 target=\u0027_blank\u0027\u003ePanasonic\u003c/a\u003e\u003cbr /\u003ePanasonic Holdings Corporation is a Japanese multinational electronics company, headquartered in Kadoma, Osaka. It was founded in 1918 as Matsushita Electric Housewares Manufacturing Works in Fukushima, Osaka by K\u014dnosuke Matsushita. In 1935, it was incorporated and renamed Matsushita Electric Industrial Co., Ltd. In 2008, it changed its name to Panasonic Corporation. In 2022, it became a holding company and was renamed.\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Panasonic", "wikipedia_content": "Panasonic Holdings Corporation is a Japanese multinational electronics company, headquartered in Kadoma, Osaka. It was founded in 1918 as Matsushita Electric Housewares Manufacturing Works in Fukushima, Osaka by K\u014dnosuke Matsushita. In 1935, it was incorporated and renamed Matsushita Electric Industrial Co., Ltd. In 2008, it changed its name to Panasonic Corporation. In 2022, it became a holding company and was renamed.", "wikipedia_link": "https://en.wikipedia.org/wiki/Panasonic_Corporation", "wikipedia_normalized": "Panasonic", "wikipedia_resp_code": 200}, {"group": 4, "id": "Amazon (company)#Research", "label": "Amazon (company)#Research", "level": 4, "name": "Amazon Research", "node_count": 18, "processed": 2, "reason_for_similarity": "Amazon Research, similar to Google Research, focuses on advancing technology and innovation. Both organizations invest in research and development to drive technological advancements within their respective companies.", "shape": "dot", "size": 10, "title": "18. \u003ca href=\u0027https://en.wikipedia.org/wiki/Amazon_(company)#Research\u0027 target=\u0027_blank\u0027\u003eAmazon (company)#Research\u003c/a\u003e \u2192 \u003ca href=\u0027https://en.wikipedia.org/wiki/Amazon_(company)\u0027 target=\u0027_blank\u0027\u003eAmazon (company)\u003c/a\u003e\u003cbr /\u003eAmazon.com, Inc. is an American multinational technology company focusing on e-commerce, cloud computing, online advertising, digital streaming, and artificial intelligence. It has been often referred to as \"one of the most influential economic and cultural forces in the world\", and is often regarded as one of the world\u0027s most valuable brands. It is considered to be one of the Big Five American technology companies, alongside Alphabet, Apple, Meta and Microsoft.\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Amazon_(company)", "wikipedia_content": "Amazon.com, Inc. is an American multinational technology company focusing on e-commerce, cloud computing, online advertising, digital streaming, and artificial intelligence. It has been often referred to as \"one of the most influential economic and cultural forces in the world\", and is often regarded as one of the world\u0027s most valuable brands. It is considered to be one of the Big Five American technology companies, alongside Alphabet, Apple, Meta and Microsoft.", "wikipedia_link": "https://en.wikipedia.org/wiki/Amazon_(company)#Research", "wikipedia_normalized": "Amazon (company)", "wikipedia_resp_code": 200}, {"group": 4, "id": "Alibaba Group", "label": "Alibaba Group", "level": 4, "name": "Alibaba Group", "node_count": 20, "processed": 2, "reason_for_similarity": "Both Amazon and Alibaba are e-commerce giants with a wide range of products and services. They have a similar business model and focus on providing a convenient online shopping experience.", "shape": "dot", "size": 10, "title": "20. \u003ca href=\u0027https://en.wikipedia.org/wiki/Alibaba_Group\u0027 target=\u0027_blank\u0027\u003eAlibaba Group\u003c/a\u003e\u003cbr /\u003eAlibaba Group Holding Limited, or Alibaba, is a Chinese multinational technology company specializing in e-commerce, retail, Internet, and technology. Founded on 28 June 1999 in Hangzhou, Zhejiang, the company provides consumer-to-consumer (C2C), business-to-consumer (B2C), and business-to-business (B2B) sales services via Chinese and global marketplaces, as well as local consumer, digital media and entertainment, logistics and cloud computing services. It owns and operates a diverse portfolio o\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Alibaba_Group", "wikipedia_content": "Alibaba Group Holding Limited, or Alibaba, is a Chinese multinational technology company specializing in e-commerce, retail, Internet, and technology. Founded on 28 June 1999 in Hangzhou, Zhejiang, the company provides consumer-to-consumer (C2C), business-to-consumer (B2C), and business-to-business (B2B) sales services via Chinese and global marketplaces, as well as local consumer, digital media and entertainment, logistics and cloud computing services. It owns and operates a diverse portfolio o", "wikipedia_link": "https://en.wikipedia.org/wiki/Alibaba_Group", "wikipedia_normalized": "Alibaba Group", "wikipedia_resp_code": 200}, {"group": 4, "id": "JD.com", "label": "JD.com", "level": 4, "name": "JD.com", "node_count": 21, "processed": 2, "reason_for_similarity": "JD.com is another major e-commerce company, similar to Amazon. It offers a wide range of products and has a strong logistics network, just like Amazon. Both companies prioritize customer satisfaction and fast delivery.", "shape": "dot", "size": 10, "title": "21. \u003ca href=\u0027https://en.wikipedia.org/wiki/JD.com\u0027 target=\u0027_blank\u0027\u003eJD.com\u003c/a\u003e\u003cbr /\u003eJD.com, Inc., also known as Jingdong, internationally known as Joybuy and formerly called 360buy, is a Chinese e-commerce company headquartered in Beijing. It is one of the two massive B2C online retailers in China by transaction volume and revenue, a member of the Fortune Global 500 and a major competitor to Alibaba-run Tmall. When classified as a tech company, it is the largest in China by revenue, and 7th in the world in 2021.\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "JD.com", "wikipedia_content": "JD.com, Inc., also known as Jingdong, internationally known as Joybuy and formerly called 360buy, is a Chinese e-commerce company headquartered in Beijing. It is one of the two massive B2C online retailers in China by transaction volume and revenue, a member of the Fortune Global 500 and a major competitor to Alibaba-run Tmall. When classified as a tech company, it is the largest in China by revenue, and 7th in the world in 2021.", "wikipedia_link": "https://en.wikipedia.org/wiki/JD.com", "wikipedia_normalized": "JD.com", "wikipedia_resp_code": 200}, {"group": 4, "id": "Rakuten", "label": "Rakuten", "level": 4, "name": "Rakuten", "node_count": 23, "processed": 2, "reason_for_similarity": "Rakuten is a Japanese e-commerce company that operates a marketplace similar to Amazon. It offers a wide range of products and services, including e-books, streaming services, and online travel bookings.", "shape": "dot", "size": 10, "title": "23. \u003ca href=\u0027https://en.wikipedia.org/wiki/Rakuten\u0027 target=\u0027_blank\u0027\u003eRakuten\u003c/a\u003e\u003cbr /\u003eRakuten Group, Inc. (\u697d\u5929\u30b0\u30eb\u30fc\u30d7\u682a\u5f0f\u4f1a\u793e) is a Japanese technology conglomerate based in Tokyo, founded by Hiroshi Mikitani in 1997. Centered around the online retail marketplace Rakuten Ichiba, its businesses include financial services utilizing Fintech, digital content and communications services such as the messaging app Viber, e-book distributor Kobo, and Japan\u0027s fourth mobile carrier Rakuten Mobile. Rakuten has more than 28,000 employees worldwide, operating in 30 countries and regions, and its reve\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Rakuten", "wikipedia_content": "Rakuten Group, Inc. (\u697d\u5929\u30b0\u30eb\u30fc\u30d7\u682a\u5f0f\u4f1a\u793e) is a Japanese technology conglomerate based in Tokyo, founded by Hiroshi Mikitani in 1997. Centered around the online retail marketplace Rakuten Ichiba, its businesses include financial services utilizing Fintech, digital content and communications services such as the messaging app Viber, e-book distributor Kobo, and Japan\u0027s fourth mobile carrier Rakuten Mobile. Rakuten has more than 28,000 employees worldwide, operating in 30 countries and regions, and its reve", "wikipedia_link": "https://en.wikipedia.org/wiki/Rakuten", "wikipedia_normalized": "Rakuten", "wikipedia_resp_code": 200}, {"group": 4, "id": "Walmart", "label": "Walmart", "level": 4, "name": "Walmart", "node_count": 22, "processed": 2, "reason_for_similarity": "Walmart is a multinational retail corporation that competes with Amazon in the retail industry. Both companies have a vast product selection, offer competitive prices, and have a strong online presence.", "shape": "dot", "size": 10, "title": "22. \u003ca href=\u0027https://en.wikipedia.org/wiki/Walmart\u0027 target=\u0027_blank\u0027\u003eWalmart\u003c/a\u003e\u003cbr /\u003eWalmart Inc. is an American multinational retail corporation that operates a chain of hypermarkets, discount department stores, and grocery stores in the United States, headquartered in Bentonville, Arkansas. The company was founded by brothers Sam and James \"Bud\" Walton in nearby Rogers, Arkansas in 1962 and incorporated under Delaware General Corporation Law on October 31, 1969. It also owns and operates Sam\u0027s Club retail warehouses.\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Walmart", "wikipedia_content": "Walmart Inc. is an American multinational retail corporation that operates a chain of hypermarkets, discount department stores, and grocery stores in the United States, headquartered in Bentonville, Arkansas. The company was founded by brothers Sam and James \"Bud\" Walton in nearby Rogers, Arkansas in 1962 and incorporated under Delaware General Corporation Law on October 31, 1969. It also owns and operates Sam\u0027s Club retail warehouses.", "wikipedia_link": "https://en.wikipedia.org/wiki/Walmart", "wikipedia_normalized": "Walmart", "wikipedia_resp_code": 200}, {"group": 4, "id": "Salesforce", "label": "Salesforce", "level": 4, "name": "Salesforce", "node_count": 16, "processed": 2, "reason_for_similarity": "Salesforce has integrated AI capabilities into its CRM platform, similar to IBM Watson\u0027s focus on AI-powered customer engagement. Both companies aim to enhance customer experiences through AI-driven insights.", "shape": "dot", "size": 10, "title": "16. \u003ca href=\u0027https://en.wikipedia.org/wiki/Salesforce\u0027 target=\u0027_blank\u0027\u003eSalesforce\u003c/a\u003e\u003cbr /\u003eSalesforce, Inc. is an American cloud-based software company headquartered in San Francisco, California. It provides customer relationship management (CRM) software and applications focused on sales, customer service, marketing automation, e-commerce, analytics, and application development.\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Salesforce", "wikipedia_content": "Salesforce, Inc. is an American cloud-based software company headquartered in San Francisco, California. It provides customer relationship management (CRM) software and applications focused on sales, customer service, marketing automation, e-commerce, analytics, and application development.", "wikipedia_link": "https://en.wikipedia.org/wiki/Salesforce", "wikipedia_normalized": "Salesforce", "wikipedia_resp_code": 200}, {"group": 4, "id": "Huawei", "label": "Huawei", "level": 4, "name": "Huawei Technologies", "node_count": 30, "processed": 2, "reason_for_similarity": "Huawei Technologies, similar to Samsung Advanced Institute of Technology, is a leading global provider of telecommunications equipment and consumer electronics. Both companies focus on technological advancements and product innovation.", "shape": "dot", "size": 10, "title": "30. \u003ca href=\u0027https://en.wikipedia.org/wiki/Huawei\u0027 target=\u0027_blank\u0027\u003eHuawei\u003c/a\u003e\u003cbr /\u003eHuawei Technologies Co., Ltd. is a Chinese multinational technology corporation headquartered in Shenzhen, Guangdong. It designs, develops, manufactures and sells telecommunications equipment, consumer electronics, smart devices and various rooftop solar products.\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Huawei", "wikipedia_content": "Huawei Technologies Co., Ltd. is a Chinese multinational technology corporation headquartered in Shenzhen, Guangdong. It designs, develops, manufactures and sells telecommunications equipment, consumer electronics, smart devices and various rooftop solar products.", "wikipedia_link": "https://en.wikipedia.org/wiki/Huawei", "wikipedia_normalized": "Huawei", "wikipedia_resp_code": 200}, {"group": 4, "id": "Bell Labs", "label": "Bell Labs", "level": 4, "name": "Nokia Bell Labs", "node_count": 25, "processed": 2, "reason_for_similarity": "Intel Labs and Nokia Bell Labs are renowned research organizations with a rich history of technological breakthroughs. Both organizations have a strong emphasis on research and development.", "shape": "dot", "size": 10, "title": "25. \u003ca href=\u0027https://en.wikipedia.org/wiki/Bell_Labs\u0027 target=\u0027_blank\u0027\u003eBell Labs\u003c/a\u003e\u003cbr /\u003eNokia Bell Labs, originally named Bell Telephone Laboratories (1925\u20131984),\nthen AT\u0026T Bell Laboratories (1984\u20131996)\nand Bell Labs Innovations (1996\u20132007),\nis an American industrial research and scientific development company owned by Finnish company Nokia. It is headquartered in Murray Hill, New Jersey, and operates a global network of laboratories.\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Bell_Labs", "wikipedia_content": "Nokia Bell Labs, originally named Bell Telephone Laboratories (1925\u20131984),\nthen AT\u0026T Bell Laboratories (1984\u20131996)\nand Bell Labs Innovations (1996\u20132007),\nis an American industrial research and scientific development company owned by Finnish company Nokia. It is headquartered in Murray Hill, New Jersey, and operates a global network of laboratories.", "wikipedia_link": "https://en.wikipedia.org/wiki/Bell_Labs", "wikipedia_normalized": "Bell Labs", "wikipedia_resp_code": 200}, {"group": 3, "id": "Samsung Advanced Institute of Technology", "label": "Samsung Advanced Institute of Technology", "level": 3, "name": "Samsung Advanced Institute of Technology", "node_count": 10, "processed": 2, "reason_for_similarity": "The Samsung Advanced Institute of Technology (SAIT) is a research division of Samsung Electronics. Like IBM Research, SAIT focuses on advanced research and development in various technological domains.", "shape": "dot", "size": 10, "title": "10. \u003ca href=\u0027https://en.wikipedia.org/wiki/Samsung_Advanced_Institute_of_Technology\u0027 target=\u0027_blank\u0027\u003eSamsung Advanced Institute of Technology\u003c/a\u003e \u2192 \u003ca href=\u0027https://en.wikipedia.org/wiki/Samsung\u0027 target=\u0027_blank\u0027\u003eSamsung\u003c/a\u003e\u003cbr /\u003eSamsung Group, or simply Samsung, is a South Korean multinational manufacturing conglomerate headquartered in Samsung Digital City, Suwon, South Korea. It comprises numerous affiliated businesses, most of them united under the Samsung brand, and is the largest South Korean chaebol. As of 2020, Samsung has the eighth highest global brand value.\u003cbr /\u003e[200, G3, L3, PR]", "wikipedia_canonical": "Samsung", "wikipedia_content": "Samsung Group, or simply Samsung, is a South Korean multinational manufacturing conglomerate headquartered in Samsung Digital City, Suwon, South Korea. It comprises numerous affiliated businesses, most of them united under the Samsung brand, and is the largest South Korean chaebol. As of 2020, Samsung has the eighth highest global brand value.", "wikipedia_link": "https://en.wikipedia.org/wiki/Samsung_Advanced_Institute_of_Technology", "wikipedia_normalized": "Samsung", "wikipedia_resp_code": 200}, {"group": 2, "id": "IBM Research", "label": "IBM Research", "level": 2, "name": "IBM Research", "node_count": 4, "processed": 2, "reason_for_similarity": "IBM Research, similar to OpenAI, is a leading research organization that focuses on various areas of technology, including AI. Both companies have a long history of innovation and have made significant contributions to the field of AI.", "shape": "dot", "size": 10, "title": "4. \u003ca href=\u0027https://en.wikipedia.org/wiki/IBM_Research\u0027 target=\u0027_blank\u0027\u003eIBM Research\u003c/a\u003e\u003cbr /\u003eIBM Research is the research and development division for IBM, an American multinational information technology company headquartered in Armonk, New York, with operations in over 170 countries. IBM Research is the largest industrial research organization in the world and has twelve labs on six continents.\u003cbr /\u003e[200, G2, L2, PR]", "wikipedia_canonical": "IBM_Research", "wikipedia_content": "IBM Research is the research and development division for IBM, an American multinational information technology company headquartered in Armonk, New York, with operations in over 170 countries. IBM Research is the largest industrial research organization in the world and has twelve labs on six continents.", "wikipedia_link": "https://en.wikipedia.org/wiki/IBM_Research", "wikipedia_normalized": "IBM Research", "wikipedia_resp_code": 200}, {"group": 1, "id": "OpenAI", "label": "OpenAI", "level": 1, "name": "OpenAI", "node_count": 0, "processed": 2, "shape": "dot", "size": 10, "title": "0. \u003ca href=\u0027https://en.wikipedia.org/wiki/OpenAI\u0027 target=\u0027_blank\u0027\u003eOpenAI\u003c/a\u003e\u003cbr /\u003eOpenAI is an American artificial intelligence (AI) organization consisting of the non-profit OpenAI, Inc. registered in Delaware and its for-profit subsidiary corporation OpenAI Global, LLC. OpenAI researches artificial intelligence with the declared intention of developing \"safe and beneficial\" artificial general intelligence, which it defines as \"highly autonomous systems that outperform humans at most economically valuable work\".\u003cbr /\u003e[200, G1, L1, PR]", "wikipedia_canonical": "OpenAI", "wikipedia_content": "OpenAI is an American artificial intelligence (AI) organization consisting of the non-profit OpenAI, Inc. registered in Delaware and its for-profit subsidiary corporation OpenAI Global, LLC. OpenAI researches artificial intelligence with the declared intention of developing \"safe and beneficial\" artificial general intelligence, which it defines as \"highly autonomous systems that outperform humans at most economically valuable work\".", "wikipedia_link": "https://en.wikipedia.org/wiki/OpenAI", "wikipedia_normalized": "OpenAI", "wikipedia_resp_code": 200}, {"group": 2, "id": "DeepMind", "label": "DeepMind", "level": 2, "name": "DeepMind", "node_count": 1, "processed": 2, "reason_for_similarity": "DeepMind, like OpenAI, is a leading artificial intelligence research lab. Both companies focus on developing advanced AI technologies and have made significant contributions to the field.", "shape": "dot", "size": 10, "title": "1. \u003ca href=\u0027https://en.wikipedia.org/wiki/DeepMind\u0027 target=\u0027_blank\u0027\u003eDeepMind\u003c/a\u003e \u2192 \u003ca href=\u0027https://en.wikipedia.org/wiki/Google_DeepMind\u0027 target=\u0027_blank\u0027\u003eGoogle DeepMind\u003c/a\u003e\u003cbr /\u003eDeepMind Technologies Limited, doing business as Google DeepMind, is a British-American artificial intelligence research laboratory which serves as a subsidiary of Google. Founded in the UK in 2010, it was acquired by Google in 2014, The company is based in London, with research centres in Canada, France,, Germany and the United States.\u003cbr /\u003e[200, G2, L2, PR]", "wikipedia_canonical": "Google_DeepMind", "wikipedia_content": "DeepMind Technologies Limited, doing business as Google DeepMind, is a British-American artificial intelligence research laboratory which serves as a subsidiary of Google. Founded in the UK in 2010, it was acquired by Google in 2014, The company is based in London, with research centres in Canada, France,, Germany and the United States.", "wikipedia_link": "https://en.wikipedia.org/wiki/DeepMind", "wikipedia_normalized": "Google DeepMind", "wikipedia_resp_code": 200}, {"group": 2, "id": "Google Brain", "label": "Google Brain", "level": 2, "name": "Google Brain", "node_count": 2, "processed": 2, "reason_for_similarity": "Google Brain, similar to OpenAI, is a research project that aims to develop and apply deep learning techniques. Both companies have a strong focus on AI research and have contributed to advancements in the field.", "shape": "dot", "size": 10, "title": "2. \u003ca href=\u0027https://en.wikipedia.org/wiki/Google_Brain\u0027 target=\u0027_blank\u0027\u003eGoogle Brain\u003c/a\u003e\u003cbr /\u003eGoogle Brain was a deep learning artificial intelligence research team under the umbrella of Google AI, a research division at Google dedicated to artificial intelligence. Formed in 2011, Google Brain combined open-ended machine learning research with information systems and large-scale computing resources. The team has created tools such as TensorFlow, which allow for neural networks to be used by the public, with multiple internal AI research projects. The team aims to create research opportun\u003cbr /\u003e[200, G2, L2, PR]", "wikipedia_canonical": "Google_Brain", "wikipedia_content": "Google Brain was a deep learning artificial intelligence research team under the umbrella of Google AI, a research division at Google dedicated to artificial intelligence. Formed in 2011, Google Brain combined open-ended machine learning research with information systems and large-scale computing resources. The team has created tools such as TensorFlow, which allow for neural networks to be used by the public, with multiple internal AI research projects. The team aims to create research opportun", "wikipedia_link": "https://en.wikipedia.org/wiki/Google_Brain", "wikipedia_normalized": "Google Brain", "wikipedia_resp_code": 200}, {"group": 2, "id": "Microsoft Research", "label": "Microsoft Research", "level": 2, "name": "Microsoft Research", "node_count": 3, "processed": 2, "reason_for_similarity": "Microsoft Research, like OpenAI, is a research organization that explores various areas of computer science, including artificial intelligence. Both companies have a strong emphasis on research and innovation.", "shape": "dot", "size": 10, "title": "3. \u003ca href=\u0027https://en.wikipedia.org/wiki/Microsoft_Research\u0027 target=\u0027_blank\u0027\u003eMicrosoft Research\u003c/a\u003e\u003cbr /\u003eMicrosoft Research (MSR) is the research subsidiary of Microsoft. It was created in 1991 by Richard Rashid, Bill Gates and Nathan Myhrvold with the intent to advance state-of-the-art computing and solve difficult world problems through technological innovation in collaboration with academic, government, and industry researchers. The Microsoft Research team has more than 1,000 computer scientists, physicists, engineers, and mathematicians, including Turing Award winners, Fields Medal winners, Mac\u003cbr /\u003e[200, G2, L2, PR]", "wikipedia_canonical": "Microsoft_Research", "wikipedia_content": "Microsoft Research (MSR) is the research subsidiary of Microsoft. It was created in 1991 by Richard Rashid, Bill Gates and Nathan Myhrvold with the intent to advance state-of-the-art computing and solve difficult world problems through technological innovation in collaboration with academic, government, and industry researchers. The Microsoft Research team has more than 1,000 computer scientists, physicists, engineers, and mathematicians, including Turing Award winners, Fields Medal winners, Mac", "wikipedia_link": "https://en.wikipedia.org/wiki/Microsoft_Research", "wikipedia_normalized": "Microsoft Research", "wikipedia_resp_code": 200}, {"group": 500, "id": "Facebook AI Research", "label": "Facebook AI Research", "level": 2, "name": "Facebook AI Research (FAIR)", "node_count": 5, "processed": 2, "reason_for_similarity": "Facebook AI Research, like OpenAI, is a research organization that aims to advance the field of artificial intelligence. Both companies have a strong focus on AI research and have contributed to advancements in the field.", "shape": "dot", "size": 10, "title": "5. \u003ca href=\u0027https://en.wikipedia.org/wiki/Facebook_AI_Research\u0027 target=\u0027_blank\u0027\u003eFacebook AI Research\u003c/a\u003e\u003cbr /\u003e\u003cbr /\u003e[404, G500, L2, PR]", "wikipedia_canonical": "", "wikipedia_content": "", "wikipedia_link": "https://en.wikipedia.org/wiki/Facebook_AI_Research", "wikipedia_normalized": "", "wikipedia_resp_code": 404}, {"group": 4, "id": "Intel", "label": "Intel", "level": 4, "name": "Intel Corporation", "node_count": 28, "processed": 2, "reason_for_similarity": "Intel Corporation is known for its advanced semiconductor technology, just like Samsung Advanced Institute of Technology. Both companies focus on developing high-performance chips and processors.", "shape": "dot", "size": 10, "title": "28. \u003ca href=\u0027https://en.wikipedia.org/wiki/Intel\u0027 target=\u0027_blank\u0027\u003eIntel\u003c/a\u003e\u003cbr /\u003eIntel Corporation is an American multinational corporation and technology company headquartered in Santa Clara, California. It is one of the world\u0027s largest semiconductor chip manufacturer by revenue, and is one of the developers of the x86 series of instruction sets found in most personal computers (PCs). Incorporated in Delaware, Intel ranked No. 45 in the 2020 Fortune 500 list of the largest United States corporations by total revenue for nearly a decade, from 2007 to 2016 fiscal years.\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Intel", "wikipedia_content": "Intel Corporation is an American multinational corporation and technology company headquartered in Santa Clara, California. It is one of the world\u0027s largest semiconductor chip manufacturer by revenue, and is one of the developers of the x86 series of instruction sets found in most personal computers (PCs). Incorporated in Delaware, Intel ranked No. 45 in the 2020 Fortune 500 list of the largest United States corporations by total revenue for nearly a decade, from 2007 to 2016 fiscal years.", "wikipedia_link": "https://en.wikipedia.org/wiki/Intel", "wikipedia_normalized": "Intel", "wikipedia_resp_code": 200}, {"group": 3, "id": "IBM Watson", "label": "IBM Watson", "level": 3, "name": "IBM Watson", "node_count": 6, "processed": 2, "reason_for_similarity": "IBM Watson is a cognitive computing platform that utilizes AI and machine learning to analyze large amounts of data and provide insights. Like DeepMind, IBM Watson focuses on developing advanced AI capabilities and applying them to various industries.", "shape": "dot", "size": 10, "title": "6. \u003ca href=\u0027https://en.wikipedia.org/wiki/IBM_Watson\u0027 target=\u0027_blank\u0027\u003eIBM Watson\u003c/a\u003e\u003cbr /\u003eIBM Watson is a question-answering computer system capable of answering questions posed in natural language, developed in IBM\u0027s DeepQA project by a research team led by principal investigator David Ferrucci. Watson was named after IBM\u0027s founder and first CEO, industrialist Thomas J. Watson.\u003cbr /\u003e[200, G3, L3, PR]", "wikipedia_canonical": "IBM_Watson", "wikipedia_content": "IBM Watson is a question-answering computer system capable of answering questions posed in natural language, developed in IBM\u0027s DeepQA project by a research team led by principal investigator David Ferrucci. Watson was named after IBM\u0027s founder and first CEO, industrialist Thomas J. Watson.", "wikipedia_link": "https://en.wikipedia.org/wiki/IBM_Watson", "wikipedia_normalized": "IBM Watson", "wikipedia_resp_code": 200}, {"group": 500, "id": "Google Research", "label": "Google Research", "level": 3, "name": "Google Research", "node_count": 7, "processed": 2, "reason_for_similarity": "Google Research, similar to Microsoft Research, is a research division of a major technology company. Both organizations aim to advance technology through research and innovation.", "shape": "dot", "size": 10, "title": "7. \u003ca href=\u0027https://en.wikipedia.org/wiki/Google_Research\u0027 target=\u0027_blank\u0027\u003eGoogle Research\u003c/a\u003e\u003cbr /\u003e\u003cbr /\u003e[404, G500, L3, PR]", "wikipedia_canonical": "", "wikipedia_content": "", "wikipedia_link": "https://en.wikipedia.org/wiki/Google_Research", "wikipedia_normalized": "", "wikipedia_resp_code": 404}, {"group": 500, "id": "Amazon Research", "label": "Amazon Research", "level": 3, "name": "Amazon Research", "node_count": 8, "processed": 2, "reason_for_similarity": "Amazon Research, similar to Microsoft Research, conducts research and development in various areas of technology. Both organizations have a strong focus on innovation and technological advancements.", "shape": "dot", "size": 10, "title": "8. \u003ca href=\u0027https://en.wikipedia.org/wiki/Amazon_Research\u0027 target=\u0027_blank\u0027\u003eAmazon Research\u003c/a\u003e\u003cbr /\u003e\u003cbr /\u003e[404, G500, L3, PR]", "wikipedia_canonical": "", "wikipedia_content": "", "wikipedia_link": "https://en.wikipedia.org/wiki/Amazon_Research", "wikipedia_normalized": "", "wikipedia_resp_code": 404}, {"group": 500, "id": "Intel Labs", "label": "Intel Labs", "level": 3, "name": "Intel Labs", "node_count": 9, "processed": 2, "reason_for_similarity": "Intel Labs, like Microsoft Research, is the research division of a major technology company. Both organizations engage in cutting-edge research and development to drive technological progress.", "shape": "dot", "size": 10, "title": "9. \u003ca href=\u0027https://en.wikipedia.org/wiki/Intel_Labs\u0027 target=\u0027_blank\u0027\u003eIntel Labs\u003c/a\u003e\u003cbr /\u003e\u003cbr /\u003e[404, G500, L3, PR]", "wikipedia_canonical": "", "wikipedia_content": "", "wikipedia_link": "https://en.wikipedia.org/wiki/Intel_Labs", "wikipedia_normalized": "", "wikipedia_resp_code": 404}, {"group": 4, "id": "Baidu", "label": "Baidu", "level": 4, "name": "Baidu", "node_count": 17, "processed": 2, "reason_for_similarity": "Baidu, often referred to as the \u0027Google of China,\u0027 has made significant advancements in AI research and development. It offers AI-powered services and products, such as Baidu Brain and DuerOS, which are comparable to IBM Watson\u0027s capabilities.", "shape": "dot", "size": 10, "title": "17. \u003ca href=\u0027https://en.wikipedia.org/wiki/Baidu\u0027 target=\u0027_blank\u0027\u003eBaidu\u003c/a\u003e\u003cbr /\u003eBaidu, Inc. is a Chinese multinational technology company specializing in Internet-related services, products, and artificial intelligence (AI), headquartered in Beijing\u0027s Haidian District. It is one of the largest AI and Internet companies in the world. The holding company of the group is incorporated in the Cayman Islands. Baidu was incorporated in January 2000 by Robin Li and Eric Xu. Baidu has origins in RankDex, an earlier search engine developed by Robin Li in 1996, before he founded Baidu\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Baidu", "wikipedia_content": "Baidu, Inc. is a Chinese multinational technology company specializing in Internet-related services, products, and artificial intelligence (AI), headquartered in Beijing\u0027s Haidian District. It is one of the largest AI and Internet companies in the world. The holding company of the group is incorporated in the Cayman Islands. Baidu was incorporated in January 2000 by Robin Li and Eric Xu. Baidu has origins in RankDex, an earlier search engine developed by Robin Li in 1996, before he founded Baidu", "wikipedia_link": "https://en.wikipedia.org/wiki/Baidu", "wikipedia_normalized": "Baidu", "wikipedia_resp_code": 200}, {"group": 4, "id": "Alibaba Cloud", "label": "Alibaba Cloud", "level": 4, "name": "Alibaba Cloud", "node_count": 24, "processed": 2, "reason_for_similarity": "Alibaba Cloud, a subsidiary of Alibaba Group, provides cloud computing services similar to Amazon Web Services (AWS). Both companies offer scalable and reliable cloud infrastructure solutions for businesses.", "shape": "dot", "size": 10, "title": "24. \u003ca href=\u0027https://en.wikipedia.org/wiki/Alibaba_Cloud\u0027 target=\u0027_blank\u0027\u003eAlibaba Cloud\u003c/a\u003e\u003cbr /\u003eAlibaba Cloud, also known as Aliyun, is a cloud computing company, a subsidiary of Alibaba Group. Alibaba Cloud provides cloud computing services to online businesses and Alibaba\u0027s own e-commerce ecosystem. Its international operations are registered and headquartered in Singapore.\u003cbr /\u003e[200, G4, L4, PR]", "wikipedia_canonical": "Alibaba_Cloud", "wikipedia_content": "Alibaba Cloud, also known as Aliyun, is a cloud computing company, a subsidiary of Alibaba Group. Alibaba Cloud provides cloud computing services to online businesses and Alibaba\u0027s own e-commerce ecosystem. Its international operations are registered and headquartered in Singapore.", "wikipedia_link": "https://en.wikipedia.org/wiki/Alibaba_Cloud", "wikipedia_normalized": "Alibaba Cloud", "wikipedia_resp_code": 200}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "IBM", "to": "Microsoft", "width": 1}, {"arrows": "to", "from": "Apple Inc.#Research and development", "to": "Samsung Electronics", "width": 1}, {"arrows": "to", "from": "Apple Inc.#Research and development", "to": "Microsoft", "width": 1}, {"arrows": "to", "from": "Apple Inc.#Research and development", "to": "Google", "width": 1}, {"arrows": "to", "from": "Apple Inc.#Research and development", "to": "Amazon (company)", "width": 1}, {"arrows": "to", "from": "Apple Inc.#Research and development", "to": "Sony", "width": 1}, {"arrows": "to", "from": "Google", "to": "Apple Inc.", "width": 1}, {"arrows": "to", "from": "Google", "to": "Microsoft", "width": 1}, {"arrows": "to", "from": "Google", "to": "Amazon (company)", "width": 1}, {"arrows": "to", "from": "Google", "to": "Facebook", "width": 1}, {"arrows": "to", "from": "Sony", "to": "Samsung Electronics", "width": 1}, {"arrows": "to", "from": "Sony", "to": "LG Electronics", "width": 1}, {"arrows": "to", "from": "Sony", "to": "Sharp Corporation", "width": 1}, {"arrows": "to", "from": "Toshiba Corporation", "to": "Sony", "width": 1}, {"arrows": "to", "from": "Toshiba Corporation", "to": "Samsung Electronics", "width": 1}, {"arrows": "to", "from": "Google AI", "to": "Microsoft", "width": 1}, {"arrows": "to", "from": "Google AI", "to": "IBM", "width": 1}, {"arrows": "to", "from": "Google AI", "to": "Amazon (company)", "width": 1}, {"arrows": "to", "from": "Google AI", "to": "Facebook", "width": 1}, {"arrows": "to", "from": "Google AI", "to": "Apple Inc.", "width": 1}, {"arrows": "to", "from": "Sony Research \u0026 Development", "to": "Samsung Electronics", "width": 1}, {"arrows": "to", "from": "Sony Research \u0026 Development", "to": "LG Electronics", "width": 1}, {"arrows": "to", "from": "Sony Research \u0026 Development", "to": "Panasonic Corporation", "width": 1}, {"arrows": "to", "from": "Sony Research \u0026 Development", "to": "Toshiba Corporation", "width": 1}, {"arrows": "to", "from": "Sony Research \u0026 Development", "to": "Sharp Corporation", "width": 1}, {"arrows": "to", "from": "Amazon (company)#Research", "to": "Alibaba Group", "width": 1}, {"arrows": "to", "from": "Amazon (company)#Research", "to": "JD.com", "width": 1}, {"arrows": "to", "from": "Amazon (company)#Research", "to": "Rakuten", "width": 1}, {"arrows": "to", "from": "Amazon (company)#Research", "to": "Walmart", "width": 1}, {"arrows": "to", "from": "Salesforce", "to": "Microsoft", "width": 1}, {"arrows": "to", "from": "Huawei", "to": "Samsung Electronics", "width": 1}, {"arrows": "to", "from": "Bell Labs", "to": "Huawei", "width": 1}, {"arrows": "to", "from": "Bell Labs", "to": "Samsung Advanced Institute of Technology", "width": 1}, {"arrows": "to", "from": "Bell Labs", "to": "IBM Research", "width": 1}, {"arrows": "to", "from": "Samsung Electronics", "to": "Apple Inc.", "width": 1}, {"arrows": "to", "from": "Samsung Electronics", "to": "LG Electronics", "width": 1}, {"arrows": "to", "from": "Samsung Electronics", "to": "Sony", "width": 1}, {"arrows": "to", "from": "Samsung Electronics", "to": "Huawei", "width": 1}, {"arrows": "to", "from": "OpenAI", "to": "DeepMind", "width": 1}, {"arrows": "to", "from": "OpenAI", "to": "Google Brain", "width": 1}, {"arrows": "to", "from": "OpenAI", "to": "Microsoft Research", "width": 1}, {"arrows": "to", "from": "OpenAI", "to": "IBM Research", "width": 1}, {"arrows": "to", "from": "OpenAI", "to": "Facebook AI Research", "width": 1}, {"arrows": "to", "from": "Rakuten", "to": "Alibaba Group", "width": 1}, {"arrows": "to", "from": "Rakuten", "to": "JD.com", "width": 1}, {"arrows": "to", "from": "Apple Inc.", "to": "Samsung Electronics", "width": 0.9}, {"arrows": "to", "from": "Apple Inc.", "to": "Microsoft", "width": 0.8}, {"arrows": "to", "from": "Apple Inc.", "to": "Google", "width": 0.7}, {"arrows": "to", "from": "Apple Inc.", "to": "Amazon (company)", "width": 0.6}, {"arrows": "to", "from": "Apple Inc.", "to": "Sony", "width": 0.5}, {"arrows": "to", "from": "Samsung Advanced Institute of Technology", "to": "LG Electronics", "width": 1}, {"arrows": "to", "from": "Samsung Advanced Institute of Technology", "to": "Sony", "width": 1}, {"arrows": "to", "from": "Samsung Advanced Institute of Technology", "to": "Intel", "width": 1}, {"arrows": "to", "from": "Samsung Advanced Institute of Technology", "to": "IBM", "width": 1}, {"arrows": "to", "from": "Samsung Advanced Institute of Technology", "to": "Huawei", "width": 1}, {"arrows": "to", "from": "Facebook AI Research", "to": "Google AI", "width": 1}, {"arrows": "to", "from": "Facebook AI Research", "to": "Microsoft Research", "width": 1}, {"arrows": "to", "from": "Facebook AI Research", "to": "OpenAI", "width": 1}, {"arrows": "to", "from": "Facebook AI Research", "to": "DeepMind", "width": 1}, {"arrows": "to", "from": "Facebook AI Research", "to": "IBM Research", "width": 1}, {"arrows": "to", "from": "DeepMind", "to": "OpenAI", "width": 1}, {"arrows": "to", "from": "DeepMind", "to": "IBM Watson", "width": 1}, {"arrows": "to", "from": "DeepMind", "to": "Microsoft Research", "width": 1}, {"arrows": "to", "from": "DeepMind", "to": "Google Brain", "width": 1}, {"arrows": "to", "from": "DeepMind", "to": "Facebook AI Research", "width": 1}, {"arrows": "to", "from": "Microsoft Research", "to": "IBM Research", "width": 1}, {"arrows": "to", "from": "Microsoft Research", "to": "Google Research", "width": 1}, {"arrows": "to", "from": "Microsoft Research", "to": "Facebook AI Research", "width": 1}, {"arrows": "to", "from": "Microsoft Research", "to": "Amazon Research", "width": 1}, {"arrows": "to", "from": "Microsoft Research", "to": "Intel Labs", "width": 1}, {"arrows": "to", "from": "Google Research", "to": "Microsoft Research", "width": 1}, {"arrows": "to", "from": "Google Research", "to": "IBM Research", "width": 1}, {"arrows": "to", "from": "Google Research", "to": "Facebook AI Research", "width": 1}, {"arrows": "to", "from": "Google Research", "to": "Amazon (company)#Research", "width": 1}, {"arrows": "to", "from": "Google Research", "to": "Apple Inc.#Research and development", "width": 1}, {"arrows": "to", "from": "LG Electronics", "to": "Samsung Electronics", "width": 1}, {"arrows": "to", "from": "LG Electronics", "to": "Sony", "width": 1}, {"arrows": "to", "from": "Baidu", "to": "Google", "width": 1}, {"arrows": "to", "from": "Alibaba Group", "to": "Amazon (company)", "width": 1}, {"arrows": "to", "from": "Alibaba Group", "to": "JD.com", "width": 1}, {"arrows": "to", "from": "Alibaba Group", "to": "Rakuten", "width": 1}, {"arrows": "to", "from": "Intel", "to": "Samsung Electronics", "width": 1}, {"arrows": "to", "from": "Facebook", "to": "Google", "width": 1}, {"arrows": "to", "from": "Facebook", "to": "Amazon (company)", "width": 1}, {"arrows": "to", "from": "JD.com", "to": "Alibaba Group", "width": 1}, {"arrows": "to", "from": "JD.com", "to": "Amazon (company)", "width": 1}, {"arrows": "to", "from": "JD.com", "to": "Walmart", "width": 1}, {"arrows": "to", "from": "JD.com", "to": "Rakuten", "width": 1}, {"arrows": "to", "from": "Amazon (company)", "to": "Alibaba Group", "width": 1}, {"arrows": "to", "from": "Amazon (company)", "to": "JD.com", "width": 1}, {"arrows": "to", "from": "Amazon (company)", "to": "Walmart", "width": 1}, {"arrows": "to", "from": "Amazon (company)", "to": "Rakuten", "width": 1}, {"arrows": "to", "from": "IBM Watson", "to": "Google", "width": 1}, {"arrows": "to", "from": "IBM Watson", "to": "Microsoft", "width": 1}, {"arrows": "to", "from": "IBM Watson", "to": "Amazon (company)", "width": 1}, {"arrows": "to", "from": "IBM Watson", "to": "Salesforce", "width": 1}, {"arrows": "to", "from": "IBM Watson", "to": "Baidu", "width": 1}, {"arrows": "to", "from": "Google Brain", "to": "OpenAI", "width": 1}, {"arrows": "to", "from": "Google Brain", "to": "DeepMind", "width": 1}, {"arrows": "to", "from": "Google Brain", "to": "Facebook AI Research", "width": 1}, {"arrows": "to", "from": "Google Brain", "to": "Microsoft Research", "width": 1}, {"arrows": "to", "from": "Google Brain", "to": "IBM Research", "width": 1}, {"arrows": "to", "from": "Intel Labs", "to": "IBM Research", "width": 1}, {"arrows": "to", "from": "Intel Labs", "to": "Microsoft Research", "width": 1}, {"arrows": "to", "from": "Intel Labs", "to": "Google Research", "width": 1}, {"arrows": "to", "from": "Intel Labs", "to": "Samsung Advanced Institute of Technology", "width": 1}, {"arrows": "to", "from": "Intel Labs", "to": "Bell Labs", "width": 1}, {"arrows": "to", "from": "Walmart", "to": "Amazon (company)", "width": 1}, {"arrows": "to", "from": "Panasonic Corporation", "to": "Sony", "width": 1}, {"arrows": "to", "from": "Panasonic Corporation", "to": "Samsung Electronics", "width": 1}, {"arrows": "to", "from": "Panasonic Corporation", "to": "LG Electronics", "width": 1}, {"arrows": "to", "from": "Panasonic Corporation", "to": "Sharp Corporation", "width": 1}, {"arrows": "to", "from": "Sharp Corporation", "to": "Sony", "width": 1}, {"arrows": "to", "from": "Sharp Corporation", "to": "LG Electronics", "width": 1}, {"arrows": "to", "from": "Sharp Corporation", "to": "Samsung Electronics", "width": 1}, {"arrows": "to", "from": "Microsoft", "to": "Apple Inc.", "width": 1}, {"arrows": "to", "from": "Microsoft", "to": "Google", "width": 1}, {"arrows": "to", "from": "Microsoft", "to": "Amazon (company)", "width": 1}, {"arrows": "to", "from": "Microsoft", "to": "IBM", "width": 1}, {"arrows": "to", "from": "Microsoft", "to": "Intel", "width": 1}, {"arrows": "to", "from": "Amazon Research", "to": "Alibaba Group", "width": 1}, {"arrows": "to", "from": "Amazon Research", "to": "JD.com", "width": 1}, {"arrows": "to", "from": "Amazon Research", "to": "Walmart", "width": 1}, {"arrows": "to", "from": "Amazon Research", "to": "Rakuten", "width": 1}, {"arrows": "to", "from": "Amazon Research", "to": "Alibaba Cloud", "width": 1}, {"arrows": "to", "from": "IBM Research", "to": "Microsoft Research", "width": 1}, {"arrows": "to", "from": "IBM Research", "to": "Google Research", "width": 1}, {"arrows": "to", "from": "IBM Research", "to": "Samsung Advanced Institute of Technology", "width": 1}, {"arrows": "to", "from": "IBM Research", "to": "Intel Labs", "width": 1}, {"arrows": "to", "from": "IBM Research", "to": "Sony Research \u0026 Development", "width": 1}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.01,
+            "damping": 0.4,
+            "gravitationalConstant": -50,
+            "springConstant": 0.03,
+            "springLength": 100
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+                  // if this network requires displaying the configure window,
+                  // put it in its div
+                  options.configure["container"] = document.getElementById("config");
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+                  // make a custom popup
+                      var popup = document.createElement("div");
+                      popup.className = 'popup';
+                      popupTimeout = null;
+                      popup.addEventListener('mouseover', function () {
+                          console.log(popup)
+                          if (popupTimeout !== null) {
+                              clearTimeout(popupTimeout);
+                              popupTimeout = null;
+                          }
+                      });
+                      popup.addEventListener('mouseout', function () {
+                          if (popupTimeout === null) {
+                              hidePopup();
+                          }
+                      });
+                      container.appendChild(popup);
+
+
+                      // use the popup event to show
+                      network.on("showPopup", function (params) {
+                          showPopup(params);
+                      });
+
+                      // use the hide event to hide it
+                      network.on("hidePopup", function (params) {
+                          hidePopup();
+                      });
+
+                      // hiding the popup through css
+                      function hidePopup() {
+                          popupTimeout = setTimeout(function () { popup.style.display = 'none'; }, 500);
+                      }
+
+                      // showing the popup
+                      function showPopup(nodeId) {
+                          // get the data from the vis.DataSet
+                          var nodeData = nodes.get([nodeId]);
+                          popup.innerHTML = nodeData[0].title;
+
+                          // get the position of the node
+                          var posCanvas = network.getPositions([nodeId])[nodeId];
+
+                          // get the bounding box of the node
+                          var boundingBox = network.getBoundingBox(nodeId);
+
+                          //position tooltip:
+                          posCanvas.x = posCanvas.x + 0.5 * (boundingBox.right - boundingBox.left);
+
+                          // convert coordinates to the DOM space
+                          var posDOM = network.canvasToDOM(posCanvas);
+
+                          // Give it an offset
+                          posDOM.x += 10;
+                          posDOM.y -= 20;
+
+                          // show and place the tooltip.
+                          popup.style.display = 'block';
+                          popup.style.top = posDOM.y + 'px';
+                          popup.style.left = posDOM.x + 'px';
+                      }
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
