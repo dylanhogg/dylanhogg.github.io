@@ -50,6 +50,7 @@ header-img: "img/apps-bg.jpg"
 - [ ] https://iina.io/ - The modern media/video player for macOS.
 - [ ] Brew Utils Must Have
 
+  - [ ] brew install nushell - A new type of shell (https://www.nushell.sh/)
   - [ ] brew install miniforge - https://github.com/conda-forge/miniforge - Linking Binary 'conda' to '/opt/homebrew/bin/conda'
   - [ ] brew install python@3.9 - /opt/homebrew/bin/python3
   - [ ] brew install pyenv (switch between multiple versions of Python - https://github.com/pyenv/pyenv#homebrew-in-macos)
@@ -65,6 +66,7 @@ header-img: "img/apps-bg.jpg"
   - [ ] brew install exa
   - [ ] brew install netron - viewer for neural network models. https://github.com/lutzroeder/netron https://netron.app/
   - [ ] brew install md5sha1sum - Microbrew md5sum/sha1sum/ripemd160sum by Bulent Yilmaz
+  - [ ] brew install ripgrep - recursively searches directories for a regex pattern while respecting your gitignore
 
 - [ ] Brew Utils Nice to Have
 
@@ -107,10 +109,12 @@ header-img: "img/apps-bg.jpg"
 ## Tools
 
 - [ ] https://github.com/mermaid-js/mermaid & https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/
-- [ ] https://app.diagrams.net/ & https://github.com/jgraph/drawio-desktop/releases
+- [ ] https://app.diagrams.net/ / https://draw.io & https://github.com/jgraph/drawio-desktop/releases (or alternative https://excalidraw.com/)
 - [ ] https://revealjs.com/ - open source HTML presentation framework
 - [ ] https://www.geogebra.org/calculator - Graphing calculator online and app
 - [ ] (todo) https://yadm.io/ - Yet Another Dotfiles Manager
+- [ ] https://www.gnu.org/software/parallel/ - a shell tool for executing jobs in parallel
+- [ ] https://it-tools.tech/ - handy tools for devs (also: https://github.com/CorentinTh/it-tools)
 
 ## Local config files
 
@@ -136,6 +140,7 @@ brew install miniforge
 
 - https://github.com/ohmyzsh/ohmyzsh
 - /Users/<user>/.zshrc
+- https://www.nushell.sh/ & https://github.com/nushell/nushell
 
 ```
 alias pwdc='pwd | pbcopy'

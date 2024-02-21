@@ -1,13 +1,22 @@
 ---
-layout:     post
-title:      "Machine Learning Productionisation"
-subtitle:   "How to bring your ML model to life for your users"
-date:       2022-01-19 09:00:00
-tags:       [Machine Learning, Productionisation, Software Engineering, ML Engineering, MLOps, DataOps, Data]
-author:     "Dylan Hogg"
+layout: post
+title: "Machine Learning Productionisation"
+subtitle: "How to bring your ML model to life for your users"
+date: 2022-01-19 09:00:00
+tags:
+  [
+    Machine Learning,
+    Productionisation,
+    Software Engineering,
+    ML Engineering,
+    MLOps,
+    DataOps,
+    Data,
+  ]
+author: "Dylan Hogg"
 header-img: "img/post-bg-04.jpg"
-published:  true
-comments:   true
+published: true
+comments: true
 ---
 
 <style>
@@ -17,7 +26,7 @@ comments:   true
     }
 </style>
 
-This is Part 3 in the machine learning series, covering productionisation of models. Part 1 covers <a href="https://blog.infocruncher.com/2023/02/15/ml-overview/">an overview of machine learning</a> and common algorithms, while Part 2 covers <a href="https://blog.infocruncher.com/2023/02/17/ml-training/">model training and learning from data</a>.  
+This is Part 3 in the machine learning series, covering productionisation of models. Part 1 covers <a href="https://blog.infocruncher.com/2023/02/15/ml-overview/">an overview of machine learning</a> and common algorithms, while Part 2 covers <a href="https://blog.infocruncher.com/2023/02/17/ml-training/">model training and learning from data</a>.
 
 <h2 class="section-heading" id="wimlp">What is machine learning productionisation?</h2>
 
@@ -32,7 +41,7 @@ Regardless of the precise definition, getting machine learning models into a pro
 
 Best practices are emerging to ensure you can successfully prepare data, train a model, validate predictions, deploy, serve and monitor your model.
 
-This post is a 10,000-foot overview of things to consider during the life cycle of a machine learning project and includes pointers to useful resources. 
+This post is a 10,000-foot overview of things to consider during the life cycle of a machine learning project and includes pointers to useful resources.
 
 <h2 class="section-heading">What's covered here?</h2>
 
@@ -50,18 +59,19 @@ This post is a 10,000-foot overview of things to consider during the life cycle 
 <!-- ---------------------------------------------------------------------- -->
 <h2 class="section-heading" id="psr">Production software requirements</h2>
 
-As a baseline, a robust production ML system should adhere to good software engineering practices. These foundations must be solid to successfully deploy and operationalise ML models, which come with additional challenges. 
+As a baseline, a robust production ML system should adhere to good software engineering practices. These foundations must be solid to successfully deploy and operationalise ML models, which come with additional challenges.
 
 Baseline examples:
-* Instrumentation, logging and error alerting
-* Ability to monitor running systems for required metrics
-* The system scales to expected load
-* Code is source controlled
-* Continuous integration/continuous deployment (CI/CD) pipelines
-* External (non-hardcoded) configuration
-* Following company coding best practices
-* Unit tests to enable confident refactoring
-* Integration tests to catch bugs early
+
+- Instrumentation, logging and error alerting
+- Ability to monitor running systems for required metrics
+- The system scales to expected load
+- Code is source controlled
+- Continuous integration/continuous deployment (CI/CD) pipelines
+- External (non-hardcoded) configuration
+- Following company coding best practices
+- Unit tests to enable confident refactoring
+- Integration tests to catch bugs early
 
 Atlassian has a series of <a href="https://www.atlassian.com/software-development">articles on software best practices</a> that you may find useful.
 
@@ -79,41 +89,41 @@ A comparison of traditional programming vs ML is shown in this diagram. It highl
 
 There are several emerging fields growing to address the ML system life cycle.
 
-1) Data Engineering - designing and building systems for collecting, storing, processing and analysing data at scale.  
-2) ML Engineering - intersection of machine learning and software engineering; bringing solid engineering principals to building ML models.  
-3) <a href="https://en.wikipedia.org/wiki/MLOps">MLOps</a> - intersection of machine learning, data engineering and <a href="https://en.wikipedia.org/wiki/DevOps">DevOps</a>; deployment, health, diagnostics and governance of production ML models.  
-4) <a href="https://en.wikipedia.org/wiki/DataOps">DataOps</a> - manages the entire data lifecycle from source to value.  
-5) <a href="https://en.wikipedia.org/wiki/ModelOps">ModelOps</a> or AIOps - extends MLOps and manages all model lifecycles across a company ensuring technical, business and compliance KPI's.  
+1. Data Engineering - designing and building systems for collecting, storing, processing and analysing data at scale.
+2. ML Engineering - intersection of machine learning and software engineering; bringing solid engineering principals to building ML models.
+3. <a href="https://en.wikipedia.org/wiki/MLOps">MLOps</a> - intersection of machine learning, data engineering and <a href="https://en.wikipedia.org/wiki/DevOps">DevOps</a>; deployment, health, diagnostics and governance of production ML models.
+4. <a href="https://en.wikipedia.org/wiki/DataOps">DataOps</a> - manages the entire data lifecycle from source to value.
+5. <a href="https://en.wikipedia.org/wiki/ModelOps">ModelOps</a> or AIOps - extends MLOps and manages all model lifecycles across a company ensuring technical, business and compliance KPI's.
 
 <a href="/img/ml-productionisation/wiki_mlops.png"><img src="/img/ml-productionisation/wiki_mlops.png" alt="MLOps intersection venn diagram" class="center" /></a>
 <span class="caption text-muted">Source: <a href="https://en.wikipedia.org/wiki/MLOps">Wikipedia</a></span>
 
-These fields are still being defined and created and some may disappear in time. What these descriptions highlight is the interdisciplinary nature required to successfully productionise ML models. 
+These fields are still being defined and created and some may disappear in time. What these descriptions highlight is the interdisciplinary nature required to successfully productionise ML models.
 
 Highly desirable ML system requirements:
 
-* Reproducible model training and validation
-* Data lineage for data prep, issue tracing and auditability
-* Model versioning with metadata
-* Protection from data leakage when training
-* Correspondence between training data features and operationalised model data features
-* Ability to roll back to previous model (and the corresponding input data features) 
-* Scalable model prediction serving to meet expected load
-* Automated deployment for your use case (e.g. real time/batch predictions)
+- Reproducible model training and validation
+- Data lineage for data prep, issue tracing and auditability
+- Model versioning with metadata
+- Protection from data leakage when training
+- Correspondence between training data features and operationalised model data features
+- Ability to roll back to previous model (and the corresponding input data features)
+- Scalable model prediction serving to meet expected load
+- Automated deployment for your use case (e.g. real time/batch predictions)
 
 Desirable ML system requirements:
-* Initial requirements scoping (e.g. via <a href="https://www.ownml.co/machine-learning-canvas">Machine Learning Canvas</a>) 
-* Ability to track multiple training experiments with different data features and hyperparameters 
-* Scalable model training for expected data size and compute requirements
-* Clear tracking of how features were generated
-* Automated confidence intervals for data quality (input) and predictions (output) 
-* Automated model re-training and validation
-* Feature store for data reuse and reproducibility
-* Ability to track model drift over time (e.g. continuous validation after deployment)
+
+- Initial requirements scoping (e.g. via <a href="https://www.ownml.co/machine-learning-canvas">Machine Learning Canvas</a>)
+- Ability to track multiple training experiments with different data features and hyperparameters
+- Scalable model training for expected data size and compute requirements
+- Clear tracking of how features were generated
+- Automated confidence intervals for data quality (input) and predictions (output)
+- Automated model re-training and validation
+- Feature store for data reuse and reproducibility
+- Ability to track model drift over time (e.g. continuous validation after deployment)
 
 <i>Update Nov 2022:</i><br />
 <a href="https://arxiv.org/abs/2209.09125">Operationalizing Machine Learning: An Interview Study</a> from University of California, Berkeley is a great read. It covers interviews with 18 MLEs working across many applications and summarises common practices for successful ML experimentation, deployment, sustaining production performance, pain points and anti-patterns.
-
 
 <!-- ---------------------------------------------------------------------- -->
 <h2 class="section-heading" id="canvas">Machine Learning Canvas</h2>
@@ -126,7 +136,6 @@ It helps describe how your ML system will turn predictions into value for end-us
 
 <a href="/img/ml-productionisation/ml-canvas-sample.png"><img src="/img/ml-productionisation/ml-canvas-sample.png" alt="Machine Learning Canvas sample" /></a>
 <span class="caption text-muted">Source: <a href="https://www.ownml.co/machine-learning-canvas">www.ownml.co/machine-learning-canvas</a></span>
-
 
 <!-- ---------------------------------------------------------------------- -->
 <h2 class="section-heading" id="rules">Google's Rules of Machine Learning</h2>
@@ -144,22 +153,21 @@ Followed by this wise caveat: "This approach will work well for a long period of
 
 There are 43 rules in total. Here are some highlights:
 
-* Rule #4: Keep the first model simple and get the infrastructure right
-* Rule #5: Test the infrastructure independently from the machine learning
-* Rule #8: Know the freshness requirements of your system
-* Rule #9: Detect problems before exporting models
-* Rule #11: Give feature columns owners and documentation
-* Rule #14: Starting with an interpretable model makes debugging easier
-* Rule #16: Plan to launch and iterate
-* Rule #29: The best way to ensure that you train like you serve: save the set of features at serving time and pipe them to a log to training with later 
-* Rule #31: Beware that if you join data from a table at training and serving time, the data in the table may change
-* Rule #32: Re-use code between your training pipeline and your serving pipeline whenever possible
-
+- Rule #4: Keep the first model simple and get the infrastructure right
+- Rule #5: Test the infrastructure independently from the machine learning
+- Rule #8: Know the freshness requirements of your system
+- Rule #9: Detect problems before exporting models
+- Rule #11: Give feature columns owners and documentation
+- Rule #14: Starting with an interpretable model makes debugging easier
+- Rule #16: Plan to launch and iterate
+- Rule #29: The best way to ensure that you train like you serve: save the set of features at serving time and pipe them to a log to training with later
+- Rule #31: Beware that if you join data from a table at training and serving time, the data in the table may change
+- Rule #32: Re-use code between your training pipeline and your serving pipeline whenever possible
 
 <!-- ---------------------------------------------------------------------- -->
 <h2 class="section-heading" id="techdebt">Technical debt in Machine Learning systems</h2>
 
-It's helpful to know what you're getting into. If you are new on this journey, the paper <a href="http://papers.neurips.cc/paper/5656-hidden-technical-debt-in-machine-learning-systems.pdf">Hidden Technical Debt in Machine Learning Systems</a> is a must-read. 
+It's helpful to know what you're getting into. If you are new on this journey, the paper <a href="http://papers.neurips.cc/paper/5656-hidden-technical-debt-in-machine-learning-systems.pdf">Hidden Technical Debt in Machine Learning Systems</a> is a must-read.
 
 Here's the gist:
 
@@ -167,7 +175,7 @@ Here's the gist:
 
 "Code dependencies can be identified via static analysis by compilers and linkers. Without similar tooling for data dependencies, it can be inappropriately easy to build large data dependency chains that can be difficult to untangle."
 
-This image summarises the paper very well and puts the core ML code into perspective when productionising: 
+This image summarises the paper very well and puts the core ML code into perspective when productionising:
 
 <a href="/img/ml-productionisation/hidden_tech_debt.png"><img src="/img/ml-productionisation/hidden_tech_debt.png" alt="Hidden tech debt" /></a>
 <span class="caption text-muted">Source: <a href="http://papers.neurips.cc/paper/5656-hidden-technical-debt-in-machine-learning-systems.pdf">Hidden Technical Debt in Machine Learning Systems (Sculley et al.)</a></span>
@@ -175,7 +183,7 @@ This image summarises the paper very well and puts the core ML code into perspec
 <!-- ---------------------------------------------------------------------- -->
 <h2 class="section-heading" id="pipelines">Automated Machine Learning pipelines - basic to advanced</h2>
 
-There are several steps in a full ML pipeline. Some steps may be manual at first, especially when proving value to the business. 
+There are several steps in a full ML pipeline. Some steps may be manual at first, especially when proving value to the business.
 
 The key is to understand that the manual steps should be automated in time rather than continuing to accumulate tech debt and potentially produce error-prone results. It is best to understand this commitment at the start.
 
@@ -203,23 +211,22 @@ An extension is to automate the data splits, model training and performance eval
 
 A next possible step is to automate training and evaluation of multiple models with multiple training input data feature sets.
 
-This gets complex very quickly and requires pre-requisite systems to be in place to run efficiently. The emerging field of MLOps (machine learning operations) is building tools, techniques and companies to handle these type of scenarios. 
+This gets complex very quickly and requires pre-requisite systems to be in place to run efficiently. The emerging field of MLOps (machine learning operations) is building tools, techniques and companies to handle these type of scenarios.
 
 <a href="/img/ml-productionisation/pipeline3.png"><img src="/img/ml-productionisation/pipeline3.png" alt="Pipeline with multiple trained models, evaluation, selection and testing" /></a>
 <span class="caption text-muted">Pipeline with multiple trained models, evaluation, selection and testing<br />Source: Author</span>
 
 <h3>4. Deploying and monitoring</h3>
 
-What isn't addressed in the pipeline diagrams above is model deployment, serving and monitoring. 
+What isn't addressed in the pipeline diagrams above is model deployment, serving and monitoring.
 
 This is dependent on many things: your current infrastructure, who will be consuming the model results, performance requirements, size of data etc.
 
-For example, if you have a <a href="https://kubernetes.io/">Kubernetes</a> cluster available, you could containerise your model and deploy using <a href="https://www.kubeflow.org/">Kubeflow</a>. 
-Or maybe your company uses AWS and your model is small? In this case you could use existing deployment practices and deploy to <a href="https://aws.amazon.com/lambda/">Lambda</a> or else utilise the managed AWS <a href="https://aws.amazon.com/sagemaker/mlops/">SageMaker</a> service. 
+For example, if you have a <a href="https://kubernetes.io/">Kubernetes</a> cluster available, you could containerise your model and deploy using <a href="https://www.kubeflow.org/">Kubeflow</a>.
+Or maybe your company uses AWS and your model is small? In this case you could use existing deployment practices and deploy to <a href="https://aws.amazon.com/lambda/">Lambda</a> or else utilise the managed AWS <a href="https://aws.amazon.com/sagemaker/mlops/">SageMaker</a> service.
 If you're just starting out, you may be able to set up a Python webserver and utilise a framework like <a href="https://fastapi.tiangolo.com/">FastAPI</a> to serve model results.
 
 Whichever path you choose, follow the software and ML system best practices described above where possible.
-
 
 <!-- ---------------------------------------------------------------------- -->
 <h2 class="section-heading" id="frameworks">Machine Learning frameworks</h2>
@@ -228,9 +235,9 @@ To round off this post, here are a some open-source and commercial offerings tha
 
 <h3>Machine Learning Frameworks</h3>
 
-It is best to build on the shoulders of giants. Here are some open-source ML frameworks you might find want to explore in your ML productionisation journey:  
+It is best to build on the shoulders of giants. Here are some open-source ML frameworks you might find want to explore in your ML productionisation journey:
 
-- MLFlow (Databricks): An open-source platform for the machine learning lifecycle, experiment tracking focussed.  
+- MLFlow (Databricks): An open-source platform for the machine learning lifecycle, experiment tracking focussed.
   - <a href="https://mlflow.org/">mlflow.org</a>
   - <a href="https://github.com/mlflow/mlflow">github.com/mlflow/mlflow</a>
 - KubeFlow (Google): The Machine Learning Toolkit for Kubernetes. Pipeline focussed. At its core, a container orchestration system
@@ -271,14 +278,13 @@ It is best to build on the shoulders of giants. Here are some open-source ML fra
   - <a href="https://www.pachyderm.com/">pachyderm.com</a>
   - <a href="https://github.com/pachyderm/pachyderm">github.com/pachyderm/pachyderm</a>
 
-
 <h3>Managed Cloud ML Services</h3>
 
-The big cloud players are in MLOps now too.  
+The big cloud players are in MLOps now too.
 
-- <a href="https://aws.amazon.com/sagemaker/mlops/">AWS SageMaker</a> - Build, train, deploy, and manage ML models 
+- <a href="https://aws.amazon.com/sagemaker/mlops/">AWS SageMaker</a> - Build, train, deploy, and manage ML models
 - <a href="https://cloud.google.com/vertex-ai">Google Vertex AI</a> - Build, deploy, and scale ML models
-- <a href="https://azure.microsoft.com/en-au/services/machine-learning/mlops/">Azure MLOps</a>  - Automate and accelerate the machine learning lifecycle
+- <a href="https://azure.microsoft.com/en-au/services/machine-learning/mlops/">Azure MLOps</a> - Automate and accelerate the machine learning lifecycle
 - <a href="https://databricks.com/product/machine-learning">Databricks ML</a> - Data-native and collaborative ML solution for the full ML lifecycle
 - <a href="https://www.datarobot.com/platform/mlops/">DataRobot</a> - Center of Excellence for Machine Learning Operations and Production AI
 - <a href="https://www.dataiku.com/product/key-capabilities/mlops/">Dataiku</a> - Deploy, monitor, and manage machine learning projects in production
@@ -288,9 +294,7 @@ The big cloud players are in MLOps now too.
 - <a href="https://neptune.ai/">neptune.ai</a> - Log, store, display, organize, compare and query all your MLOps metadata
 - <a href="https://www.tecton.ai/">Tecton</a> - Enterprise Feature Store for Machine Learning
 
-
 See more platforms here: <a href="https://mlops.neptune.ai/">mlops.neptune.ai</a>
-
 
 <!-- ---------------------------------------------------------------------- -->
 <h2 class="section-heading" id="final">Final thoughts</h2>
@@ -300,7 +304,6 @@ The machine learning space is evolving rapidly and it's great to see best practi
 <a href="/img/ml-productionisation/xkcd_data_pipeline_2x.png"><img src="/img/ml-productionisation/xkcd_data_pipeline.png" alt="xkcd comic of data pipelines" /></a>
 <span class="caption text-muted">Source: <a href="https://xkcd.com/2054/">xkcd.com</a></span>
 
-
 <!-- ---------------------------------------------------------------------- -->
 <h2 class="section-heading" id="additional">Additional resources</h2>
 
@@ -308,7 +311,7 @@ The machine learning space is evolving rapidly and it's great to see best practi
 
 - <a href="https://www.awesomepython.org/?c=ml-ops">awesomepython.org MLOps</a> - A collection of GitHub repositories related to MLOps
 - <a href="https://ml-ops.org/">ml-ops.org</a> - Great MLOps resource by <a href="https://www.innoq.com/">innoq</a>
-- <a href="https://mymlops.com/">mymlops.com</a> - Build your MLOps stack by <a href="https://www.linkedin.com/in/tanel-sarnet/">Tanel Sarnet</a> and <a href="https://www.linkedin.com/in/nathaliamdc/">Nathalia Campos</a> 
+- <a href="https://mymlops.com/">mymlops.com</a> - Build your MLOps stack by <a href="https://www.linkedin.com/in/tanel-sarnet/">Tanel Sarnet</a> and <a href="https://www.linkedin.com/in/nathaliamdc/">Nathalia Campos</a>
 - <a href="https://arxiv.org/abs/2209.09125">Operationalizing Machine Learning: An Interview Study</a> arxiv paper by Shankar et al, 2022
 - <a href="https://arxiv.org/abs/2205.02302">Machine Learning Operations (MLOps): Overview, Definition, and Architecture</a> arxiv paper by Kreuzberger et al, 2022
 - <a href="https://arxiv.org/abs/2304.07296">MLOps Spanning Whole Machine Learning Life Cycle: A Survey</a> arxiv paper by Zhengxin et al, 2023
@@ -319,11 +322,10 @@ The machine learning space is evolving rapidly and it's great to see best practi
 - <a href="https://mlops-guide.github.io/">MLOps Guide</a> - An MLOps Guide to help projects and companies to build more reliable MLOps environment.
 - <a href="https://github.com/kelvins/awesome-mlops">awesome-mlops</a> - A curated list of awesome MLOps tools
 - <a href="https://www.youtube.com/@MLOps/playlists">MLOps.community on youtube</a> - Machine Learning Operations best practices from engineers in the field
-
+- <a href="https://www.youtube.com/@MLOps/playlists">MLOps.community on youtube</a> - Machine Learning Operations best practices from engineers in the field
 
 <h3>Study Resources</h3>
 
 - <a href="https://github.com/DataTalksClub/mlops-zoomcamp">mlops-zoomcamp</a> - Free MLOps course from DataTalks.Club
 - <a href="https://github.com/graviraja/MLOps-Basics">MLOps-Basics</a> - A series on the basics of MLOps (model building, monitoring, config, testing, packaging, deployment, cicd, etc)
-- <a href="https://github.com/SkafteNicki/dtu_mlops">dtu_mlops</a> - Resources for the machine learning operations course at <a href="https://kurser.dtu.dk/course/02476">DTU</a>.
-
+- <a href="https://github.com/microsoft/code-with-engineering-playbook/tree/main/docs/machine-learning">Microsoft ML ISE Playbook</a> - Microsoft ML practices in ISE. ISE works with customers on developing ML models and putting them in production.
