@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Architect Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* Apply the game font */
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: #1a202c; /* Dark background */
+            color: #a0aec0; /* Light gray text */
+            overscroll-behavior: none; /* Prevent pull-to-refresh */
+        }
+        /* Custom styles for game elements */
+        .game-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background-color: #2d3748; /* Slightly lighter dark */
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
+            border: 2px solid #4a5568;
+        }
+        .game-title {
+            color: #63b3ed; /* Blue title */
+            text-shadow: 2px 2px #2c5282; /* Dark blue shadow */
+            margin-bottom: 1.5rem;
+            font-size: 1.75rem; /* Larger title */
+            text-align: center;
+        }
+        .task-card, .config-card, .simulation-card, .feedback-card {
+            background-color: #4a5568; /* Medium dark background for cards */
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid #718096;
+        }
+        .card-title {
+            color: #90cdf4; /* Light blue */
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+            border-bottom: 1px dashed #718096;
+            padding-bottom: 0.5rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #cbd5e0; /* Lighter text for labels */
+            font-size: 0.8rem;
+        }
+        select, button {
+            font-family: 'Press Start 2P', cursive; /* Ensure font consistency */
+            padding: 0.6rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #718096;
+            background-color: #2d3748;
+            color: #e2e8f0; /* Light text */
+            margin-top: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            font-size: 0.75rem; /* Smaller font for controls */
+            width: 100%; /* Full width for selects */
+        }
+        select:focus, button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.5); /* Blue focus ring */
+        }
+        button {
+            background-color: #4299e1; /* Blue button */
+            color: #1a202c; /* Dark text on button */
+            font-weight: bold;
+            margin-top: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.12);
+        }
+        button:hover {
+            background-color: #63b3ed;
+            box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.25), 0 4px 6px -1px rgba(0, 0, 0, 0.15);
+        }
+        button:disabled {
+            background-color: #718096;
+            cursor: not-allowed;
+            color: #a0aec0;
+            box-shadow: none;
+        }
+        .tool-checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.3rem;
+        }
+        .tool-checkbox input {
+            margin-right: 0.5rem;
+            appearance: none;
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid #718096;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            position: relative;
+            top: 2px;
+        }
+        .tool-checkbox input:checked {
+            background-color: #63b3ed;
+            border-color: #63b3ed;
+        }
+         .tool-checkbox input:checked::after {
+            content: '✔';
+            color: #1a202c;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.7rem; /* Smaller check */
+            font-family: sans-serif; /* Use a standard font for the checkmark */
+         }
+        .tool-checkbox label {
+            margin-bottom: 0;
+            font-size: 0.75rem;
+            color: #cbd5e0;
+        }
+        #simulationLog {
+            height: 150px;
+            overflow-y: auto;
+            background-color: #1a202c;
+            border: 1px solid #4a5568;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            font-size: 0.7rem; /* Smaller log font */
+            line-height: 1.4;
+            color: #a0aec0;
+        }
+        #simulationLog p {
+            margin-bottom: 0.3rem;
+            word-break: break-word;
+        }
+        .log-thought { color: #f6e05e; } /* Yellow */
+        .log-action { color: #68d391; } /* Green */
+        .log-observation { color: #fc8181; } /* Red */
+        .log-error { color: #e53e3e; font-weight: bold;} /* Bright Red */
+        .log-success { color: #48bb78; font-weight: bold;} /* Bright Green */
+
+        /* Message Box Styling */
+        #messageBox {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            z-index: 1000;
+            display: none; /* Hidden by default */
+            border: 1px solid #4a5568;
+            font-size: 0.8rem;
+            max-width: 80%;
+            text-align: center;
+        }
+        #messageBox.show {
+            display: block;
+            animation: fadeInDown 0.5s ease-out;
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translate(-50%, -20px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1 class="game-title">Agent Architect</h1>
+
+        <div id="taskCard" class="task-card">
+            <h2 class="card-title">Current Task:</h2>
+            <p id="taskDescription" class="text-sm mb-2">Loading task...</p>
+            <p id="taskGoal" class="text-xs italic text-gray-400">Goal: Loading...</p>
+        </div>
+
+        <div id="configCard" class="config-card">
+            <h2 class="card-title">Configure Your Agent:</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label for="llmSelect">LLM Brain:</label>
+                    <select id="llmSelect">
+                        <option value="basic-llm">Basic LLM (Fast, Low Cost, Simple Reasoning)</option>
+                        <option value="advanced-llm">Advanced LLM (Slower, High Cost, Complex Reasoning)</option>
+                         <option value="specialized-llm">Specialized LLM (Code/Data Focus)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="reasoningSelect">Reasoning Strategy:</label>
+                    <select id="reasoningSelect">
+                        <option value="simple">Simple Prompt</option>
+                        <option value="cot">Chain-of-Thought (CoT)</option>
+                        <option value="react">ReAct (Reason+Act)</option>
+                        <option value="tot">Tree-of-Thoughts (ToT) - Experimental!</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="memorySelect">Memory System:</label>
+                    <select id="memorySelect">
+                        <option value="none">None (Stateless)</option>
+                        <option value="short-term">Short-Term Window</option>
+                        <option value="episodic">Episodic Summary</option>
+                        <option value="vector-db">Vector DB (Long-Term)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Available Tools:</label>
+                    <div id="toolsCheckboxes" class="space-y-1 mt-1">
+                        </div>
+                </div>
+            </div>
+             <div class="mt-4">
+                <label for="maxSteps">Max Simulation Steps:</label>
+                <select id="maxSteps">
+                    <option value="5">5 Steps (Quick)</option>
+                    <option value="10">10 Steps (Standard)</option>
+                    <option value="20">20 Steps (Complex Tasks)</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="simulationCard" class="simulation-card">
+            <h2 class="card-title">Agent Simulation:</h2>
+            <button id="runSimulationButton">Run Agent Simulation</button>
+            <div id="simulationLog" class="mt-4">
+                </div>
+        </div>
+
+        <div id="feedbackCard" class="feedback-card" style="display: none;">
+            <h2 class="card-title">Simulation Results:</h2>
+            <p id="feedbackMessage" class="text-sm"></p>
+            <p id="scoreDisplay" class="text-sm font-bold mt-2"></p>
+            <button id="nextTaskButton" class="mt-4">Next Task</button>
+        </div>
+    </div>
+
+    <div id="messageBox"></div>
+
+    <script>
+        // --- Game Data ---
+
+        const TOOLS = {
+            web_search: { name: "Web Search", description: "Searches the internet for information.", cost: 2 },
+            calculator: { name: "Calculator", description: "Performs mathematical calculations.", cost: 1 },
+            code_interpreter: { name: "Code Interpreter", description: "Writes and executes Python code.", cost: 5, risk: 0.2 }, // 20% chance of 'security issue' if not handled
+            database_query: { name: "Database Query", description: "Queries a structured database.", cost: 3 },
+            calendar_api: { name: "Calendar API", description: "Checks or modifies calendar events.", cost: 2 },
+            knowledge_base: { name: "Knowledge Base", description: "Retrieves info from internal documents.", cost: 1 }
+        };
+
+        const TASKS = [
+            {
+                id: 1,
+                description: "Find the current price of a 'Quantum Laptop X'.",
+                goal: "Get a single price value.",
+                requiredTools: ["web_search"],
+                idealReasoning: ["simple", "react"],
+                idealMemory: ["none", "short-term"],
+                complexity: 1, // Lower complexity
+                successMessage: "Agent successfully used Web Search to find the price!",
+                failMessage: "Agent failed. Did it have the Web Search tool? Was the reasoning too simple for potential ambiguities?",
+            },
+            {
+                id: 2,
+                description: "Calculate the total cost of 3 Quantum Laptops X at $1500 each, adding 10% sales tax.",
+                goal: "Calculate a final cost.",
+                requiredTools: ["calculator"], // Or code_interpreter
+                optionalTools: ["code_interpreter"],
+                idealReasoning: ["cot", "react"],
+                idealMemory: ["short-term"],
+                complexity: 2,
+                successMessage: "Agent correctly calculated the total cost using a tool.",
+                 failMessage: "Calculation failed. Ensure the Calculator or Code Interpreter tool was available and the reasoning could handle the steps (CoT/ReAct recommended).",
+            },
+            {
+                id: 3,
+                description: "Book a meeting for tomorrow at 2 PM with 'Dr. Elara Vance' using the Calendar API, but first check her availability in the company database.",
+                goal: "Schedule a meeting after checking availability.",
+                requiredTools: ["database_query", "calendar_api"],
+                idealReasoning: ["react"],
+                idealMemory: ["short-term", "episodic"], // Need to remember availability
+                complexity: 4,
+                successMessage: "Agent checked the database and successfully booked the meeting via the Calendar API!",
+                failMessage: "Booking failed. Did the agent have both Database and Calendar tools? Did it use a reasoning strategy (like ReAct) to handle the sequence? Did it have memory to store the availability?",
+            },
+             {
+                id: 4,
+                description: "Analyze the provided sales data (CSV format) to find the month with the highest revenue. The data requires cleaning first.",
+                goal: "Identify the peak sales month after data processing.",
+                requiredTools: ["code_interpreter"], // Essential for CSV processing/analysis
+                idealReasoning: ["react", "cot"],
+                idealMemory: ["short-term", "episodic"], // Remember intermediate results
+                complexity: 5,
+                 successMessage: "Agent successfully used the Code Interpreter to clean the data and find the peak month!",
+                failMessage: "Analysis failed. The Code Interpreter tool is crucial here. Simple reasoning might struggle with the steps. Potential code execution errors or security alerts might occur.",
+            },
+             {
+                id: 5,
+                description: "Plan a multi-day trip to Mars: check flight availability (simulated API), book accommodation (simulated API), and consult the 'Interstellar Travel Guide' knowledge base for packing tips. Consider multiple options.",
+                goal: "Create a coherent travel plan using multiple sources and exploring options.",
+                requiredTools: ["web_search", "calendar_api", "knowledge_base"], // Simulate flight/booking with these
+                idealReasoning: ["react", "tot"], // ToT useful for exploring options
+                idealMemory: ["episodic", "vector-db"], // Need to remember findings across steps/options
+                complexity: 7,
+                 successMessage: "Complex trip planned! The agent effectively used multiple tools, remembered key details, and explored options.",
+                failMessage: "Planning failed. This requires robust reasoning (ReAct/ToT), good memory (Episodic/Vector DB), and the right tools. Did the agent get stuck in a loop or forget crucial information?",
+            }
+        ];
+
+        const LLM_PROPERTIES = {
+            "basic-llm": { costFactor: 1, reasoningPower: 1, speed: 3 },
+            "advanced-llm": { costFactor: 3, reasoningPower: 3, speed: 1 },
+            "specialized-llm": { costFactor: 2, reasoningPower: 2, speed: 2, codeBonus: 1.5 } // Better at code tasks
+        };
+
+        const REASONING_PROPERTIES = {
+            simple: { effectiveness: 1, costFactor: 1, stepComplexity: 1 },
+            cot: { effectiveness: 2, costFactor: 1.5, stepComplexity: 2 },
+            react: { effectiveness: 3, costFactor: 2, stepComplexity: 3 },
+            tot: { effectiveness: 4, costFactor: 4, stepComplexity: 4 } // Powerful but costly/slow
+        };
+
+        const MEMORY_PROPERTIES = {
+            none: { capacity: 0, recallBonus: 0, costFactor: 1 },
+            "short-term": { capacity: 3, recallBonus: 1, costFactor: 1.2 }, // Remembers last 3 steps
+            episodic: { capacity: 10, recallBonus: 2, costFactor: 1.5 }, // Summarizes key events
+            "vector-db": { capacity: 100, recallBonus: 3, costFactor: 2 } // Large capacity, good recall
+        };
+
+        // --- Game State ---
+        let currentTaskIndex = 0;
+        let score = 0;
+        let agentConfig = {};
+
+        // --- DOM Elements ---
+        const taskDescriptionEl = document.getElementById('taskDescription');
+        const taskGoalEl = document.getElementById('taskGoal');
+        const llmSelectEl = document.getElementById('llmSelect');
+        const reasoningSelectEl = document.getElementById('reasoningSelect');
+        const memorySelectEl = document.getElementById('memorySelect');
+        const toolsCheckboxesEl = document.getElementById('toolsCheckboxes');
+        const maxStepsEl = document.getElementById('maxSteps');
+        const runSimulationButton = document.getElementById('runSimulationButton');
+        const simulationLogEl = document.getElementById('simulationLog');
+        const feedbackCardEl = document.getElementById('feedbackCard');
+        const feedbackMessageEl = document.getElementById('feedbackMessage');
+        const scoreDisplayEl = document.getElementById('scoreDisplay');
+        const nextTaskButton = document.getElementById('nextTaskButton');
+        const messageBoxEl = document.getElementById('messageBox');
+
+        // --- Functions ---
+
+        function showMessage(text, duration = 3000) {
+            messageBoxEl.textContent = text;
+            messageBoxEl.classList.add('show');
+            setTimeout(() => {
+                messageBoxEl.classList.remove('show');
+            }, duration);
+        }
+
+        function logToSimulation(message, type = 'info') {
+            const p = document.createElement('p');
+            p.textContent = message;
+            if (type === 'thought') p.classList.add('log-thought');
+            else if (type === 'action') p.classList.add('log-action');
+            else if (type === 'observation') p.classList.add('log-observation');
+            else if (type === 'error') p.classList.add('log-error');
+            else if (type === 'success') p.classList.add('log-success');
+            simulationLogEl.appendChild(p);
+            simulationLogEl.scrollTop = simulationLogEl.scrollHeight; // Auto-scroll
+        }
+
+        function populateTools() {
+            toolsCheckboxesEl.innerHTML = ''; // Clear existing
+            Object.entries(TOOLS).forEach(([key, tool]) => {
+                const div = document.createElement('div');
+                div.classList.add('tool-checkbox');
+                const input = document.createElement('input');
+                input.type = 'checkbox';
+                input.id = `tool_${key}`;
+                input.value = key;
+                input.classList.add('form-checkbox', 'h-4', 'w-4', 'text-blue-500');
+                const label = document.createElement('label');
+                label.htmlFor = `tool_${key}`;
+                label.textContent = `${tool.name} (Cost: ${tool.cost})`;
+                label.classList.add('ml-2', 'text-gray-300', 'text-xs');
+
+                div.appendChild(input);
+                div.appendChild(label);
+                toolsCheckboxesEl.appendChild(div);
+            });
+        }
+
+        function loadTask(taskIndex) {
+            if (taskIndex >= TASKS.length) {
+                showMessage("Congratulations! You've completed all tasks!", 5000);
+                 logToSimulation("--- GAME OVER ---", "success");
+                 taskDescriptionEl.textContent = "All tasks completed!";
+                 taskGoalEl.textContent = `Final Score: ${score}`;
+                 runSimulationButton.disabled = true;
+                 feedbackCardEl.style.display = 'none';
+                 document.getElementById('configCard').style.display = 'none';
+                 document.getElementById('simulationCard').style.display = 'none';
+                return;
+            }
+            const task = TASKS[taskIndex];
+            taskDescriptionEl.textContent = task.description;
+            taskGoalEl.textContent = `Goal: ${task.goal}`;
+            feedbackCardEl.style.display = 'none'; // Hide feedback from previous task
+            simulationLogEl.innerHTML = '<p>Waiting for simulation...</p>'; // Clear log
+            runSimulationButton.disabled = false;
+
+            // Reset selections (optional, or keep previous?)
+            // llmSelectEl.selectedIndex = 0;
+            // reasoningSelectEl.selectedIndex = 0;
+            // memorySelectEl.selectedIndex = 0;
+            // toolsCheckboxesEl.querySelectorAll('input').forEach(cb => cb.checked = false);
+        }
+
+        function getSelectedTools() {
+            const selected = [];
+            toolsCheckboxesEl.querySelectorAll('input:checked').forEach(checkbox => {
+                selected.push(checkbox.value);
+            });
+            return selected;
+        }
+
+        function runSimulation() {
+            runSimulationButton.disabled = true;
+            simulationLogEl.innerHTML = ''; // Clear previous log
+            feedbackCardEl.style.display = 'none';
+
+            // --- Gather Configuration ---
+            agentConfig = {
+                llm: llmSelectEl.value,
+                reasoning: reasoningSelectEl.value,
+                memory: memorySelectEl.value,
+                tools: getSelectedTools(),
+                maxSteps: parseInt(maxStepsEl.value, 10),
+            };
+
+            const task = TASKS[currentTaskIndex];
+            const llmProps = LLM_PROPERTIES[agentConfig.llm];
+            const reasoningProps = REASONING_PROPERTIES[agentConfig.reasoning];
+            const memoryProps = MEMORY_PROPERTIES[agentConfig.memory];
+
+            logToSimulation("--- Starting Simulation ---");
+            logToSimulation(`Task: ${task.description}`);
+            logToSimulation(`Agent Config: LLM=${agentConfig.llm}, Reasoning=${agentConfig.reasoning}, Memory=${agentConfig.memory}, Tools=[${agentConfig.tools.join(', ')}]`);
+
+            let currentStep = 0;
+            let taskSucceeded = false;
+            let simulationCost = 0;
+            let simulationMessages = []; // Store messages for feedback
+            let memoryContent = []; // Simple array to simulate memory
+
+            // --- Simulation Loop (Simplified) ---
+            // This is a highly simplified simulation focusing on component matching
+            // A real agent involves complex LLM calls and state management.
+
+            let requiredToolsMet = task.requiredTools.every(tool => agentConfig.tools.includes(tool));
+            let reasoningSufficient = reasoningProps.stepComplexity >= task.complexity / 2; // Rough check
+            let memorySufficient = memoryProps.capacity >= task.complexity / 1.5; // Rough check
+
+            // Simulate ReAct-like loop
+            function simulationStep() {
+                if (currentStep >= agentConfig.maxSteps || taskSucceeded) {
+                    endSimulation();
+                    return;
+                }
+                currentStep++;
+                simulationCost += llmProps.costFactor * reasoningProps.costFactor * memoryProps.costFactor; // Base cost per step
+
+                logToSimulation(`\n--- Step ${currentStep}/${agentConfig.maxSteps} ---`, 'info');
+
+                // 1. Thought Phase (Simulated based on config)
+                let thought = "Thinking...";
+                if (!requiredToolsMet) {
+                    thought = "Thought: I seem to be missing required tools for this task.";
+                    logToSimulation(thought, 'thought');
+                    logToSimulation("Action: Cannot proceed without essential tools.", 'error');
+                    simulationMessages.push("Missing essential tools.");
+                    endSimulation(); // Fail early
+                    return;
+                }
+                 if (reasoningProps.effectiveness < task.complexity / 1.8) { // If reasoning is too weak
+                    thought = `Thought: This task seems complex. My '${agentConfig.reasoning}' strategy might struggle. I'll try my best.`;
+                 } else if (agentConfig.reasoning === 'react' || agentConfig.reasoning === 'tot') {
+                     thought = `Thought: Okay, planning my next action using ${agentConfig.reasoning}. The goal is: ${task.goal}`;
+                 } else {
+                     thought = `Thought: Processing the request with ${agentConfig.reasoning}.`;
+                 }
+                 // Add memory recall to thought
+                 if (memoryProps.recallBonus > 0 && memoryContent.length > 0) {
+                    thought += ` Recalling from memory: [${memoryContent.slice(-memoryProps.capacity).join(', ')}]`;
+                 }
+                logToSimulation(thought, 'thought');
+
+
+                // 2. Action Phase (Simulated)
+                let action = "Action: Deciding which tool to use...";
+                let observation = "Observation: ...";
+                let actionSuccess = Math.random() < (reasoningProps.effectiveness / (task.complexity * 0.8)); // Higher chance with better reasoning/simpler task
+                let toolUsed = null;
+
+                // Prioritize required tools
+                let potentialTools = agentConfig.tools.filter(t => task.requiredTools.includes(t));
+                if (potentialTools.length === 0) potentialTools = agentConfig.tools; // Use any available if required aren't specified or met
+
+                if (potentialTools.length > 0) {
+                    toolUsed = potentialTools[Math.floor(Math.random() * potentialTools.length)]; // Pick a relevant tool somewhat randomly
+                    action = `Action: Attempting to use tool '${TOOLS[toolUsed].name}'.`;
+                    simulationCost += TOOLS[toolUsed].cost; // Add tool cost
+
+                    // Simulate Code Interpreter risk
+                    if (toolUsed === 'code_interpreter' && Math.random() < TOOLS.code_interpreter.risk) {
+                        actionSuccess = false;
+                        observation = `Observation: SECURITY ALERT! Code Interpreter tool triggered a potential issue. Execution halted.`;
+                         logToSimulation(action, 'action');
+                         logToSimulation(observation, 'error');
+                         simulationMessages.push("Code Interpreter security risk triggered!");
+                         endSimulation();
+                         return;
+                    }
+
+                    if (actionSuccess) {
+                        observation = `Observation: Tool '${TOOLS[toolUsed].name}' executed successfully. Got some result.`;
+                        // Simulate adding to memory
+                        if (memoryProps.capacity > 0) {
+                           const memoryItem = `Used ${toolUsed} successfully (Step ${currentStep})`;
+                           memoryContent.push(memoryItem);
+                           if (memoryContent.length > memoryProps.capacity && agentConfig.memory === 'short-term') {
+                               memoryContent.shift(); // Simple FIFO for short-term
+                           }
+                           // Episodic/VectorDB would have smarter summarization/retrieval (not simulated here)
+                        }
+                    } else {
+                         observation = `Observation: Tool '${TOOLS[toolUsed].name}' failed or produced an unexpected result.`;
+                         simulationMessages.push(`Tool ${TOOLS[toolUsed].name} failed.`);
+                    }
+                } else {
+                    action = "Action: No suitable tool selected or available for this step.";
+                    actionSuccess = false; // Can't succeed without tools
+                    observation = "Observation: Cannot proceed without an appropriate tool.";
+                     simulationMessages.push("Agent couldn't select a suitable tool.");
+                }
+                logToSimulation(action, 'action');
+                logToSimulation(observation, actionSuccess ? 'observation' : 'error');
+
+                 // Check for task success (simplified)
+                 // Success requires meeting tool reqs, sufficient reasoning/memory, and enough successful steps
+                 const overallSuccessChance = (requiredToolsMet ? 0.4 : 0) + (reasoningSufficient ? 0.3 : 0) + (memorySufficient ? 0.2 : 0) + (actionSuccess ? 0.1 : 0);
+                 if (currentStep > task.complexity / 2 && Math.random() < overallSuccessChance * (currentStep / agentConfig.maxSteps)) {
+                    taskSucceeded = true;
+                    logToSimulation(`--- Task Goal Achieved: ${task.goal} ---`, 'success');
+                 }
+
+                // Recursive call for next step with a delay
+                setTimeout(simulationStep, 700); // Delay for visualization
+            }
+
+            // --- End Simulation ---
+            function endSimulation() {
+                logToSimulation("--- Simulation Ended ---");
+                let feedback = "";
+                let taskScore = 0;
+
+                if (taskSucceeded) {
+                    feedback = `SUCCESS! ${task.successMessage}`;
+                    taskScore = 100;
+                    // Bonus for efficiency
+                    taskScore += (agentConfig.maxSteps - currentStep) * 5; // Points for finishing early
+                    taskScore -= Math.round(simulationCost / 2); // Penalty for high cost
+                    // Bonus for optimal config (rough estimate)
+                    if (task.idealReasoning.includes(agentConfig.reasoning)) taskScore += 15;
+                    if (task.idealMemory.includes(agentConfig.memory)) taskScore += 10;
+                    feedback += ` | Efficiency Bonus: ${(agentConfig.maxSteps - currentStep) * 5} | Cost Penalty: ${Math.round(simulationCost / 2)}`;
+                    logToSimulation(feedback, 'success');
+                } else {
+                    feedback = `FAILED. ${task.failMessage}`;
+                    taskScore = -50; // Penalty for failure
+                     taskScore -= Math.round(simulationCost / 3);
+                     if (currentStep >= agentConfig.maxSteps) {
+                        feedback += " Reason: Reached maximum steps without success.";
+                        simulationMessages.push("Reached max steps.");
+                     }
+                    if (!requiredToolsMet) feedback += " Reason: Missing essential tools.";
+                    if (!reasoningSufficient && task.complexity > 2) feedback += " Hint: The chosen reasoning strategy might be too simple for this task complexity.";
+                    if (!memorySufficient && task.complexity > 3) feedback += " Hint: A better memory system could be needed for multi-step context.";
+
+                    // Add specific error messages gathered during simulation
+                    if(simulationMessages.length > 0) {
+                        feedback += ` Issues: ${simulationMessages.join('; ')}`;
+                    }
+                     logToSimulation(feedback, 'error');
+                }
+
+                taskScore = Math.max(0, taskScore); // Score cannot be negative overall
+                score += taskScore;
+
+                feedbackMessageEl.textContent = feedback;
+                scoreDisplayEl.textContent = `Task Score: ${taskScore} | Total Score: ${score}`;
+                feedbackCardEl.style.display = 'block';
+                runSimulationButton.disabled = false; // Re-enable for potential retry? (Currently moves to next task)
+            }
+
+            // Start the first step
+            simulationStep();
+        }
+
+        function setupNextTask() {
+            currentTaskIndex++;
+            loadTask(currentTaskIndex);
+        }
+
+        // --- Event Listeners ---
+        runSimulationButton.addEventListener('click', runSimulation);
+        nextTaskButton.addEventListener('click', setupNextTask);
+
+        // --- Initialization ---
+        populateTools();
+        loadTask(currentTaskIndex);
+        showMessage("Welcome to Agent Architect! Configure your agent and run the simulation.", 4000);
+
+    </script>
+</body>
+</html>
