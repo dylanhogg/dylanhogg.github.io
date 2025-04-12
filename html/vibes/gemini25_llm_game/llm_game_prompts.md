@@ -12,9 +12,9 @@ The text/paper/blog I used was a sample of the output of an [OpenAI deep researc
 
 The result is an html/javascript game called "Agent Architect" that is a fun and interactive way to learn about LLM agents capabilities.
 
-Game from 1st prompt: [llm_game_v1.html](llm_game_v1.html)
+Game from 1st prompt: [llm_game_v1.html](https://blog.infocruncher.com/html/vibes/gemini25_llm_game/llm_game_v1.html)
 
-Game from 2nd follow up prompt: [llm_game_v2.html](llm_game_v2.html)
+Game from 2nd follow up prompt: [llm_game_v2.html](https://blog.infocruncher.com/html/vibes/gemini25_llm_game/llm_game_v2.html)
 
 ## Prompt 1: Output llm_game_v1.html
 
