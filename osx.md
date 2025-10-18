@@ -117,6 +117,7 @@ header-img: "img/apps-bg.jpg"
 - https://www.gnu.org/software/parallel/ - a shell tool for executing jobs in parallel
 - https://it-tools.tech/ - handy tools for devs (also: https://github.com/CorentinTh/it-tools)
 - https://elder-plinius.github.io/P4RS3LT0NGV3/ - unicode text transforms
+- https://www.overleaf.com/ - collaborative LaTeX editor that anyone can use
 
 ## Local config files
 
