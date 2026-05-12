@@ -49,13 +49,11 @@ header-img: "img/apps-bg.jpg"
 - https://superwhisper.com/ - Superwhisper - A macOS app for speech-to-text
 
 - OLD:
-
   - Fig.io autocomplete via dmg (next time: brew install --cask fig)
   - Jetbrains remote dev: https://www.jetbrains.com/help/pycharm/remote-development-a.html
   - https://github.com/vincelwt/chatgpt-mac - ChatGPT - A macOS app for chatting with GPT-2
 
 - Brew Utils Must Have:
-
   - brew install nushell - A new type of shell (https://www.nushell.sh/)
   - brew install miniforge - https://github.com/conda-forge/miniforge - Linking Binary 'conda' to '/opt/homebrew/bin/conda'
   - brew install python@3.9 - /opt/homebrew/bin/python3
@@ -73,15 +71,15 @@ header-img: "img/apps-bg.jpg"
   - brew install netron - viewer for neural network models. https://github.com/lutzroeder/netron https://netron.app/
   - brew install md5sha1sum - Microbrew md5sum/sha1sum/ripemd160sum by Bulent Yilmaz
   - brew install ripgrep - recursively searches directories for a regex pattern while respecting your gitignore
+  - brew install ccmd - https://github.com/juliensimon/cache-commander - a TUI to explore, audit, and clean developer cache directories
+  - brew install llama.cpp - https://github.com/ggml-org/llama.cpp - LLM inference in C/C++
 
 - Brew Utils Nice to Have
-
   - brew install jello - https://github.com/kellyjonbrazil/jello
   - brew install saulpw/vd/visidata - https://github.com/saulpw/visidata - TUI interactive multitool for tabular data.
   - brew install zoxide - A smarter cd command. Supports all major shells.
 
 - Brew k8s
-
   - brew install kubectl
   - brew install helm (k8s packaging)
   - brew install kind (local k8s cluster: https://kind.sigs.k8s.io/)
@@ -96,17 +94,20 @@ header-img: "img/apps-bg.jpg"
   - maybe: https://k8slens.dev/desktop.html
 
 - Brew kafka
-
   - brew install kafka (/opt/homebrew/etc/kafka/server.properties; brew services restart kafka)
   - brew install kcat
 
 - pip install
-
   - https://github.com/xonsh/xonsh - Python-powered, cross-platform, Unix-gazing shell
   - https://github.com/prompt-toolkit/ptpython
 
 - npm
   - npm install -g doctoc
+
+## Chrome extensions
+
+- https://chromewebstore.google.com/detail/markdown-viewer/ckkdlimhmcjmikdlpkmbgfkaikojcbjk
+- https://chromewebstore.google.com/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa
 
 ## Tools
 
@@ -119,6 +120,10 @@ header-img: "img/apps-bg.jpg"
 - https://it-tools.tech/ - handy tools for devs (also: https://github.com/CorentinTh/it-tools)
 - https://elder-plinius.github.io/P4RS3LT0NGV3/ - unicode text transforms
 - https://www.overleaf.com/ - collaborative LaTeX editor that anyone can use
+
+## Coding agents
+
+- https://opencode.ai/ | brew install anomalyco/tap/opencode
 
 ## Local config files
 
@@ -164,6 +169,54 @@ fi
 ## vscode / cursor
 
 - Theme: https://marketplace.visualstudio.com/items?itemName=z4yross.anysphere-dark
+
+- Extensions (May 2026)
+
+```bash
+code --list-extensions
+astro-build.astro-vscode
+bradlc.vscode-tailwindcss
+dbaeumer.vscode-eslint
+docker.docker
+donjayamanne.githistory
+eamodio.gitlens
+esbenp.prettier-vscode
+github.copilot-chat
+github.vscode-github-actions
+golang.go
+hediet.vscode-drawio
+lucien-martijn.parquet-visualizer: https://github.com/Data-Lake-Visualizer/vscode-parquet-visualizer
+mechatroner.rainbow-csv
+ms-azuretools.vscode-containers
+ms-azuretools.vscode-docker
+ms-dotnettools.csharp
+ms-dotnettools.vscode-dotnet-runtime
+ms-python.debugpy
+ms-python.python
+ms-python.vscode-pylance
+ms-python.vscode-python-envs
+ms-toolsai.jupyter
+ms-toolsai.vscode-jupyter-cell-tags
+ms-toolsai.vscode-jupyter-slideshow
+ms-vscode-remote.remote-containers
+ms-vscode-remote.remote-ssh
+ms-vscode-remote.remote-ssh-edit
+ms-vscode.cmake-tools
+ms-vscode.cpp-devtools
+ms-vscode.cpptools
+ms-vscode.cpptools-extension-pack
+ms-vscode.cpptools-themes
+ms-vscode.remote-explorer
+qwtel.sqlite-viewer
+redhat.vscode-yaml
+tamasfe.even-better-toml
+tomoki1207.pdf
+twxs.cmake
+unifiedjs.vscode-mdx
+vscode-icons-team.vscode-icons
+waderyan.gitblame
+z4yross.anysphere-dark
+```
 
 - Extensions (Mar 2025)
 
