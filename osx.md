@@ -78,6 +78,8 @@ header-img: "img/apps-bg.jpg"
   - brew install jello - https://github.com/kellyjonbrazil/jello
   - brew install saulpw/vd/visidata - https://github.com/saulpw/visidata - TUI interactive multitool for tabular data.
   - brew install zoxide - A smarter cd command. Supports all major shells.
+  - brew install fastfetch - A fast system information tool written in Rust.
+  - brew install just - https://github.com/casey/just - just is a command runner, not a build system
 
 - Brew k8s
   - brew install kubectl
