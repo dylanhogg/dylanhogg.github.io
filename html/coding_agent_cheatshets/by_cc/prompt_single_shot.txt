@@ -1,0 +1,10 @@
+Date: 10 June 2026
+Model: Fable 5 (released today 10 June 2026)
+
+---
+
+Create a single self contained (can use CDN js/css/etc links) HTML file that is a Claude Code CLI cheat sheet aimed a experienced software engineers. It should be clear, have clean UI, be light colour themed. Above all it should get a developer new to CC (but who has maybe used other agentic coding CLI's like Codex) up to speed quickly on the best way to use CC, which commands matter most, useful workflows, and useful 3rd party SKILLs to use (and why). The cheat sheet should be up to date with the latest CC as of Jun 2026. Don't ask to clarifying questions, just single shot this according to directions above. Write to cc_cheatsheet.html.
+
+---
+
+Now produce a comparable cheatsheet for OpenAI Codex CLI as write it to codex_cheatsheet.html

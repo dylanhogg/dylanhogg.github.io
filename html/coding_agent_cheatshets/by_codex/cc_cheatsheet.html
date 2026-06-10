@@ -1,0 +1,1239 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claude Code CLI Cheat Sheet for Experienced Engineers</title>
+  <meta name="description" content="A practical Claude Code CLI cheat sheet for experienced software engineers, current as of June 2026.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #fffdf8;
+      --surface: #ffffff;
+      --surface-2: #f7f5ee;
+      --ink: #18202b;
+      --muted: #5d6675;
+      --line: #ded8ca;
+      --teal: #0f766e;
+      --teal-soft: #dff5f1;
+      --amber: #b45309;
+      --amber-soft: #fff3d7;
+      --rose: #be123c;
+      --rose-soft: #ffe4eb;
+      --blue: #2563eb;
+      --blue-soft: #e8f0ff;
+      --green: #15803d;
+      --green-soft: #e5f7e8;
+      --slate-soft: #eef1f5;
+      --shadow: 0 18px 45px rgba(37, 45, 60, .08);
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(180deg, rgba(255, 253, 248, .94), rgba(255, 253, 248, .98)),
+        radial-gradient(circle at top left, rgba(15, 118, 110, .09), transparent 36rem),
+        radial-gradient(circle at top right, rgba(180, 83, 9, .09), transparent 34rem);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code,
+    pre,
+    kbd {
+      font-family: var(--mono);
+    }
+
+    code {
+      background: #f1eee5;
+      border: 1px solid #e4ded1;
+      border-radius: 5px;
+      padding: .08rem .28rem;
+      font-size: .88em;
+      color: #263244;
+    }
+
+    pre {
+      margin: 0;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(222, 216, 202, .9);
+      background: rgba(255, 253, 248, .9);
+      backdrop-filter: blur(16px);
+    }
+
+    .topbar-inner {
+      display: grid;
+      grid-template-columns: minmax(12rem, 1fr) minmax(16rem, 30rem) auto;
+      gap: 1rem;
+      align-items: center;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: .82rem 1.25rem;
+    }
+
+    .brand {
+      display: flex;
+      gap: .65rem;
+      align-items: center;
+      min-width: 0;
+      font-weight: 800;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 8px;
+      background: var(--teal);
+      color: white;
+      flex: 0 0 auto;
+    }
+
+    .brand-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .search {
+      position: relative;
+    }
+
+    .search svg {
+      position: absolute;
+      left: .82rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      width: 1.05rem;
+      height: 1.05rem;
+    }
+
+    .search input {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: 8px;
+      padding: .68rem .9rem .68rem 2.35rem;
+      color: var(--ink);
+      outline: 0;
+      box-shadow: 0 1px 0 rgba(24, 32, 43, .03);
+    }
+
+    .search input:focus {
+      border-color: rgba(15, 118, 110, .6);
+      box-shadow: 0 0 0 4px rgba(15, 118, 110, .12);
+    }
+
+    .navlinks {
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .icon-btn,
+    .chip-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .35rem;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      min-height: 2.2rem;
+      border-radius: 8px;
+      padding: .48rem .64rem;
+      cursor: pointer;
+    }
+
+    .icon-btn {
+      width: 2.25rem;
+      padding: .45rem;
+    }
+
+    .icon-btn:hover,
+    .chip-btn:hover {
+      background: var(--surface-2);
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    .hero {
+      padding: 2.7rem 0 1.25rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(20rem, .8fr);
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      color: var(--teal);
+      font-weight: 700;
+      font-size: .9rem;
+      margin-bottom: .7rem;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 15ch;
+      font-size: clamp(2.3rem, 6vw, 5.2rem);
+      font-weight: 800;
+    }
+
+    .hero p {
+      max-width: 66ch;
+      margin: 1rem 0 0;
+      color: var(--muted);
+      font-size: 1.07rem;
+    }
+
+    .quick-panel {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .82);
+      box-shadow: var(--shadow);
+      border-radius: 8px;
+      padding: 1rem;
+      align-self: end;
+    }
+
+    .quick-panel h2 {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      font-size: 1rem;
+      margin-bottom: .8rem;
+    }
+
+    .quick-list {
+      display: grid;
+      gap: .65rem;
+    }
+
+    .quick-item {
+      display: grid;
+      grid-template-columns: 1.25rem minmax(0, 1fr);
+      gap: .65rem;
+      align-items: start;
+      color: var(--muted);
+      font-size: .94rem;
+    }
+
+    .quick-item svg {
+      width: 1.05rem;
+      height: 1.05rem;
+      color: var(--teal);
+      margin-top: .14rem;
+    }
+
+    .toc-band {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(247, 245, 238, .65);
+    }
+
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      padding: .8rem 0;
+    }
+
+    .toc a {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      min-height: 2rem;
+      padding: .38rem .58rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      background: var(--surface);
+      font-size: .9rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .toc a:hover {
+      border-color: rgba(15, 118, 110, .45);
+      background: var(--teal-soft);
+    }
+
+    main {
+      padding: 1.4rem 0 3.5rem;
+    }
+
+    section {
+      scroll-margin-top: 5.8rem;
+      padding: 1.2rem 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: .85rem;
+    }
+
+    .section-head h2 {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      font-size: clamp(1.45rem, 3vw, 2.1rem);
+    }
+
+    .section-head p {
+      max-width: 64ch;
+      margin: .45rem 0 0;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      gap: .9rem;
+    }
+
+    .grid.cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid.cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid.cols-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 1px 0 rgba(24, 32, 43, .03);
+    }
+
+    .card h3 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.02rem;
+      margin-bottom: .55rem;
+    }
+
+    .card p {
+      margin: .35rem 0 0;
+      color: var(--muted);
+      font-size: .94rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .32rem;
+      width: fit-content;
+      min-height: 1.6rem;
+      border-radius: 999px;
+      padding: .22rem .55rem;
+      font-weight: 700;
+      font-size: .78rem;
+      border: 1px solid transparent;
+    }
+
+    .tag.teal { color: var(--teal); background: var(--teal-soft); border-color: rgba(15, 118, 110, .16); }
+    .tag.amber { color: var(--amber); background: var(--amber-soft); border-color: rgba(180, 83, 9, .18); }
+    .tag.rose { color: var(--rose); background: var(--rose-soft); border-color: rgba(190, 18, 60, .18); }
+    .tag.blue { color: var(--blue); background: var(--blue-soft); border-color: rgba(37, 99, 235, .18); }
+    .tag.green { color: var(--green); background: var(--green-soft); border-color: rgba(21, 128, 61, .18); }
+    .tag.slate { color: #465061; background: var(--slate-soft); border-color: rgba(70, 80, 97, .16); }
+
+    .command {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(11rem, .55fr) minmax(0, 1fr) auto;
+      gap: .8rem;
+      align-items: center;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: 8px;
+      padding: .72rem;
+      min-height: 4.2rem;
+    }
+
+    .command .cmd {
+      font-family: var(--mono);
+      font-size: .9rem;
+      font-weight: 600;
+      overflow-wrap: anywhere;
+      color: #243042;
+    }
+
+    .command .why {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .copy {
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+      border-radius: 8px;
+      width: 2rem;
+      height: 2rem;
+      display: inline-grid;
+      place-items: center;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .copy:hover {
+      color: var(--teal);
+      border-color: rgba(15, 118, 110, .45);
+      background: var(--teal-soft);
+    }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: 2.25rem minmax(0, 1fr);
+      gap: .85rem;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 1rem;
+    }
+
+    .stepnum {
+      display: grid;
+      place-items: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 8px;
+      background: var(--ink);
+      color: white;
+      font-weight: 800;
+      font-size: .95rem;
+    }
+
+    .workflow h3 {
+      font-size: 1.03rem;
+      margin-bottom: .35rem;
+    }
+
+    .workflow p {
+      margin: 0 0 .55rem;
+      color: var(--muted);
+      font-size: .94rem;
+    }
+
+    .snippet {
+      border: 1px solid #d8d1c2;
+      background: #f8f5ee;
+      border-radius: 8px;
+      padding: .72rem;
+      overflow: hidden;
+    }
+
+    .do-dont {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .9rem;
+    }
+
+    .list {
+      margin: .65rem 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: .55rem;
+    }
+
+    .list li {
+      display: grid;
+      grid-template-columns: 1rem minmax(0, 1fr);
+      gap: .55rem;
+      color: var(--muted);
+      font-size: .94rem;
+    }
+
+    .list li svg {
+      width: .95rem;
+      height: .95rem;
+      margin-top: .24rem;
+      color: var(--teal);
+    }
+
+    .matrix {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .matrix th,
+    .matrix td {
+      border-bottom: 1px solid var(--line);
+      padding: .75rem;
+      text-align: left;
+      vertical-align: top;
+      font-size: .92rem;
+    }
+
+    .matrix th {
+      background: var(--surface-2);
+      font-size: .8rem;
+      text-transform: uppercase;
+      color: #4b5563;
+      font-weight: 800;
+    }
+
+    .matrix tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .matrix td:first-child {
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .callout {
+      display: grid;
+      grid-template-columns: 1.25rem minmax(0, 1fr);
+      gap: .75rem;
+      align-items: start;
+      border: 1px solid rgba(180, 83, 9, .25);
+      background: var(--amber-soft);
+      border-radius: 8px;
+      padding: .9rem;
+      color: #70410a;
+    }
+
+    .callout svg {
+      width: 1.1rem;
+      height: 1.1rem;
+      margin-top: .18rem;
+    }
+
+    .callout strong {
+      color: #593207;
+    }
+
+    .source-list {
+      display: grid;
+      gap: .45rem;
+      margin-top: .8rem;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .empty-state {
+      display: none;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      padding: 1.25rem;
+      color: var(--muted);
+      background: rgba(255, 255, 255, .7);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      background: var(--surface-2);
+      padding: 1.7rem 0;
+    }
+
+    @media (max-width: 920px) {
+      .topbar-inner,
+      .hero-grid,
+      .grid.cols-2,
+      .grid.cols-3,
+      .grid.cols-4,
+      .do-dont {
+        grid-template-columns: 1fr;
+      }
+
+      .navlinks {
+        justify-content: start;
+      }
+
+      .command {
+        grid-template-columns: minmax(0, 1fr) auto;
+      }
+
+      .command .why {
+        grid-column: 1 / -1;
+      }
+
+      .matrix {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+
+    @media print {
+      .topbar,
+      .toc-band,
+      .copy,
+      .navlinks {
+        display: none;
+      }
+
+      body {
+        background: white;
+      }
+
+      section {
+        break-inside: avoid;
+      }
+
+      .card,
+      .command,
+      .workflow {
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand" aria-label="Claude Code cheat sheet">
+        <span class="brand-mark"><i data-lucide="terminal"></i></span>
+        <span class="brand-text">Claude Code CLI Cheat Sheet</span>
+      </div>
+      <label class="search" for="search">
+        <i data-lucide="search"></i>
+        <input id="search" type="search" placeholder="Filter commands, workflows, skills..." autocomplete="off">
+      </label>
+      <div class="navlinks" aria-label="Quick actions">
+        <button class="chip-btn" type="button" data-jump="#commands"><i data-lucide="command"></i> Commands</button>
+        <button class="chip-btn" type="button" data-jump="#workflows"><i data-lucide="git-pull-request"></i> Workflows</button>
+        <button class="icon-btn" type="button" id="printBtn" aria-label="Print cheat sheet" title="Print"><i data-lucide="printer"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow"><i data-lucide="sparkles"></i> Current to June 10, 2026</div>
+          <h1>Get effective with Claude Code fast.</h1>
+          <p>
+            A pragmatic field guide for engineers who already understand agentic coding CLIs.
+            Focus: the commands that matter, the workflows that compound, and the extensions
+            that make Claude Code behave like a reliable teammate instead of a clever REPL.
+          </p>
+        </div>
+        <aside class="quick-panel" aria-label="What matters most">
+          <h2><i data-lucide="gauge"></i> First hour priorities</h2>
+          <div class="quick-list">
+            <div class="quick-item"><i data-lucide="file-text"></i><span>Run <code>/init</code>, then aggressively prune <code>CLAUDE.md</code> to durable repo facts.</span></div>
+            <div class="quick-item"><i data-lucide="route"></i><span>Use <code>/plan</code> for multi-file changes; skip it for one-line diffs.</span></div>
+            <div class="quick-item"><i data-lucide="check-check"></i><span>Always give Claude a verification loop: tests, build, screenshot, or <code>/goal</code>.</span></div>
+            <div class="quick-item"><i data-lucide="layers"></i><span>Use skills for reusable procedures, subagents for isolated reading, hooks for non-negotiable checks.</span></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <nav class="toc-band" aria-label="Page sections">
+    <div class="wrap toc">
+      <a href="#mental-model"><i data-lucide="brain"></i> Mental Model</a>
+      <a href="#commands"><i data-lucide="command"></i> Commands</a>
+      <a href="#workflows"><i data-lucide="workflow"></i> Workflows</a>
+      <a href="#configuration"><i data-lucide="sliders-horizontal"></i> Configuration</a>
+      <a href="#skills"><i data-lucide="puzzle"></i> Skills and Plugins</a>
+      <a href="#patterns"><i data-lucide="message-square-code"></i> Prompts</a>
+      <a href="#safety"><i data-lucide="shield-check"></i> Safety</a>
+    </div>
+  </nav>
+
+  <main class="wrap" id="content">
+    <div class="empty-state" id="emptyState">No matching entries. Clear the filter or try a command name such as plan, verify, plugin, context, or review.</div>
+
+    <section id="mental-model" data-searchable="mental model codex migration how claude code works plan verify context">
+      <div class="section-head">
+        <div>
+          <h2><i data-lucide="brain"></i> Mental Model</h2>
+          <p>Claude Code is not autocomplete. It is a terminal-native agent that reads files, edits code, runs commands, coordinates parallel agents, and carries memory through project configuration.</p>
+        </div>
+      </div>
+
+      <div class="grid cols-4">
+        <article class="card" data-searchable="agent loop verify tests build screenshot">
+          <span class="tag teal">Core loop</span>
+          <h3><i data-lucide="repeat-2"></i> Explore, change, verify</h3>
+          <p>Claude performs best when the task includes a pass/fail signal it can run. Make the verifier explicit in the prompt or encode it with <code>/goal</code> or hooks.</p>
+        </article>
+        <article class="card" data-searchable="context window compact clear memory">
+          <span class="tag amber">Scarce resource</span>
+          <h3><i data-lucide="battery-medium"></i> Context is budget</h3>
+          <p>Use <code>/context</code>, <code>/compact</code>, <code>/btw</code>, and subagents to keep the main thread clean. Long transcripts degrade judgment.</p>
+        </article>
+        <article class="card" data-searchable="claude md memory skills hooks mcp agents">
+          <span class="tag blue">Extension stack</span>
+          <h3><i data-lucide="blocks"></i> Pick the right layer</h3>
+          <p><code>CLAUDE.md</code> is durable repo context. Skills are reusable workflows. MCP is external data and tools. Hooks are deterministic gates. Subagents isolate focus.</p>
+        </article>
+        <article class="card" data-searchable="background agents batch parallel worktrees">
+          <span class="tag green">Scale pattern</span>
+          <h3><i data-lucide="git-branch"></i> Parallelize deliberately</h3>
+          <p>Use <code>/fork</code> for side investigation, <code>/background</code> for long tasks, and <code>/batch</code> for large independent migrations in worktrees.</p>
+        </article>
+      </div>
+
+      <div class="do-dont" style="margin-top: .9rem;">
+        <article class="card" data-searchable="codex users differences">
+          <h3><i data-lucide="move-right"></i> If you come from Codex</h3>
+          <ul class="list">
+            <li><i data-lucide="check"></i><span>Treat <code>/plan</code> as a first-class mode, not just a planning prompt.</span></li>
+            <li><i data-lucide="check"></i><span>Use <code>/rewind</code> when the agent takes a bad path; checkpointing is part of the workflow.</span></li>
+            <li><i data-lucide="check"></i><span>Expect more built-in orchestration: background agents, cloud reviews, routines, and web handoff.</span></li>
+          </ul>
+        </article>
+        <article class="card" data-searchable="dont common mistakes bloat context permissions">
+          <h3><i data-lucide="circle-alert"></i> Common mistakes</h3>
+          <ul class="list">
+            <li><i data-lucide="x"></i><span>Stuffing tutorials and file maps into <code>CLAUDE.md</code>. It should be short and behavioral.</span></li>
+            <li><i data-lucide="x"></i><span>Approving every prompt manually until approval fatigue makes permission review meaningless.</span></li>
+            <li><i data-lucide="x"></i><span>Asking for broad "make it better" changes without a verifier or target diff size.</span></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="commands" data-searchable="commands slash cli reference flags">
+      <div class="section-head">
+        <div>
+          <h2><i data-lucide="command"></i> Commands That Matter</h2>
+          <p>Memorize these first. The full command surface is large; these are the ones that change day-to-day throughput.</p>
+        </div>
+      </div>
+
+      <div class="grid" id="commandList">
+        <div class="command" data-searchable="claude start interactive session prompt">
+          <div class="cmd">claude</div>
+          <div class="why">Start an interactive session in the current project. Use this for real work where context and iteration matter.</div>
+          <button class="copy" type="button" data-copy="claude" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="print query one shot sdk pipe automation">
+          <div class="cmd">claude -p "query"</div>
+          <div class="why">Non-interactive query, then exit. Best for scripts, CI, log analysis, and Unix pipelines.</div>
+          <button class="copy" type="button" data-copy='claude -p "query"' aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="continue resume session">
+          <div class="cmd">claude -c</div>
+          <div class="why">Continue the most recent conversation in this directory. Use after closing the terminal or switching context.</div>
+          <button class="copy" type="button" data-copy="claude -c" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="resume session id name">
+          <div class="cmd">claude -r "&lt;session&gt;"</div>
+          <div class="why">Resume by session ID or name. Prefer naming sessions when work spans days.</div>
+          <button class="copy" type="button" data-copy='claude -r "session-name"' aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="plan mode explore implementation">
+          <div class="cmd">/plan [task]</div>
+          <div class="why">Enter plan mode for exploration and implementation design before edits. Best for unfamiliar or multi-file work.</div>
+          <button class="copy" type="button" data-copy="/plan fix the auth timeout bug" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="goal verification condition keep working">
+          <div class="cmd">/goal [condition]</div>
+          <div class="why">Set an objective Claude keeps checking across turns, such as "tests pass and no visual regression remains".</div>
+          <button class="copy" type="button" data-copy="/goal npm test passes and the changed route renders correctly" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="context compact clear memory token budget">
+          <div class="cmd">/context | /compact | /clear</div>
+          <div class="why">Inspect context use, summarize the thread, or start fresh. This is performance hygiene, not housekeeping.</div>
+          <button class="copy" type="button" data-copy="/context" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="diff review code review simplify security">
+          <div class="cmd">/diff | /code-review | /simplify</div>
+          <div class="why">Inspect changes, find correctness bugs, and run cleanup-focused review. Use before commits and after agent-heavy runs.</div>
+          <button class="copy" type="button" data-copy="/code-review high --fix" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="run verify run skill generator app ui validation">
+          <div class="cmd">/run | /verify | /run-skill-generator</div>
+          <div class="why">Launch and inspect your app, verify behavior beyond tests, and record the launch recipe as a project skill.</div>
+          <button class="copy" type="button" data-copy="/run-skill-generator" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="permissions allowed tools sandbox fewer permission prompts">
+          <div class="cmd">/permissions | /sandbox</div>
+          <div class="why">Tune approval rules and isolation. Use allowlists for known-safe commands and sandboxing for broader autonomy.</div>
+          <button class="copy" type="button" data-copy="/permissions" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="mcp external tools jira figma database github sentry">
+          <div class="cmd">/mcp</div>
+          <div class="why">Manage MCP servers for external systems: GitHub, Sentry, databases, Figma, docs, ticketing, and internal tools.</div>
+          <button class="copy" type="button" data-copy="/mcp" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="plugin marketplace install skills community official">
+          <div class="cmd">/plugin</div>
+          <div class="why">Browse, install, enable, disable, and inspect plugins. Check token cost and installed components before trusting one.</div>
+          <button class="copy" type="button" data-copy="/plugin" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="agents subagents manager fork background batch">
+          <div class="cmd">/agents | /fork | /background | /batch</div>
+          <div class="why">Manage custom agents, spawn side investigations, detach long work, or fan out large independent changes.</div>
+          <button class="copy" type="button" data-copy="/fork investigate the flaky test root cause" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="rewind checkpoint undo branch resume">
+          <div class="cmd">/rewind | /branch | /resume</div>
+          <div class="why">Recover from a bad direction, try an alternative conversation path, or return to prior work.</div>
+          <button class="copy" type="button" data-copy="/rewind" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="teleport remote control desktop web mobile session handoff">
+          <div class="cmd">/teleport | /remote-control | /desktop</div>
+          <div class="why">Move work across web, terminal, mobile, and desktop surfaces when a task outgrows one environment.</div>
+          <button class="copy" type="button" data-copy="/remote-control" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflows" data-searchable="workflows feature bug ci pull request review">
+      <div class="section-head">
+        <div>
+          <h2><i data-lucide="workflow"></i> Useful Workflows</h2>
+          <p>These are prompt-and-command patterns that keep Claude Code grounded and auditable.</p>
+        </div>
+      </div>
+
+      <div class="grid cols-2">
+        <article class="workflow" data-searchable="new repo onboarding init memory permissions mcp">
+          <div class="stepnum">1</div>
+          <div>
+            <h3>First session in a repo</h3>
+            <p>Bootstrap memory, connect tools, and reduce prompt friction.</p>
+            <div class="snippet"><pre>/init
+/memory
+/mcp
+/permissions
+
+Read the test/build commands you found. Keep CLAUDE.md short:
+only non-obvious commands, style rules, architecture constraints, and gotchas.</pre></div>
+          </div>
+        </article>
+
+        <article class="workflow" data-searchable="feature development plan implement tests commit pull request">
+          <div class="stepnum">2</div>
+          <div>
+            <h3>Feature work</h3>
+            <p>Separate discovery from edits, then insist on evidence.</p>
+            <div class="snippet"><pre>/plan add GitHub SSO using the existing auth patterns
+
+Implement the approved plan. Add focused tests, run the smallest relevant
+test target first, then run the project typecheck. Show commands and results.
+
+/diff
+/code-review high --fix</pre></div>
+          </div>
+        </article>
+
+        <article class="workflow" data-searchable="bug fix reproduce failing test root cause">
+          <div class="stepnum">3</div>
+          <div>
+            <h3>Bug fix with root-cause pressure</h3>
+            <p>Make the agent prove it can reproduce the failure before editing.</p>
+            <div class="snippet"><pre>Users report login fails after session timeout.
+Find the auth/session flow, write or identify a failing test first,
+then fix the root cause. Do not suppress the symptom.
+Run the failing test, then the relevant suite.</pre></div>
+          </div>
+        </article>
+
+        <article class="workflow" data-searchable="ui frontend screenshot browser verify run">
+          <div class="stepnum">4</div>
+          <div>
+            <h3>UI change</h3>
+            <p>Use visual verification instead of relying on static code review.</p>
+            <div class="snippet"><pre>/run-skill-generator
+
+Implement the layout change. Use /run to launch the app and inspect it.
+Take desktop and mobile screenshots, compare them to the requested behavior,
+then fix any overlap, clipping, or spacing issues.
+
+/verify</pre></div>
+          </div>
+        </article>
+
+        <article class="workflow" data-searchable="large migration batch worktree parallel agents">
+          <div class="stepnum">5</div>
+          <div>
+            <h3>Large migration</h3>
+            <p>Use worktree isolation when the work is truly parallelizable.</p>
+            <div class="snippet"><pre>/batch migrate the src/components directory from Enzyme tests to Testing Library.
+Preserve behavior. Each unit should update tests and run only its package suite.</pre></div>
+          </div>
+        </article>
+
+        <article class="workflow" data-searchable="ci failure autofix pr comments github review">
+          <div class="stepnum">6</div>
+          <div>
+            <h3>PR feedback and CI</h3>
+            <p>Let Claude gather the remote context, then constrain the fix scope.</p>
+            <div class="snippet"><pre>Use gh to inspect this branch's PR, CI failures, and unresolved review comments.
+Fix only actionable failures. Run the relevant checks locally.
+Summarize which comments were addressed and what remains.
+
+/autofix-pr only fix lint and type errors</pre></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="configuration" data-searchable="configuration settings claude md memory hooks permissions mcp scopes">
+      <div class="section-head">
+        <div>
+          <h2><i data-lucide="sliders-horizontal"></i> Configuration Map</h2>
+          <p>Most Claude Code productivity comes from putting the right information in the right place.</p>
+        </div>
+      </div>
+
+      <table class="matrix" data-searchable="settings scopes user project local managed">
+        <thead>
+          <tr>
+            <th>Artifact</th>
+            <th>Use it for</th>
+            <th>Do not use it for</th>
+            <th>Typical scope</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>CLAUDE.md</code></td>
+            <td>Durable repo guidance: build commands, architecture decisions, style constraints, PR etiquette, gotchas.</td>
+            <td>Tutorials, generated file maps, API docs, or anything Claude can infer by reading the code.</td>
+            <td>Project, checked in. Personal overrides in <code>CLAUDE.local.md</code>.</td>
+          </tr>
+          <tr>
+            <td><code>.claude/settings.json</code></td>
+            <td>Shared project settings: permissions, hooks, plugins, status line, model defaults.</td>
+            <td>Secrets, machine-specific paths, experimental local preferences.</td>
+            <td>Project, checked in.</td>
+          </tr>
+          <tr>
+            <td><code>.claude/settings.local.json</code></td>
+            <td>Personal project overrides and trial settings before sharing with the team.</td>
+            <td>Team conventions or required safety gates.</td>
+            <td>Local, gitignored.</td>
+          </tr>
+          <tr>
+            <td><code>.claude/skills/*/SKILL.md</code></td>
+            <td>Repeatable workflows and domain knowledge that should load only when relevant.</td>
+            <td>Always-on instructions. Put those in <code>CLAUDE.md</code>.</td>
+            <td>Project for team workflows; user for personal habits.</td>
+          </tr>
+          <tr>
+            <td><code>.claude/agents/*.md</code></td>
+            <td>Specialized read-heavy or review-heavy agents with restricted tools and focused instructions.</td>
+            <td>Simple command aliases. Use skills instead.</td>
+            <td>Project or user.</td>
+          </tr>
+          <tr>
+            <td><code>.mcp.json</code></td>
+            <td>External tool access: issue trackers, docs, design files, DBs, observability, internal APIs.</td>
+            <td>Static project facts. Avoid tool access when a short note would do.</td>
+            <td>Project for shared servers; user/local for private auth.</td>
+          </tr>
+          <tr>
+            <td>Hooks</td>
+            <td>Deterministic policy: format after edits, block sensitive files, run mandatory checks before stopping.</td>
+            <td>Soft preferences. Hooks should be rules with consequences.</td>
+            <td>Project for team gates; managed for enterprise policy.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout" style="margin-top: .9rem;" data-searchable="settings precedence managed command local project user">
+        <i data-lucide="info"></i>
+        <div><strong>Settings precedence:</strong> managed settings win, then command-line arguments, local, project, and user settings. Permission rules merge across scopes, so audit effective permissions when things feel surprising.</div>
+      </div>
+    </section>
+
+    <section id="skills" data-searchable="skills plugins marketplace third party community official recommendations">
+      <div class="section-head">
+        <div>
+          <h2><i data-lucide="puzzle"></i> Skills and Plugins Worth Installing</h2>
+          <p>Use skills for on-demand procedures and plugins when you want shareable bundles of skills, agents, hooks, MCP servers, LSP servers, monitors, or defaults.</p>
+        </div>
+      </div>
+
+      <div class="grid cols-3">
+        <article class="card" data-searchable="code intelligence lsp typescript python rust go java">
+          <span class="tag blue">First install</span>
+          <h3><i data-lucide="braces"></i> Code intelligence plugins</h3>
+          <p>Install the language LSP plugin for your stack from the official marketplace. Symbol navigation and edit-time diagnostics reduce blind grep-driven changes.</p>
+        </article>
+        <article class="card" data-searchable="security guidance automatic review vulnerability injection auth data exposure">
+          <span class="tag rose">Safety</span>
+          <h3><i data-lucide="shield"></i> <code>security-guidance</code></h3>
+          <p>Runs security guidance while Claude edits. Useful in web apps, auth code, data paths, and any repo where agent-written code may bypass human threat modeling.</p>
+        </article>
+        <article class="card" data-searchable="commit commands git pr push">
+          <span class="tag green">Shipping</span>
+          <h3><i data-lucide="git-commit-horizontal"></i> <code>commit-commands</code></h3>
+          <p>Adds repeatable git workflows for staging, commits, pushes, and PR creation. Good for standardizing commit shape across agent sessions.</p>
+        </article>
+        <article class="card" data-searchable="pull request review toolkit agents">
+          <span class="tag amber">Review</span>
+          <h3><i data-lucide="git-pull-request"></i> <code>pr-review-toolkit</code></h3>
+          <p>Specialized PR-review agents help separate correctness, cleanup, test, and security review instead of asking one saturated thread to do everything.</p>
+        </article>
+        <article class="card" data-searchable="agent sdk dev claude api managed agents">
+          <span class="tag teal">Agent builders</span>
+          <h3><i data-lucide="bot"></i> <code>agent-sdk-dev</code></h3>
+          <p>Use when building with the Claude Agent SDK or Managed Agents. It keeps API details and common migration pitfalls close to the work.</p>
+        </article>
+        <article class="card" data-searchable="plugin development create plugin marketplace">
+          <span class="tag slate">Team reuse</span>
+          <h3><i data-lucide="package-plus"></i> <code>plugin-dev</code></h3>
+          <p>Install when turning team-specific skills, hooks, subagents, and MCP configs into a distributable plugin.</p>
+        </article>
+        <article class="card" data-searchable="community marketplace third party playwright browser docs openapi database sentry figma jira">
+          <span class="tag blue">Community</span>
+          <h3><i data-lucide="store"></i> Third-party marketplace</h3>
+          <p>Add <code>anthropics/claude-plugins-community</code>, then prefer plugins with clear source, narrow tool access, recent updates, and low token cost.</p>
+        </article>
+        <article class="card" data-searchable="run verify bundled skills project launch">
+          <span class="tag green">Bundled</span>
+          <h3><i data-lucide="monitor-play"></i> <code>/run</code> and <code>/verify</code></h3>
+          <p>Not third-party, but install nothing until you use these. Generate a run skill once per project so every future session can launch and verify reliably.</p>
+        </article>
+        <article class="card" data-searchable="explanatory learning output style">
+          <span class="tag amber">Output style</span>
+          <h3><i data-lucide="graduation-cap"></i> Learning output styles</h3>
+          <p>Use explanatory or learning styles when onboarding to a codebase or mentoring; disable for production tasks where terse evidence matters more.</p>
+        </article>
+      </div>
+
+      <div class="card" style="margin-top: .9rem;" data-searchable="install plugin marketplace commands">
+        <h3><i data-lucide="terminal-square"></i> Install pattern</h3>
+        <div class="snippet"><pre>/plugin
+/plugin marketplace add anthropics/claude-plugins-community
+/plugin install &lt;plugin-name&gt;@claude-community
+/reload-plugins
+/skills</pre></div>
+        <p>Before installing, inspect the plugin detail pane: context cost, last updated date, and every command, agent, skill, hook, MCP server, LSP server, and monitor it will add.</p>
+      </div>
+    </section>
+
+    <section id="patterns" data-searchable="prompt patterns examples experienced engineers">
+      <div class="section-head">
+        <div>
+          <h2><i data-lucide="message-square-code"></i> Prompt Patterns</h2>
+          <p>The highest-leverage prompts constrain scope, point to evidence, and define the verification loop.</p>
+        </div>
+      </div>
+
+      <div class="grid cols-2">
+        <article class="card" data-searchable="research plan prompt">
+          <h3><i data-lucide="map"></i> Research before edits</h3>
+          <div class="snippet"><pre>/plan
+Read src/auth, the session middleware, and recent git history for token refresh.
+Explain the current flow and list the smallest safe fix. Do not edit files yet.</pre></div>
+        </article>
+        <article class="card" data-searchable="implementation prompt tests verifier">
+          <h3><i data-lucide="wrench"></i> Implement with verifier</h3>
+          <div class="snippet"><pre>Implement the approved plan. Add a failing test first if one does not exist.
+Run only the relevant test target, then run typecheck. Iterate until both pass.</pre></div>
+        </article>
+        <article class="card" data-searchable="review prompt adversarial">
+          <h3><i data-lucide="search-check"></i> Adversarial review</h3>
+          <div class="snippet"><pre>Review this diff as if you did not write it. Prioritize correctness bugs,
+data loss, security issues, and missing tests. Give file/line references.
+Do not comment on style unless it hides a bug.</pre></div>
+        </article>
+        <article class="card" data-searchable="subagent investigation prompt">
+          <h3><i data-lucide="split"></i> Isolated investigation</h3>
+          <div class="snippet"><pre>/fork Investigate why the importer is slow. Read code and profiles only.
+Return root-cause hypotheses, evidence, and low-risk fixes. Do not edit files.</pre></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="safety" data-searchable="safety permissions sandbox hooks trust third party">
+      <div class="section-head">
+        <div>
+          <h2><i data-lucide="shield-check"></i> Safety and Control</h2>
+          <p>Claude Code can move quickly. The engineering move is to reduce low-value interruptions while preserving meaningful control over risky actions.</p>
+        </div>
+      </div>
+
+      <div class="grid cols-3">
+        <article class="card" data-searchable="auto mode permissions allowlist">
+          <span class="tag teal">Friction</span>
+          <h3><i data-lucide="key-round"></i> Use allowlists narrowly</h3>
+          <p>Allow known-safe commands such as lint, test, typecheck, git diff, and read-only gh calls. Keep destructive shell commands in ask or deny.</p>
+        </article>
+        <article class="card" data-searchable="sandbox os isolation network filesystem">
+          <span class="tag blue">Isolation</span>
+          <h3><i data-lucide="box"></i> Prefer sandboxing for autonomy</h3>
+          <p>For unattended work, OS-level sandboxing is cleaner than blanket permission bypass. Restrict filesystem and network access to the task.</p>
+        </article>
+        <article class="card" data-searchable="hooks deterministic gates stop posttooluse pretooluse">
+          <span class="tag amber">Policy</span>
+          <h3><i data-lucide="workflow"></i> Hooks are hard gates</h3>
+          <p>Use hooks for actions that must always happen: format after edits, block secrets, stop until checks pass, or prevent writes to protected directories.</p>
+        </article>
+        <article class="card" data-searchable="third party plugin trust source review">
+          <span class="tag rose">Supply chain</span>
+          <h3><i data-lucide="package-search"></i> Treat plugins as code</h3>
+          <p>Review plugin source, tool access, hooks, monitors, and MCP servers. Third-party skills can inject dynamic shell output into model context.</p>
+        </article>
+        <article class="card" data-searchable="secret files sensitive data deny">
+          <span class="tag rose">Data</span>
+          <h3><i data-lucide="file-lock-2"></i> Deny sensitive paths</h3>
+          <p>Use settings to exclude secrets, production dumps, credential files, and local env files unless the task explicitly needs them.</p>
+        </article>
+        <article class="card" data-searchable="evidence output logs tests screenshots">
+          <span class="tag green">Reviewability</span>
+          <h3><i data-lucide="clipboard-check"></i> Demand evidence</h3>
+          <p>Ask for command output summaries, failing-then-passing tests, screenshots, and exact files changed. Assertions are not verification.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <strong>Sources checked June 10, 2026</strong>
+      <div class="source-list">
+        <span><a href="https://code.claude.com/docs/en/overview">Claude Code overview</a> - surfaces, install, MCP, memory, hooks, sessions, routines.</span>
+        <span><a href="https://code.claude.com/docs/en/cli-reference">CLI reference</a> - top-level commands and flags.</span>
+        <span><a href="https://code.claude.com/docs/en/commands">Commands reference</a> - slash commands, bundled skills, workflows.</span>
+        <span><a href="https://code.claude.com/docs/en/best-practices">Best practices</a> - verification loops, planning, context management, permissions.</span>
+        <span><a href="https://code.claude.com/docs/en/settings">Settings</a> - scopes, precedence, files, permission rules.</span>
+        <span><a href="https://code.claude.com/docs/en/skills">Skills</a> and <a href="https://code.claude.com/docs/en/discover-plugins">plugin marketplaces</a> - skill structure, official and community plugins.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+
+    function normalize(text) {
+      return (text || "").toLowerCase().replace(/\s+/g, " ").trim();
+    }
+
+    function applyFilter(raw) {
+      const query = normalize(raw);
+      const searchable = $$("[data-searchable]");
+      let visibleCards = 0;
+
+      searchable.forEach((node) => {
+        const haystack = normalize(node.textContent + " " + node.dataset.searchable);
+        const matches = !query || haystack.includes(query);
+        node.classList.toggle("hidden", !matches);
+        if (matches && !node.closest(".hidden")) visibleCards += 1;
+      });
+
+      $$("section").forEach((section) => {
+        const children = $$("[data-searchable]", section);
+        const hasVisibleChild = children.some((child) => !child.classList.contains("hidden"));
+        const selfMatches = !query || normalize(section.textContent + " " + section.dataset.searchable).includes(query);
+        section.classList.toggle("hidden", query && !hasVisibleChild && !selfMatches);
+      });
+
+      $("#emptyState").style.display = query && visibleCards === 0 ? "block" : "none";
+    }
+
+    $("#search").addEventListener("input", (event) => applyFilter(event.target.value));
+
+    $$(".copy").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const text = button.dataset.copy;
+        try {
+          await navigator.clipboard.writeText(text);
+          button.innerHTML = '<i data-lucide="check"></i>';
+          lucide.createIcons();
+          setTimeout(() => {
+            button.innerHTML = '<i data-lucide="copy"></i>';
+            lucide.createIcons();
+          }, 1200);
+        } catch {
+          window.prompt("Copy command", text);
+        }
+      });
+    });
+
+    $$("[data-jump]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = $(button.dataset.jump);
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    $("#printBtn").addEventListener("click", () => window.print());
+
+    lucide.createIcons({
+      attrs: { "stroke-width": 2 }
+    });
+  </script>
+</body>
+</html>

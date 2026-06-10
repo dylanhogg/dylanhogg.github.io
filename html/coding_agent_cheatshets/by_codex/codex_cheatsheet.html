@@ -1,0 +1,1113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenAI Codex CLI Cheat Sheet for Experienced Engineers</title>
+  <meta name="description" content="A practical OpenAI Codex CLI cheat sheet for experienced software engineers, current as of June 2026.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #fbfcf8;
+      --surface: #ffffff;
+      --surface-2: #f2f6f1;
+      --ink: #172018;
+      --muted: #5a655d;
+      --line: #d9e0d5;
+      --green: #0f7a4f;
+      --green-soft: #ddf5e8;
+      --blue: #2563eb;
+      --blue-soft: #e8f0ff;
+      --amber: #a65f00;
+      --amber-soft: #fff1d7;
+      --rose: #be123c;
+      --rose-soft: #ffe5ed;
+      --violet: #6d28d9;
+      --violet-soft: #f0e8ff;
+      --slate-soft: #eef1f3;
+      --shadow: 0 18px 45px rgba(27, 42, 32, .08);
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(180deg, rgba(251, 252, 248, .96), rgba(251, 252, 248, .99)),
+        radial-gradient(circle at top left, rgba(15, 122, 79, .10), transparent 34rem),
+        radial-gradient(circle at top right, rgba(37, 99, 235, .08), transparent 32rem);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code, pre, kbd { font-family: var(--mono); }
+
+    code {
+      background: #eef4ec;
+      border: 1px solid #dce5d9;
+      border-radius: 5px;
+      padding: .08rem .28rem;
+      font-size: .88em;
+      color: #223026;
+    }
+
+    pre {
+      margin: 0;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+
+    button, input { font: inherit; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(217, 224, 213, .92);
+      background: rgba(251, 252, 248, .9);
+      backdrop-filter: blur(16px);
+    }
+
+    .topbar-inner {
+      display: grid;
+      grid-template-columns: minmax(12rem, 1fr) minmax(16rem, 30rem) auto;
+      gap: 1rem;
+      align-items: center;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: .82rem 1.25rem;
+    }
+
+    .brand {
+      display: flex;
+      gap: .65rem;
+      align-items: center;
+      min-width: 0;
+      font-weight: 800;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 8px;
+      background: var(--ink);
+      color: white;
+      flex: 0 0 auto;
+    }
+
+    .brand-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .search { position: relative; }
+    .search svg {
+      position: absolute;
+      left: .82rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      width: 1.05rem;
+      height: 1.05rem;
+    }
+
+    .search input {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: 8px;
+      padding: .68rem .9rem .68rem 2.35rem;
+      color: var(--ink);
+      outline: 0;
+      box-shadow: 0 1px 0 rgba(23, 32, 24, .03);
+    }
+
+    .search input:focus {
+      border-color: rgba(15, 122, 79, .58);
+      box-shadow: 0 0 0 4px rgba(15, 122, 79, .12);
+    }
+
+    .navlinks {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: .35rem;
+      flex-wrap: wrap;
+    }
+
+    .icon-btn, .chip-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .35rem;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      min-height: 2.2rem;
+      border-radius: 8px;
+      padding: .48rem .64rem;
+      cursor: pointer;
+    }
+
+    .icon-btn { width: 2.25rem; padding: .45rem; }
+    .icon-btn:hover, .chip-btn:hover { background: var(--surface-2); }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    .hero { padding: 2.7rem 0 1.25rem; }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(20rem, .8fr);
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      color: var(--green);
+      font-weight: 800;
+      font-size: .9rem;
+      margin-bottom: .7rem;
+    }
+
+    h1, h2, h3 { margin: 0; line-height: 1.12; letter-spacing: 0; }
+
+    h1 {
+      max-width: 14ch;
+      font-size: clamp(2.35rem, 6vw, 5.1rem);
+      font-weight: 800;
+    }
+
+    .hero p {
+      max-width: 67ch;
+      margin: 1rem 0 0;
+      color: var(--muted);
+      font-size: 1.07rem;
+    }
+
+    .quick-panel {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .84);
+      box-shadow: var(--shadow);
+      border-radius: 8px;
+      padding: 1rem;
+      align-self: end;
+    }
+
+    .quick-panel h2 {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      font-size: 1rem;
+      margin-bottom: .8rem;
+    }
+
+    .quick-list { display: grid; gap: .65rem; }
+
+    .quick-item {
+      display: grid;
+      grid-template-columns: 1.25rem minmax(0, 1fr);
+      gap: .65rem;
+      align-items: start;
+      color: var(--muted);
+      font-size: .94rem;
+    }
+
+    .quick-item svg {
+      width: 1.05rem;
+      height: 1.05rem;
+      color: var(--green);
+      margin-top: .14rem;
+    }
+
+    .toc-band {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(242, 246, 241, .72);
+    }
+
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      padding: .8rem 0;
+    }
+
+    .toc a {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      min-height: 2rem;
+      padding: .38rem .58rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      background: var(--surface);
+      font-size: .9rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .toc a:hover {
+      border-color: rgba(15, 122, 79, .45);
+      background: var(--green-soft);
+    }
+
+    main { padding: 1.4rem 0 3.5rem; }
+    section { scroll-margin-top: 5.8rem; padding: 1.2rem 0; }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: .85rem;
+    }
+
+    .section-head h2 {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      font-size: clamp(1.45rem, 3vw, 2.1rem);
+    }
+
+    .section-head p {
+      max-width: 64ch;
+      margin: .45rem 0 0;
+      color: var(--muted);
+    }
+
+    .grid { display: grid; gap: .9rem; }
+    .grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 1px 0 rgba(23, 32, 24, .03);
+    }
+
+    .card h3 {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: 1.02rem;
+      margin-bottom: .55rem;
+    }
+
+    .card p {
+      margin: .35rem 0 0;
+      color: var(--muted);
+      font-size: .94rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 1.6rem;
+      border-radius: 999px;
+      padding: .22rem .55rem;
+      font-weight: 800;
+      font-size: .78rem;
+      border: 1px solid transparent;
+    }
+
+    .tag.green { color: var(--green); background: var(--green-soft); border-color: rgba(15, 122, 79, .16); }
+    .tag.blue { color: var(--blue); background: var(--blue-soft); border-color: rgba(37, 99, 235, .18); }
+    .tag.amber { color: var(--amber); background: var(--amber-soft); border-color: rgba(166, 95, 0, .18); }
+    .tag.rose { color: var(--rose); background: var(--rose-soft); border-color: rgba(190, 18, 60, .18); }
+    .tag.violet { color: var(--violet); background: var(--violet-soft); border-color: rgba(109, 40, 217, .18); }
+    .tag.slate { color: #465061; background: var(--slate-soft); border-color: rgba(70, 80, 97, .16); }
+
+    .command {
+      display: grid;
+      grid-template-columns: minmax(12rem, .55fr) minmax(0, 1fr) auto;
+      gap: .8rem;
+      align-items: center;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: 8px;
+      padding: .72rem;
+      min-height: 4.2rem;
+    }
+
+    .command .cmd {
+      font-family: var(--mono);
+      font-size: .9rem;
+      font-weight: 600;
+      overflow-wrap: anywhere;
+      color: #223026;
+    }
+
+    .command .why {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .copy {
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+      border-radius: 8px;
+      width: 2rem;
+      height: 2rem;
+      display: inline-grid;
+      place-items: center;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .copy:hover {
+      color: var(--green);
+      border-color: rgba(15, 122, 79, .45);
+      background: var(--green-soft);
+    }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: 2.25rem minmax(0, 1fr);
+      gap: .85rem;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 1rem;
+    }
+
+    .stepnum {
+      display: grid;
+      place-items: center;
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 8px;
+      background: var(--ink);
+      color: white;
+      font-weight: 800;
+      font-size: .95rem;
+    }
+
+    .workflow h3 { font-size: 1.03rem; margin-bottom: .35rem; }
+    .workflow p { margin: 0 0 .55rem; color: var(--muted); font-size: .94rem; }
+
+    .snippet {
+      border: 1px solid #d4dfd0;
+      background: #f6faf4;
+      border-radius: 8px;
+      padding: .72rem;
+      overflow: hidden;
+    }
+
+    .list {
+      margin: .65rem 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: .55rem;
+    }
+
+    .list li {
+      display: grid;
+      grid-template-columns: 1rem minmax(0, 1fr);
+      gap: .55rem;
+      color: var(--muted);
+      font-size: .94rem;
+    }
+
+    .list li svg {
+      width: .95rem;
+      height: .95rem;
+      margin-top: .24rem;
+      color: var(--green);
+    }
+
+    .matrix {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .matrix th, .matrix td {
+      border-bottom: 1px solid var(--line);
+      padding: .75rem;
+      text-align: left;
+      vertical-align: top;
+      font-size: .92rem;
+    }
+
+    .matrix th {
+      background: var(--surface-2);
+      font-size: .8rem;
+      text-transform: uppercase;
+      color: #4b5563;
+      font-weight: 800;
+    }
+
+    .matrix tr:last-child td { border-bottom: 0; }
+    .matrix td:first-child { font-weight: 800; color: var(--ink); }
+
+    .callout {
+      display: grid;
+      grid-template-columns: 1.25rem minmax(0, 1fr);
+      gap: .75rem;
+      align-items: start;
+      border: 1px solid rgba(166, 95, 0, .25);
+      background: var(--amber-soft);
+      border-radius: 8px;
+      padding: .9rem;
+      color: #6b4207;
+    }
+
+    .callout svg { width: 1.1rem; height: 1.1rem; margin-top: .18rem; }
+    .callout strong { color: #573405; }
+
+    .source-list {
+      display: grid;
+      gap: .45rem;
+      margin-top: .8rem;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .hidden { display: none !important; }
+
+    .empty-state {
+      display: none;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      padding: 1.25rem;
+      color: var(--muted);
+      background: rgba(255, 255, 255, .7);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      background: var(--surface-2);
+      padding: 1.7rem 0;
+    }
+
+    @media (max-width: 920px) {
+      .topbar-inner, .hero-grid, .grid.cols-2, .grid.cols-3, .grid.cols-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .navlinks { justify-content: start; }
+      .command { grid-template-columns: minmax(0, 1fr) auto; }
+      .command .why { grid-column: 1 / -1; }
+      .matrix { display: block; overflow-x: auto; }
+    }
+
+    @media print {
+      .topbar, .toc-band, .copy, .navlinks { display: none; }
+      body { background: white; }
+      section { break-inside: avoid; }
+      .card, .command, .workflow { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand" aria-label="Codex CLI cheat sheet">
+        <span class="brand-mark"><i data-lucide="square-terminal"></i></span>
+        <span class="brand-text">OpenAI Codex CLI Cheat Sheet</span>
+      </div>
+      <label class="search" for="search">
+        <i data-lucide="search"></i>
+        <input id="search" type="search" placeholder="Filter commands, workflows, skills..." autocomplete="off">
+      </label>
+      <div class="navlinks" aria-label="Quick actions">
+        <button class="chip-btn" type="button" data-jump="#commands"><i data-lucide="command"></i> Commands</button>
+        <button class="chip-btn" type="button" data-jump="#workflows"><i data-lucide="git-pull-request"></i> Workflows</button>
+        <button class="icon-btn" type="button" id="printBtn" aria-label="Print cheat sheet" title="Print"><i data-lucide="printer"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow"><i data-lucide="sparkles"></i> Current to June 10, 2026</div>
+          <h1>Get effective with Codex CLI fast.</h1>
+          <p>
+            A practical field guide for engineers who already know agentic coding tools.
+            Focus: the Codex command surface, the workflows that matter, how to configure
+            durable behavior with <code>AGENTS.md</code> and <code>config.toml</code>, and
+            which skills or plugins are worth adding first.
+          </p>
+        </div>
+        <aside class="quick-panel" aria-label="What matters most">
+          <h2><i data-lucide="gauge"></i> First hour priorities</h2>
+          <div class="quick-list">
+            <div class="quick-item"><i data-lucide="file-text"></i><span>Run <code>/init</code>, then prune <code>AGENTS.md</code> to repo facts, test commands, and done criteria.</span></div>
+            <div class="quick-item"><i data-lucide="route"></i><span>Use <code>/plan</code> or <code>Shift+Tab</code> before ambiguous multi-file changes.</span></div>
+            <div class="quick-item"><i data-lucide="shield-check"></i><span>Start with default permissions; loosen sandboxing only for trusted repos and clear tasks.</span></div>
+            <div class="quick-item"><i data-lucide="check-check"></i><span>Ask for tests, lint, typecheck, repro steps, and <code>/review</code> before accepting changes.</span></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <nav class="toc-band" aria-label="Page sections">
+    <div class="wrap toc">
+      <a href="#mental-model"><i data-lucide="brain"></i> Mental Model</a>
+      <a href="#commands"><i data-lucide="command"></i> Commands</a>
+      <a href="#workflows"><i data-lucide="workflow"></i> Workflows</a>
+      <a href="#configuration"><i data-lucide="sliders-horizontal"></i> Configuration</a>
+      <a href="#skills"><i data-lucide="puzzle"></i> Skills and Plugins</a>
+      <a href="#patterns"><i data-lucide="message-square-code"></i> Prompts</a>
+      <a href="#safety"><i data-lucide="shield-check"></i> Safety</a>
+    </div>
+  </nav>
+
+  <main class="wrap" id="content">
+    <div class="empty-state" id="emptyState">No matching entries. Clear the filter or try a command name such as plan, review, exec, permissions, AGENTS, or skills.</div>
+
+    <section id="mental-model" data-searchable="mental model codex cli agent plan review sandbox">
+      <div class="section-head">
+        <div>
+          <h2><i data-lucide="brain"></i> Mental Model</h2>
+          <p>Codex CLI is a local terminal coding agent. It reads the selected workspace, edits files, runs commands under approval and sandbox policies, and shares configuration with the IDE extension and Codex app.</p>
+        </div>
+      </div>
+
+      <div class="grid cols-4">
+        <article class="card" data-searchable="interactive terminal tui local repository">
+          <span class="tag green">Default mode</span>
+          <h3><i data-lucide="monitor-dot"></i> Interactive TUI</h3>
+          <p>Use <code>codex</code> when you want to watch plans, approve actions, inspect diffs, and steer the task as it runs.</p>
+        </article>
+        <article class="card" data-searchable="exec scripting automation json output schema">
+          <span class="tag blue">Automation</span>
+          <h3><i data-lucide="terminal"></i> Non-interactive runs</h3>
+          <p>Use <code>codex exec</code> for scripts, CI helpers, JSONL event output, and repeatable checks that should exit cleanly.</p>
+        </article>
+        <article class="card" data-searchable="agents md instructions project global overrides">
+          <span class="tag amber">Durable context</span>
+          <h3><i data-lucide="file-cog"></i> <code>AGENTS.md</code></h3>
+          <p>Codex reads global and project instruction files at run start. Closer directory guidance appears later and overrides broader guidance.</p>
+        </article>
+        <article class="card" data-searchable="permissions profiles sandbox network filesystem">
+          <span class="tag rose">Control plane</span>
+          <h3><i data-lucide="lock-keyhole"></i> Permissions</h3>
+          <p>Approval policy decides when Codex asks. Sandbox or permission profiles decide what commands can read, write, and reach over the network.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="commands" data-searchable="commands cli slash exec review resume cloud">
+      <div class="section-head">
+        <div>
+          <h2><i data-lucide="command"></i> Commands That Matter</h2>
+          <p>These are the commands and slash commands that carry most day-to-day engineering work.</p>
+        </div>
+      </div>
+
+      <div class="grid" id="commandList">
+        <div class="command" data-searchable="start interactive tui">
+          <div class="cmd">codex</div>
+          <div class="why">Start the interactive terminal UI in the current workspace. Best default for agentic implementation work.</div>
+          <button class="copy" type="button" data-copy="codex" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="initial prompt explain codebase">
+          <div class="cmd">codex "query"</div>
+          <div class="why">Start with an initial prompt and stream the answer. Good for quick codebase questions or focused analysis.</div>
+          <button class="copy" type="button" data-copy='codex "explain this codebase"' aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="exec non interactive automation stdin json output">
+          <div class="cmd">codex exec "task"</div>
+          <div class="why">Run non-interactively. Add <code>--json</code>, <code>--output-schema</code>, or <code>-o</code> when wiring Codex into scripts.</div>
+          <button class="copy" type="button" data-copy='codex exec "fix the CI failure"' aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="resume session last all">
+          <div class="cmd">codex resume --last</div>
+          <div class="why">Continue the most recent local session. Use <code>--all</code> to ignore current-directory filtering.</div>
+          <button class="copy" type="button" data-copy="codex resume --last" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="review uncommitted base commit">
+          <div class="cmd">codex review --uncommitted</div>
+          <div class="why">Run a dedicated local code review agent over staged, unstaged, and untracked changes.</div>
+          <button class="copy" type="button" data-copy="codex review --uncommitted" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="model gpt-5.5 reasoning">
+          <div class="cmd">codex --model gpt-5.5</div>
+          <div class="why">Pin the launch model. As of June 2026, official docs recommend <code>gpt-5.5</code> for most Codex tasks.</div>
+          <button class="copy" type="button" data-copy="codex --model gpt-5.5" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="sandbox approval on-request never untrusted workspace write">
+          <div class="cmd">codex -s workspace-write -a on-request</div>
+          <div class="why">Set sandbox and approval behavior for one session. Prefer tighter defaults until a repo and task are trusted.</div>
+          <button class="copy" type="button" data-copy="codex -s workspace-write -a on-request" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="image screenshot design spec">
+          <div class="cmd">codex -i screenshot.png "task"</div>
+          <div class="why">Attach screenshots, diagrams, or design specs to the initial prompt.</div>
+          <button class="copy" type="button" data-copy='codex -i screenshot.png "explain this UI bug"' aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="mcp external tools server">
+          <div class="cmd">codex mcp list</div>
+          <div class="why">Inspect configured MCP servers. Use <code>codex mcp add</code> to connect external tools and context.</div>
+          <button class="copy" type="button" data-copy="codex mcp list" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="plugins marketplace add list remove">
+          <div class="cmd">codex plugin list</div>
+          <div class="why">List available plugins from configured marketplace snapshots. In-session, <code>/plugins</code> opens the browser.</div>
+          <button class="copy" type="button" data-copy="codex plugin list" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="cloud tasks apply environment attempts">
+          <div class="cmd">codex cloud</div>
+          <div class="why">Browse Codex Cloud tasks and apply resulting diffs locally. Use <code>codex cloud exec --env ENV_ID</code> to launch cloud work.</div>
+          <button class="copy" type="button" data-copy='codex cloud exec --env ENV_ID "summarize open bugs"' aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="doctor update completion features">
+          <div class="cmd">codex doctor | codex update | codex completion zsh</div>
+          <div class="why">Diagnose the install, update the binary, and install shell completion for daily use.</div>
+          <button class="copy" type="button" data-copy="codex doctor" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="slash plan goal diff review compact status">
+          <div class="cmd">/plan | /goal | /diff | /review | /compact</div>
+          <div class="why">The core in-session control loop: plan, track objective, inspect changes, review, and manage context.</div>
+          <button class="copy" type="button" data-copy="/plan propose a migration plan before editing" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="slash permissions approve status debug config hooks">
+          <div class="cmd">/permissions | /approve | /status | /debug-config | /hooks</div>
+          <div class="why">Inspect and adjust what Codex can do, retry an auto-review denial once, and debug effective configuration.</div>
+          <button class="copy" type="button" data-copy="/status" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+        <div class="command" data-searchable="slash skills plugins mention ide agent side fork">
+          <div class="cmd">/skills | /plugins | /mention | /ide | /agent | /fork | /side</div>
+          <div class="why">Add task-specific capability, attach files or IDE context, inspect subagents, fork the thread, or ask a side question.</div>
+          <button class="copy" type="button" data-copy="/skills" aria-label="Copy command"><i data-lucide="copy"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflows" data-searchable="workflows bug feature review onboarding ci">
+      <div class="section-head">
+        <div>
+          <h2><i data-lucide="workflow"></i> Useful Workflows</h2>
+          <p>Codex works best with explicit context and a concrete definition of done.</p>
+        </div>
+      </div>
+
+      <div class="grid cols-2">
+        <article class="workflow" data-searchable="first repo setup init agents config permissions">
+          <div class="stepnum">1</div>
+          <div>
+            <h3>First session in a repo</h3>
+            <p>Generate instructions, inspect configuration, and keep setup factual.</p>
+            <div class="snippet"><pre>codex
+/init
+/status
+/permissions
+
+Edit AGENTS.md down to:
+- setup/build/test commands
+- repo layout and important directories
+- conventions and do-not rules
+- what done means and how to verify</pre></div>
+          </div>
+        </article>
+
+        <article class="workflow" data-searchable="feature implementation plan goal tests review">
+          <div class="stepnum">2</div>
+          <div>
+            <h3>Feature work</h3>
+            <p>Plan first, then make Codex prove the change.</p>
+            <div class="snippet"><pre>/plan Add account deletion using existing auth and audit-log patterns.
+
+/goal Implement the approved plan, keep tests green, and preserve public API shape.
+
+Implement. Add focused tests, run the smallest relevant suite,
+then run typecheck. Show commands and results.
+
+/diff
+/review</pre></div>
+          </div>
+        </article>
+
+        <article class="workflow" data-searchable="bug reproduce failing test root cause">
+          <div class="stepnum">3</div>
+          <div>
+            <h3>Bug fix</h3>
+            <p>Give repro steps and constraints; require failing-then-passing evidence.</p>
+            <div class="snippet"><pre>Bug: settings save reports success but does not persist after refresh.
+Repro:
+1. npm run dev
+2. visit /settings
+3. toggle Enable alerts
+4. click Save
+5. refresh and observe reset
+
+Reproduce locally before editing. Add a regression test if feasible.
+Fix root cause, then rerun repro and relevant checks.</pre></div>
+          </div>
+        </article>
+
+        <article class="workflow" data-searchable="code review pr branch uncommitted base">
+          <div class="stepnum">4</div>
+          <div>
+            <h3>Review before commit</h3>
+            <p>Use Codex's reviewer as a separate pass, not as the author grading itself.</p>
+            <div class="snippet"><pre>codex review --uncommitted "Prioritize correctness bugs, data loss,
+security issues, and missing tests. Ignore subjective style."
+
+codex review --base main
+codex review --commit HEAD</pre></div>
+          </div>
+        </article>
+
+        <article class="workflow" data-searchable="automation exec json schema ci scripts">
+          <div class="stepnum">5</div>
+          <div>
+            <h3>Scripted automation</h3>
+            <p>Use <code>exec</code> for repeatable terminal workflows and machine-readable output.</p>
+            <div class="snippet"><pre>git diff --name-only main | codex exec --json \
+  "Review these changed files for migration risks. Return concise findings."
+
+codex exec --output-schema schema.json \
+  "Classify this CI failure and suggest the next command to run."</pre></div>
+          </div>
+        </article>
+
+        <article class="workflow" data-searchable="parallel subagents security tests maintainability">
+          <div class="stepnum">6</div>
+          <div>
+            <h3>Parallel review</h3>
+            <p>Use subagents for read-heavy work where summaries are better than raw logs.</p>
+            <div class="snippet"><pre>Review this branch with parallel subagents:
+- one for security risks
+- one for test gaps
+- one for maintainability
+Wait for all three, then summarize findings by category with file references.</pre></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="configuration" data-searchable="configuration agents config toml permissions hooks mcp profiles">
+      <div class="section-head">
+        <div>
+          <h2><i data-lucide="sliders-horizontal"></i> Configuration Map</h2>
+          <p>Codex quality depends heavily on clean configuration. Keep durable facts out of prompts and in the right file.</p>
+        </div>
+      </div>
+
+      <table class="matrix" data-searchable="config layers precedence">
+        <thead>
+          <tr>
+            <th>Artifact</th>
+            <th>Use it for</th>
+            <th>Do not use it for</th>
+            <th>Scope</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>~/.codex/AGENTS.md</code></td>
+            <td>Personal working agreements that should apply in every repo.</td>
+            <td>Project-specific commands or conventions.</td>
+            <td>User global.</td>
+          </tr>
+          <tr>
+            <td><code>AGENTS.md</code></td>
+            <td>Repo layout, setup, build/test/lint commands, conventions, constraints, and done criteria.</td>
+            <td>Long tutorials or volatile details. Keep it short and accurate.</td>
+            <td>Project or nested directories.</td>
+          </tr>
+          <tr>
+            <td><code>AGENTS.override.md</code></td>
+            <td>Temporary or more-specific override guidance. Nearby overrides beat broader files.</td>
+            <td>Permanent team norms that should merge with broader guidance.</td>
+            <td>User, repo, or subdirectory.</td>
+          </tr>
+          <tr>
+            <td><code>~/.codex/config.toml</code></td>
+            <td>Personal defaults: model, approval policy, sandbox mode, profiles, MCP servers, feature flags.</td>
+            <td>Team-required policy or repo-only hooks.</td>
+            <td>User global.</td>
+          </tr>
+          <tr>
+            <td><code>.codex/config.toml</code></td>
+            <td>Trusted repo settings shared by a project, including MCP, hooks, and profile defaults.</td>
+            <td>Secrets or machine-specific paths.</td>
+            <td>Project; only loaded when trusted.</td>
+          </tr>
+          <tr>
+            <td><code>.codex/hooks.json</code></td>
+            <td>Deterministic lifecycle scripts: prompt checks, command policy, post-tool review, stop validation.</td>
+            <td>Soft preferences. Hooks should enforce real policy or automation.</td>
+            <td>User, project, system, managed, or plugin.</td>
+          </tr>
+          <tr>
+            <td><code>.agents/skills/*/SKILL.md</code></td>
+            <td>Reusable task workflows with optional scripts, references, and assets.</td>
+            <td>Always-on repo behavior. Put that in <code>AGENTS.md</code>.</td>
+            <td>Repo, user, admin, system, or plugin.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout" style="margin-top: .9rem;" data-searchable="precedence cli project profile user system built in">
+        <i data-lucide="info"></i>
+        <div><strong>Config precedence:</strong> CLI flags and <code>--config</code> overrides win, then trusted project config from root to current directory, selected profile files, user config, system config, and built-in defaults.</div>
+      </div>
+    </section>
+
+    <section id="skills" data-searchable="skills plugins third party skill installer browser github docs spreadsheets">
+      <div class="section-head">
+        <div>
+          <h2><i data-lucide="puzzle"></i> Skills and Plugins Worth Adding</h2>
+          <p>Skills define reusable procedures. Plugins distribute skills, app integrations, MCP servers, and related assets. Verify availability with <code>/skills</code> and <code>/plugins</code>.</p>
+        </div>
+      </div>
+
+      <div class="grid cols-3">
+        <article class="card" data-searchable="skill creator built in">
+          <span class="tag green">Built-in</span>
+          <h3><i data-lucide="wand-sparkles"></i> <code>$skill-creator</code></h3>
+          <p>Use first when turning a repeated workflow into a skill. It helps decide trigger conditions, scope, scripts, and references.</p>
+        </article>
+        <article class="card" data-searchable="skill installer curated skills linear">
+          <span class="tag blue">Installer</span>
+          <h3><i data-lucide="download"></i> <code>$skill-installer</code></h3>
+          <p>Installs curated or repository-hosted skills for local experimentation. Good for adding focused capabilities without building a full plugin.</p>
+        </article>
+        <article class="card" data-searchable="codex security plugin vulnerability">
+          <span class="tag rose">Security</span>
+          <h3><i data-lucide="shield"></i> Codex Security plugin</h3>
+          <p>Use for authorized code scanning, vulnerability confirmation, and reviewed security fixes. Strong fit for auth, data flows, and web backends.</p>
+        </article>
+        <article class="card" data-searchable="github pr comments ci fix review">
+          <span class="tag amber">Shipping</span>
+          <h3><i data-lucide="github"></i> GitHub workflow skills</h3>
+          <p>Useful third-party skill category for addressing PR comments, fixing CI, summarizing diffs, and opening PRs through <code>gh</code> or a GitHub app.</p>
+        </article>
+        <article class="card" data-searchable="browser frontend playwright screenshots">
+          <span class="tag violet">Frontend</span>
+          <h3><i data-lucide="panel-top"></i> Browser automation skills</h3>
+          <p>Use when UI work needs screenshots, DOM inspection, local app checks, and visual regression loops.</p>
+        </article>
+        <article class="card" data-searchable="documents spreadsheets presentations office">
+          <span class="tag blue">Artifacts</span>
+          <h3><i data-lucide="files"></i> Document artifact skills</h3>
+          <p>Install only if the repo touches generated docs, spreadsheets, decks, reports, or office-file QA. They add specialized render-and-verify workflows.</p>
+        </article>
+        <article class="card" data-searchable="imagegen assets icons banners sprite">
+          <span class="tag green">Assets</span>
+          <h3><i data-lucide="image"></i> Image generation skills</h3>
+          <p>Good for app assets, mockups, placeholders, sprite sheets, and UI imagery. In Codex CLI you can also invoke image generation with <code>$imagegen</code>.</p>
+        </article>
+        <article class="card" data-searchable="gmail google drive slack sites plugins">
+          <span class="tag amber">Connectors</span>
+          <h3><i data-lucide="plug"></i> App plugins</h3>
+          <p>OpenAI docs list Gmail, Google Drive, Slack, Sites, and similar plugins as examples. Use them when the task needs external workspace data.</p>
+        </article>
+        <article class="card" data-searchable="custom team plugin marketplace">
+          <span class="tag slate">Team reuse</span>
+          <h3><i data-lucide="package-plus"></i> Team plugins</h3>
+          <p>Package mature skills, MCP servers, hooks, and app mappings into a plugin when more than one engineer or repo should use them.</p>
+        </article>
+      </div>
+
+      <div class="card" style="margin-top: .9rem;" data-searchable="install plugin skills commands">
+        <h3><i data-lucide="terminal-square"></i> Install and inspect pattern</h3>
+        <div class="snippet"><pre>codex
+/plugins
+/skills
+
+$skill-installer linear
+
+# CLI plugin management
+codex plugin marketplace list
+codex plugin list
+codex plugin add &lt;plugin&gt;</pre></div>
+        <p>Before installing third-party skills or plugins, inspect scripts, hooks, MCP servers, required app connections, and what data may leave the repo.</p>
+      </div>
+    </section>
+
+    <section id="patterns" data-searchable="prompt patterns goal context constraints done when">
+      <div class="section-head">
+        <div>
+          <h2><i data-lucide="message-square-code"></i> Prompt Patterns</h2>
+          <p>Codex prompts are most reliable when they include goal, context, constraints, and done-when criteria.</p>
+        </div>
+      </div>
+
+      <div class="grid cols-2">
+        <article class="card" data-searchable="exploration plan no edits">
+          <h3><i data-lucide="map"></i> Explore before editing</h3>
+          <div class="snippet"><pre>/plan
+Read @src/auth/session.ts and @src/auth/middleware.ts.
+Explain the current refresh flow, identify likely failure points,
+and propose the smallest safe fix. Do not edit files yet.</pre></div>
+        </article>
+        <article class="card" data-searchable="implementation tests verify">
+          <h3><i data-lucide="wrench"></i> Implement with evidence</h3>
+          <div class="snippet"><pre>Implement the approved plan. Add or update tests for the timeout case.
+Run the focused test first, then the package typecheck.
+Report commands, results, and files changed.</pre></div>
+        </article>
+        <article class="card" data-searchable="review findings file line">
+          <h3><i data-lucide="search-check"></i> Review stance</h3>
+          <div class="snippet"><pre>/review
+Prioritize correctness bugs, security issues, data loss, and missing tests.
+Give file references and concrete fixes. Ignore subjective style unless it hides a bug.</pre></div>
+        </article>
+        <article class="card" data-searchable="side question context no pollution">
+          <h3><i data-lucide="split"></i> Side question</h3>
+          <div class="snippet"><pre>/side Compare the two migration options in the last plan.
+Do not change the main task. Return a short decision table and recommendation.</pre></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="safety" data-searchable="safety permissions sandbox hooks network deny env">
+      <div class="section-head">
+        <div>
+          <h2><i data-lucide="shield-check"></i> Safety and Control</h2>
+          <p>Make Codex fast by removing low-value prompts, not by removing boundaries.</p>
+        </div>
+      </div>
+
+      <div class="grid cols-3">
+        <article class="card" data-searchable="auto read only full access">
+          <span class="tag green">Default</span>
+          <h3><i data-lucide="key-round"></i> Use Auto first</h3>
+          <p>Auto lets Codex work in-scope and still asks before outside-scope or network actions. Switch to Read Only for audits.</p>
+        </article>
+        <article class="card" data-searchable="danger full access yolo">
+          <span class="tag rose">High risk</span>
+          <h3><i data-lucide="triangle-alert"></i> Avoid full access</h3>
+          <p><code>danger-full-access</code> and bypass flags are for externally sandboxed automation or intentionally broad local work.</p>
+        </article>
+        <article class="card" data-searchable="env secrets deny glob">
+          <span class="tag rose">Secrets</span>
+          <h3><i data-lucide="file-lock-2"></i> Deny sensitive files</h3>
+          <p>Use permission profiles to deny <code>**/*.env</code>, credential folders, production dumps, and generated secrets.</p>
+        </article>
+        <article class="card" data-searchable="network permissions domains">
+          <span class="tag blue">Network</span>
+          <h3><i data-lucide="globe-lock"></i> Gate network access</h3>
+          <p>Enable network per profile and define domain rules where possible. Treat web search results as untrusted context.</p>
+        </article>
+        <article class="card" data-searchable="hooks trust managed">
+          <span class="tag amber">Hooks</span>
+          <h3><i data-lucide="workflow"></i> Trust hooks deliberately</h3>
+          <p>Non-managed command hooks require review and trust. Changed hook definitions are skipped until trusted again.</p>
+        </article>
+        <article class="card" data-searchable="git review rollback evidence">
+          <span class="tag green">Rollback</span>
+          <h3><i data-lucide="git-compare"></i> Let git be the guardrail</h3>
+          <p>Use small diffs, <code>/diff</code>, <code>/review</code>, and focused commits. Codex transcripts help, but git is the source of rollback truth.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <strong>Sources checked June 10, 2026</strong>
+      <div class="source-list">
+        <span><a href="https://developers.openai.com/codex">Codex overview</a> - product scope, availability, and core use cases.</span>
+        <span><a href="https://developers.openai.com/codex/cli">Codex CLI overview</a> and <a href="https://developers.openai.com/codex/cli/features">CLI features</a> - install, TUI, model, review, web search, exec, cloud, MCP.</span>
+        <span><a href="https://developers.openai.com/codex/cli/slash-commands">CLI slash commands</a> - <code>/plan</code>, <code>/goal</code>, <code>/permissions</code>, <code>/review</code>, <code>/skills</code>, and related controls.</span>
+        <span><a href="https://developers.openai.com/codex/guides/agents-md">AGENTS.md</a>, <a href="https://developers.openai.com/codex/config-basic">config basics</a>, <a href="https://developers.openai.com/codex/permissions">permissions</a>, and <a href="https://developers.openai.com/codex/hooks">hooks</a> - durable instructions, precedence, sandboxing, and lifecycle scripts.</span>
+        <span><a href="https://developers.openai.com/codex/skills">skills</a>, <a href="https://developers.openai.com/codex/plugins">plugins</a>, <a href="https://developers.openai.com/codex/concepts/subagents">subagents</a>, and <a href="https://developers.openai.com/codex/learn/best-practices">best practices</a> - reusable workflows, plugin distribution, parallel work, and prompt patterns.</span>
+        <span>Local command baseline: <code>codex --help</code>, <code>codex exec --help</code>, <code>codex review --help</code>, <code>codex plugin --help</code>, and <code>codex resume --help</code>.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+
+    function normalize(text) {
+      return (text || "").toLowerCase().replace(/\s+/g, " ").trim();
+    }
+
+    function applyFilter(raw) {
+      const query = normalize(raw);
+      const searchable = $$("[data-searchable]");
+      let visibleCards = 0;
+
+      searchable.forEach((node) => {
+        const haystack = normalize(node.textContent + " " + node.dataset.searchable);
+        const matches = !query || haystack.includes(query);
+        node.classList.toggle("hidden", !matches);
+        if (matches && !node.closest(".hidden")) visibleCards += 1;
+      });
+
+      $$("section").forEach((section) => {
+        const children = $$("[data-searchable]", section);
+        const hasVisibleChild = children.some((child) => !child.classList.contains("hidden"));
+        const selfMatches = !query || normalize(section.textContent + " " + section.dataset.searchable).includes(query);
+        section.classList.toggle("hidden", query && !hasVisibleChild && !selfMatches);
+      });
+
+      $("#emptyState").style.display = query && visibleCards === 0 ? "block" : "none";
+    }
+
+    $("#search").addEventListener("input", (event) => applyFilter(event.target.value));
+
+    $$(".copy").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const text = button.dataset.copy;
+        try {
+          await navigator.clipboard.writeText(text);
+          button.innerHTML = '<i data-lucide="check"></i>';
+          lucide.createIcons();
+          setTimeout(() => {
+            button.innerHTML = '<i data-lucide="copy"></i>';
+            lucide.createIcons();
+          }, 1200);
+        } catch {
+          window.prompt("Copy command", text);
+        }
+      });
+    });
+
+    $$("[data-jump]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = $(button.dataset.jump);
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    $("#printBtn").addEventListener("click", () => window.print());
+
+    lucide.createIcons({ attrs: { "stroke-width": 2 } });
+  </script>
+</body>
+</html>
