@@ -25,8 +25,11 @@ header-img: "img/apps-bg.jpg"
   - https://packagecontrol.io/packages/Terminus
   - https://packagecontrol.io/packages/Pretty%20JSON
   - https://packagecontrol.io/packages/Compare%20Side-By-Side (https://bitbucket.org/dougty/sublime-compare-side-by-side)
-- iTerm2 terminal
-- Ghostty terminal: `brew install --cask ghostty`
+- Terminals
+  - iTerm2 terminal
+  - Ghostty terminal: `brew install --cask ghostty`
+  - WezTerm: https://wezterm.org/ `brew install --cask wezterm`
+  - cmux: https://cmux.com/
 - /opt/homebrew/bin/pip3 install aws-adfs
 - Kafkatools / OffsetExplorer
 - Terraform / Terragrunt
